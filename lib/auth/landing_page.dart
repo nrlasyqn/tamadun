@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../widget/splashscreen.dart';
-import '../screens/mainbody.dart';
+import '../screens/home_page.dart';
 import 'user.provider.dart';
 // import 'package:quranirab/provider/user.provider.dart';
 // import 'package:quranirab/views/auth/login.screen.dart';
@@ -20,9 +20,9 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     var user = Provider.of<AppUser>(context).user;
     if (user != null) {
-      return mainbody();
+      return HomePage();
     } else {
-      return SplashScreenTest();
+      return const SplashScreen();
     }
   }
 }

@@ -1,68 +1,58 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/explore_button.dart';
 import 'package:tamadun/widget/constant.dart';
 
-import '../screens/link_to_login.dart';
-import '../login.dart';
+import '../authentication/log.dart';
 
-class SplashScreenTest extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreenTest> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreenTest> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Column(
-          children: <Widget>[
-            Expanded(child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/splashscreen.gif"),
-                  )
-              ),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(0, 50.0, 30, 0),
-                    //todo: insert text
-                    child: Text(
-                      'Tamadun.',
-                      style: TextStyle(
-                        fontSize: 64,
-                        color: Colors.white,
-                        fontFamily: 'MontserratExtraBold',
-                      ),
+      body: Column(children: <Widget>[
+        Expanded(
+          child: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/splashscreen.gif"),
+            )),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
+                  //todo: insert text
+                  child: const Text(
+                    'Tamadun.',
+                    style: TextStyle(
+                      fontSize: 64,
+                      color: Colors.white,
+                      fontFamily: 'MontserratExtraBold',
                     ),
                   ),
-
-                  Container(
-                    child: Text(
-                      "lingua revolution & human civilization",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color:Colors.white,
-                        fontFamily: 'PoppinsMedium',
-                      ),
-                    ),
+                ),
+                const Text(
+                  "lingua revolution & human civilization",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: 'PoppinsMedium',
                   ),
-
-                  Expanded(
-                    child: Container(
-                      child: Bottom(),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Expanded(
+                  child: Bottom(),
+                )
+              ],
             ),
-            ),
-          ]
-      ),
+          ),
+        ),
+      ]),
     );
   }
 }
@@ -74,22 +64,24 @@ class Bottom extends StatelessWidget {
       alignment: Alignment.bottomRight,
       child: RaisedButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>checkingpage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ));
         },
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(32))
-        ),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32))),
+        color: mPrimaryColor,
+        elevation: 5,
         child: Text(
           'Explore',
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Color(hexColor('24346C')),
               fontSize: 20,
-              fontFamily: 'MontserratBold'
-          ),
+              fontFamily: 'MontserratBold'),
         ),
-        color: mPrimaryColor,
-        elevation: 5,
       ),
     );
   }
@@ -97,7 +89,7 @@ class Bottom extends StatelessWidget {
 
 int hexColor(String color) {
   //adding prefix
-  String newColor = '0xff' + color;
+  String newColor = '0xff$color';
   //removing # sign
   newColor = newColor.replaceAll('#', '');
   //converting it to the integer

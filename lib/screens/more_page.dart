@@ -1,13 +1,14 @@
-import 'package:tamadun/auth/auth.dart';
-import 'package:tamadun/screens/user_profile_page.dart';
-import 'package:tamadun/authentication/log.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tamadun/auth/auth.dart';
+import 'package:tamadun/authentication/log.dart';
+import 'package:tamadun/screens/user_profile_page.dart';
+
 import '../auth/facebook_auth.dart';
 import '../auth/google_auth.dart';
 import 'aboutus.dart';
-import 'mainbody.dart';
+import 'home_page.dart';
 
 //morepage
 class MoreScreen extends StatefulWidget {
@@ -50,7 +51,8 @@ class _MoreScreenState extends State<MoreScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>mainbody()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           },
         ),
       ),
@@ -63,7 +65,9 @@ class _MoreScreenState extends State<MoreScreen> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Color(hexColor('E7E7E7')))),
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Color(hexColor('E7E7E7')))),
                       ),
                       //user profile
                       child: ListTile(
@@ -78,7 +82,10 @@ class _MoreScreenState extends State<MoreScreen> {
                               color: Colors.black,
                             )),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileUserScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileUserScreen()));
                         },
                       ),
                     ),
@@ -152,7 +159,9 @@ class _MoreScreenState extends State<MoreScreen> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Color(hexColor('E7E7E7')))),
+                        border: Border(
+                            bottom:
+                                BorderSide(color: Color(hexColor('E7E7E7')))),
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
@@ -166,7 +175,10 @@ class _MoreScreenState extends State<MoreScreen> {
                               color: Colors.black,
                             )),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileUserScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileUserScreen()));
                         },
                       ),
                     ),
@@ -242,10 +254,10 @@ class _MoreScreenState extends State<MoreScreen> {
 
   void signOut() async {
     await firebaseAuth.signOut().then((value) => {
-      setState(() {
-        user = null;
-      })
-    });
+          setState(() {
+            user = null;
+          })
+        });
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
@@ -257,7 +269,6 @@ class _MoreScreenState extends State<MoreScreen> {
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
-
 
 int hexColor(String color) {
   //adding prefix

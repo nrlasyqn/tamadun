@@ -2,23 +2,17 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
 import 'package:firebase_database/firebase_database.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:tamadun/profile_container.dart';
 
 import 'auth/auth.dart';
 import 'auth/google_auth.dart';
 import 'authentication/log.dart';
 
-
 //edit profile
 
 class EditProfile extends StatefulWidget {
-
   EditProfile({Key? key}) : super(key: key);
 
   @override
@@ -26,11 +20,9 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   AuthService authService = AuthService();
-
 
   final _formKey = GlobalKey<FormState>();
 
@@ -40,12 +32,10 @@ class _EditProfileState extends State<EditProfile> {
   bool showLocalFile = false;
   File? _profileImage;
 
-
   bool isLoading = false;
   String? displayName;
   String? bio;
   String? imagePickedType;
-
 
 //profileImage klu tutup, part name dgn bio boleh tukar, klu profile tu ada sekali dia tak save
   /*displayProfileImage() {
@@ -119,7 +109,6 @@ class _EditProfileState extends State<EditProfile> {
 
   }*/
 
-
   /*pickImageFromCamera() async {
     XFile? xFile = await ImagePicker().pickImage(source: ImageSource.camera);
 
@@ -137,7 +126,6 @@ class _EditProfileState extends State<EditProfile> {
 
 
   }*/
-
 
   //----------Save form ---------
 //save form
@@ -162,7 +150,6 @@ class _EditProfileState extends State<EditProfile> {
         displayName: displayName,
         //photoURL: profilePictureUrl,
         bio: bio,
-
       );
 
       DatabaseServices.updateUserData(user);
@@ -205,7 +192,7 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Profile',
             style: TextStyle(
               fontFamily: 'MontserratBold',
@@ -225,136 +212,123 @@ class _EditProfileState extends State<EditProfile> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  // background image and bottom contents
-                  Expanded(child:
-                  Column(children: <Widget>[
-
-                    Container(
-                      padding: EdgeInsets.only(
-                          left: 110, bottom: 10, right: 0, top: 10),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/bgProfile.png'),
-                          fit: BoxFit.fill,
-                        ),
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(40),
-                            bottomLeft: Radius.circular(40)),),
-                      height: 240.0,
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text("     ${loggedInUser.displayName ??
-                            authService
-                                .getUserdisplayname()} \n     📧 ${loggedInUser
-                            .email ?? authService.getUserEmail()}",
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'PoppinsSemiBold',
-                            color: Colors.white,
-                          ),),
+            child: Stack(alignment: Alignment.center, children: <Widget>[
+              // background image and bottom contents
+              Expanded(
+                  child: Column(children: <Widget>[
+                Container(
+                  padding:
+                      EdgeInsets.only(left: 110, bottom: 10, right: 0, top: 10),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/bgProfile.png'),
+                      fit: BoxFit.fill,
+                    ),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40)),
+                  ),
+                  height: 240.0,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      "     ${loggedInUser.displayName ?? authService.getUserdisplayname()} \n     📧 ${loggedInUser.email ?? authService.getUserEmail()}",
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontFamily: 'PoppinsSemiBold',
+                        color: Colors.white,
                       ),
                     ),
+                  ),
+                ),
 
+                const SizedBox(
+                  height: 30,
+                ),
 
-                    SizedBox(height: 30,),
+                //change username
 
-
-                    //change username
-
-                    Container(
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Container(
-
-                              height: 50,
-                              width: 350,
-                              decoration: BoxDecoration(
-                                color: Color(
-                                    hexColor('F1F1F1')),
-                                border: Border.all(
-                                  width: 1, color: Color(
-                                  hexColor('A9A4A4'),
-                                ),
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
+                Container(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 350,
+                          decoration: BoxDecoration(
+                            color: Color(hexColor('F1F1F1')),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(
+                                hexColor('A9A4A4'),
                               ),
-                              child: TextFormField(
-                                initialValue: displayName,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Name",
-                                  contentPadding: EdgeInsets.all(13),
-                                ),
-
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'PoppinsRegular',
-                                  fontSize: 18,
-                                ),
-                                textAlign: TextAlign.left,
-                                validator: (input) =>
-                                input!.trim().length < 2
-                                    ? 'please enter valid name'
-                                    : null,
-                                onSaved: (value) {
-                                  displayName = value;
-                                },
-
-                              ),
-
                             ),
-                            SizedBox(height: 15),
-                            Container(
-
-                              height: 50,
-                              width: 350,
-                              decoration: BoxDecoration(
-                                color: Color(
-                                    hexColor('F1F1F1')),
-                                border: Border.all(
-                                  width: 1, color: Color(
-                                  hexColor('A9A4A4'),
-                                ),
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: TextFormField(
-                                initialValue: bio,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Bio",
-
-                                  contentPadding: EdgeInsets.all(13),
-                                ),
-
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: 'PoppinsRegular',
-                                  fontSize: 18,
-                                ),
-                                textAlign: TextAlign.left,
-                                onSaved: (value) {
-                                  bio = value;
-                                },
-
-                              ),
-
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextFormField(
+                            initialValue: displayName,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Name",
+                              contentPadding: EdgeInsets.all(13),
                             ),
-                            SizedBox(height: 30),
-                            isLoading
-                                ? CircularProgressIndicator(
-                              valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.lightGreen),
-                            )
-                                : SizedBox.shrink(),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.left,
+                            validator: (input) => input!.trim().length < 2
+                                ? 'please enter valid name'
+                                : null,
+                            onSaved: (value) {
+                              displayName = value;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Container(
+                          height: 50,
+                          width: 350,
+                          decoration: BoxDecoration(
+                            color: Color(hexColor('F1F1F1')),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(
+                                hexColor('A9A4A4'),
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: TextFormField(
+                            initialValue: bio,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Bio",
+                              contentPadding: EdgeInsets.all(13),
+                            ),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.left,
+                            onSaved: (value) {
+                              bio = value;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        isLoading
+                            ? const CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.lightGreen),
+                              )
+                            : const SizedBox.shrink(),
 
-                            //SizedBox(height: 15),
-                            /*Container(
+                        //SizedBox(height: 15),
+                        /*Container(
 
                               height: 50,
                               width: 350,
@@ -389,9 +363,8 @@ class _EditProfileState extends State<EditProfile> {
 
                             ),*/
 
-
-                            //SizedBox(height: 15),
-                            /*Container(
+                        //SizedBox(height: 15),
+                        /*Container(
 
                               height: 50,
                               width: 350,
@@ -426,8 +399,8 @@ class _EditProfileState extends State<EditProfile> {
 
                             ),*/
 
-                            SizedBox(height: 15),
-                            /*Container(
+                        SizedBox(height: 15),
+                        /*Container(
 
                               height: 50,
                               width: 350,
@@ -460,48 +433,44 @@ class _EditProfileState extends State<EditProfile> {
                               ),
 
                             ),*/
-
-                          ],
-                        ),),
+                      ],
                     ),
+                  ),
+                ),
 
-
-                    //button Update
-                    SizedBox(height: 20),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: saveProfile,
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: Color(
-                              hexColor('a8fa87')),
-                          border: Border.all(
-                            width: 1, color: Colors.lightGreenAccent,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Center(
-                          child: Text("Update Name",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'PoppinsRegular',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+                //button Update
+                SizedBox(height: 20),
+                SizedBox(height: 20),
+                GestureDetector(
+                  onTap: saveProfile,
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      color: Color(hexColor('a8fa87')),
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.lightGreenAccent,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Update Name",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'PoppinsRegular',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
                     ),
-                  ]
-
-                  )
-                  )
-                ]),
+                  ),
+                ),
+              ]))
+            ]),
           ),
-        )
-    );
+        ));
   }
 }

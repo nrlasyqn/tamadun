@@ -1,11 +1,8 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../screens/mainbody.dart';
-
+import 'package:tamadun/screens/home_page.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -22,9 +19,9 @@ class AuthService {
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignInAccount? _googleSignInAccount =
-      await _googleSignIn.signIn();
+          await _googleSignIn.signIn();
       final GoogleSignInAuthentication? _googleSignInAuthentication =
-      await _googleSignInAccount?.authentication;
+          await _googleSignInAccount?.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: _googleSignInAuthentication?.idToken,
@@ -32,7 +29,7 @@ class AuthService {
       );
 
       final UserCredential authResult =
-      await _firebaseAuth.signInWithCredential(credential);
+          await _firebaseAuth.signInWithCredential(credential);
       final User? user = authResult.user;
 
       if (user != null) {
@@ -46,7 +43,7 @@ class AuthService {
         updateTask(user);
 
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => mainbody()));
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       }
     } catch (e) {
       print(e);
@@ -64,15 +61,17 @@ class AuthService {
   }
 
   Future<void> updateTask(User user) async {
-    return await _firestore.collection('Users').doc(user.uid).set({
-      'uid': user.uid,
-      'email': user.email,
-      'photoURL': user.photoURL,
-      'displayName': user.displayName,
-      'lastSeen': DateTime.now(),
-      'bio' : "hello there!",
-      'role' : "standard",
-    }, );
+    return await _firestore.collection('Users').doc(user.uid).set(
+      {
+        'uid': user.uid,
+        'email': user.email,
+        'photoURL': user.photoURL,
+        'displayName': user.displayName,
+        'lastSeen': DateTime.now(),
+        'bio': "hello there!",
+        'role': "standard",
+      },
+    );
   }
 
   String getUserdisplayname() {
