@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076882117626",
+    "project_id": "tamadun-app-8a823",
+    "storage_bucket": "tamadun-app-8a823.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076882117626:android:638a89cde5d47361448a43",
+        "android_client_info": {
+          "package_name": "com.example.tamadun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076882117626-9n9gsljum6f948uai3m4oj72hdn5ak4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmpHcI5hDiyMhRam31R5xPXlvoMEgnGVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076882117626-9n9gsljum6f948uai3m4oj72hdn5ak4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
