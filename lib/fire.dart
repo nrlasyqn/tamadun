@@ -192,7 +192,7 @@
 //         await FirebaseAuth.instance
 //             .signInWithCredential(facebookAuthCredential);
 //         Navigator.push(context,
-//             MaterialPageRoute(builder: (context) => mainbody()));
+//             MaterialPageRoute(builder: (context) => HomePage()));
 //       } on FirebaseAuthException catch (e) {
 //         ScaffoldMessenger.of(context)
 //             .showSnackBar(SnackBar(content: Text(e.message!)));
@@ -220,7 +220,7 @@
 //       try {
 //         await FirebaseAuth.instance.signInWithCredential(credential);
 //         Navigator.push(context,
-//             MaterialPageRoute(builder: (context) => mainbody()));
+//             MaterialPageRoute(builder: (context) => HomePage()));
 //       } on FirebaseAuthException catch (e) {
 //         ScaffoldMessenger.of(context)
 //             .showSnackBar(SnackBar(content: Text(e.message!)));

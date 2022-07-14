@@ -1,15 +1,13 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tamadun/screens/home_page.dart';
+
 import '../auth/auth.dart';
 import '../auth/facebook_auth.dart';
 import '../auth/google_auth.dart';
-import '../screens/mainbody.dart';
-import '../user_details.dart';
 import 'log.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -429,7 +427,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully");
 
     Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => mainbody()), (route) => false);
+        MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
   }
 }
 

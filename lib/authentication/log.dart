@@ -1,24 +1,16 @@
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tamadun/authentication/reg.dart';
+import 'package:tamadun/screens/home_page.dart';
 
 import '../auth/facebook_auth.dart';
-import '../authclient.dart';
-import '../fire.dart';
 import '../auth/google_auth.dart';
-import '../screens/mainbody.dart';
 import 'resetpassword.dart';
-import '../screens/user_profile_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -63,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //     Navigator.pushAndRemoveUntil(
   //       context,
   //       MaterialPageRoute(
-  //         builder: (BuildContext context) => mainbody(),
+  //         builder: (BuildContext context) => HomePage(),
   //       ),
   //           (route) => false,
   //     );
@@ -210,50 +202,58 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: <Widget>[
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPage()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ResetPage()));
                                 },
                                 child: Text(
                                   "Forgot your password ?",
-                                  style: TextStyle(color: Color(
-                                    hexColor('8789A3'),),fontFamily: 'PoppinsRegular', fontSize: 13),
+                                  style: TextStyle(
+                                      color: Color(
+                                        hexColor('8789A3'),
+                                      ),
+                                      fontFamily: 'PoppinsRegular',
+                                      fontSize: 13),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                             ],
                           ),
                           SizedBox(height: 30),
-                          Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.black,
-                                    thickness: 0.5,
-                                    height: 50,
-                                  ),
-                                ),
-
-                                Text("   or   ",
-                                  style: TextStyle(
-                                    fontFamily: 'PoppinsRegular',
-                                    fontSize: 15,
-                                  ),
-                                ),
-
-                                Expanded(
-                                  child: Divider(
-                                    color: Colors.black,
-                                    thickness: 0.5,
-                                    height: 50,
-                                  ),
-                                ),
-                              ]
-                          ),
+                          Row(children: <Widget>[
+                            Expanded(
+                              child: Divider(
+                                color: Colors.black,
+                                thickness: 0.5,
+                                height: 50,
+                              ),
+                            ),
+                            Text(
+                              "   or   ",
+                              style: TextStyle(
+                                fontFamily: 'PoppinsRegular',
+                                fontSize: 15,
+                              ),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                color: Colors.black,
+                                thickness: 0.5,
+                                height: 50,
+                              ),
+                            ),
+                          ]),
                           SizedBox(height: 4), //space
                           Center(
                             child: Text(
                               "Continue with",
-                              style: TextStyle(color: Color(
-                                hexColor('000000'),),fontFamily: 'PoppinsRegular', fontSize: 15),
+                              style: TextStyle(
+                                  color: Color(
+                                    hexColor('000000'),
+                                  ),
+                                  fontFamily: 'PoppinsRegular',
+                                  fontSize: 15),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -269,14 +269,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               authService.signInWithGoogle(context);
                             },
                             color: Color(
-                              hexColor('EA4335'),),
+                              hexColor('EA4335'),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                FaIcon(FontAwesomeIcons.google, color: Colors.white, size: 18,),
+                                FaIcon(
+                                  FontAwesomeIcons.google,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
                                 SizedBox(width: 10),
                                 Text('Google',
-                                    style: TextStyle(color: Colors.white,fontFamily: 'PoppinsSemiBold', fontSize: 15)),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'PoppinsSemiBold',
+                                        fontSize: 15)),
                               ],
                             ),
                           ),
@@ -302,7 +310,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               //             context,
                               //             MaterialPageRoute(
                               //                 builder: (context) =>
-                              //                  mainbody()));
+                              //                  HomePage()));
                               //       } catch (e) {
                               //         setState(() {});
                               //         ScaffoldMessenger.of(context).showSnackBar(
@@ -315,14 +323,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               //   //Here goes the logic for Google SignIn discussed in the next section
                             },
                             color: Color(
-                              hexColor('3B5998'),),
+                              hexColor('3B5998'),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                FaIcon(FontAwesomeIcons.facebookF, color: Colors.white, size: 18,),
+                                FaIcon(
+                                  FontAwesomeIcons.facebookF,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
                                 SizedBox(width: 10),
                                 Text('Facebook',
-                                    style: TextStyle(color: Colors.white,fontFamily: 'PoppinsSemiBold', fontSize: 15)),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'PoppinsSemiBold',
+                                        fontSize: 15)),
                               ],
                             ),
                           ),
@@ -330,7 +346,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text("Don't have an account? ",style: TextStyle(fontFamily: 'PoppinsExtraLight', fontSize: 15)),
+                                Text("Don't have an account? ",
+                                    style: TextStyle(
+                                        fontFamily: 'PoppinsExtraLight',
+                                        fontSize: 15)),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -345,7 +364,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fontSize: 15,
                                       fontFamily: 'PoppinsMedium',
                                       color: Color(
-                                        hexColor('1877F2'),),
+                                        hexColor('1877F2'),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -363,16 +383,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // login function
   Future<User?> signIn(String email, String password) async {
-
     if (_formKey.currentState!.validate()) {
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-          Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => mainbody())),
-        });
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomePage())),
+                });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
@@ -405,7 +424,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return user;
   }
 }
-
 
 int hexColor(String color) {
   //adding prefix

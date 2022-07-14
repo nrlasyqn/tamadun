@@ -1,17 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:tamadun/info_page/info_islamic.dart';
 import 'package:tamadun/info_page/info_living_things.dart';
-import 'package:tamadun/screens/homosapiens.dart';
-import 'package:tamadun/screens/living_things.dart';
-import 'package:tamadun/screens/mainbody.dart';
+
 import '../info_page/info-theexistence.dart';
 import '../info_page/info_beforebigbang.dart';
 import '../info_page/info_empier.dart';
+import 'home_page.dart';
 
 // final before = FirebaseFirestore.instance.collection('before-the-existence');
 // final exist = FirebaseFirestore.instance.collection('the-existence');
@@ -67,7 +64,7 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
           ),
           onPressed: () {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => mainbody()));
+                .push(MaterialPageRoute(builder: (context) => HomePage()));
           },
         ),
       ),
@@ -88,107 +85,136 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
               return Material(
                 child: ListView.builder(
                     itemCount:
-                    snapshot.data == null ? 0 : snapshot.data!.docs.length,
+                        snapshot.data == null ? 0 : snapshot.data!.docs.length,
                     itemBuilder: (_, index) {
                       DocumentSnapshot _documentSnapshot =
-                      snapshot.data!.docs[index];
+                          snapshot.data!.docs[index];
                       return GestureDetector(
                         //todo: when user click on the favorites item it will redirect user to info page
                         onTap: () async {
-
                           //doc is fetch from specific firebase based on the title
                           //_documentSnapshot is from tamadun-users-favorite
 
                           //todo:Before The Existence
-                          final before = FirebaseFirestore.instance.collection('before-the-existence');
+                          final before = FirebaseFirestore.instance
+                              .collection('before-the-existence');
                           before.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _beforeExist = doc;
                               setState(() {
-                                if (doc["info-title"] == _documentSnapshot["info-title"]) {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
                                   print(_documentSnapshot["info-title"]);
                                   print(_documentSnapshot.id);
                                   print(doc["info-title"]);
                                   print(doc.id);
                                   print(_beforeExist.id);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoBeforeExistence(_beforeExist)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoBeforeExistence(
+                                                  _beforeExist)));
                                 }
                               });
                             });
                           });
 
                           //todo:The Existence
-                          final exist = FirebaseFirestore.instance.collection('the-existence-of-universe');
+                          final exist = FirebaseFirestore.instance
+                              .collection('the-existence-of-universe');
                           exist.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _theExist = doc;
                               setState(() {
-                                if (doc["info-title"] == _documentSnapshot["info-title"]) {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
                                   print(_documentSnapshot["info-title"]);
                                   print(_documentSnapshot.id);
                                   print(doc["info-title"]);
                                   print(doc.id);
                                   print(_theExist.id);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoTheExistence(_theExist)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoTheExistence(_theExist)));
                                 }
                               });
                             });
                           });
 
                           //todo: Homosapiens
-                          final homosapiens = FirebaseFirestore.instance.collection('first-man-on-earth');
+                          final homosapiens = FirebaseFirestore.instance
+                              .collection('first-man-on-earth');
                           homosapiens.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _homosapiens = doc;
                               setState(() {
-                                if (doc["info-title"] == _documentSnapshot["info-title"]) {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
                                   print(_documentSnapshot["info-title"]);
                                   print(_documentSnapshot.id);
                                   print(doc["info-title"]);
                                   print(doc.id);
                                   print(_homosapiens.id);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoHomosapiens(_homosapiens)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoHomosapiens(_homosapiens)));
                                 }
                               });
                             });
                           });
 
                           //todo: living_things
-                          final living_things = FirebaseFirestore.instance.collection('living-things');
+                          final living_things = FirebaseFirestore.instance
+                              .collection('living-things');
                           living_things.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _livingthings = doc;
                               setState(() {
-                                if (doc["info-title"] == _documentSnapshot["info-title"]) {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
                                   print(_documentSnapshot["info-title"]);
                                   print(_documentSnapshot.id);
                                   print(doc["info-title"]);
                                   print(doc.id);
                                   print(_livingthings.id);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoLivingThings(_livingthings)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoLivingThings(_livingthings)));
                                 }
                               });
                             });
                           });
 
                           //todo: Glorious of Empire Islam
-                          final glorious = FirebaseFirestore.instance.collection('the-islamic-empire');
+                          final glorious = FirebaseFirestore.instance
+                              .collection('the-islamic-empire');
                           glorious.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _empire = doc;
                               setState(() {
-                                if (doc["info-title"] == _documentSnapshot["info-title"]) {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
                                   print(_documentSnapshot["info-title"]);
                                   print(_documentSnapshot.id);
                                   print(doc["info-title"]);
                                   print(doc.id);
                                   print(_empire.id);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoEmpire(_empire)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoEmpire(_empire)));
                                 }
                               });
                             });
                           });
-
                         },
                         child: Card(
                           elevation: 2,
@@ -212,17 +238,17 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                   FirebaseFirestore.instance
                                       .collection("tamadun-users-favorites")
                                       .doc(FirebaseAuth
-                                      .instance.currentUser!.email)
+                                          .instance.currentUser!.email)
                                       .collection("favorite-items")
                                       .doc(_documentSnapshot.id)
                                       .delete()
                                       .then((value) =>
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                          duration:
-                                          Duration(seconds: 1),
-                                          content: Text(
-                                              'Remove Successfully'))));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  content: Text(
+                                                      'Remove Successfully'))));
                                 },
                                 icon: const Icon(
                                   Icons.favorite,

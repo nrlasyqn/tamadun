@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
-import '../screens/mainbody.dart';
+import 'package:tamadun/screens/home_page.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -27,7 +26,7 @@ class AuthFacebook {
 // or FacebookAuth.i.login()
       if (result.status == LoginStatus.success) {
         final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.accessToken!.token);
+            FacebookAuthProvider.credential(result.accessToken!.token);
 
         try {
           await FirebaseAuth.instance
@@ -41,10 +40,8 @@ class AuthFacebook {
             userPicture = user.photoURL;
             userEmail = user.email;
             await updateTask(user);
-
-            print(user.email);
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => mainbody()));
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         } catch (e) {
           ScaffoldMessenger.of(context)
@@ -90,7 +87,6 @@ class AuthFacebook {
   String getUserRole() {
     return userRole;
   }
-
 
   String isUserApproved() {
     if (isEmailVerified == false) {

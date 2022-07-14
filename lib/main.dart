@@ -1,13 +1,11 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:tamadun/widget/constant.dart';
 
-import 'auth/user.provider.dart';
 import 'auth/landing_page.dart';
-
+import 'auth/user.provider.dart';
+import 'login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +29,7 @@ class _TamadunAppState extends State<TamadunApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppUser>.value(value: appUser),
+        ChangeNotifierProvider(create: (context) => LoginController()),
         ChangeNotifierProvider<AppUser>(
           create: (context) => AppUser(),
         )
@@ -39,17 +38,12 @@ class _TamadunAppState extends State<TamadunApp> {
         title: 'Tamadun App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily:'Montserrat',
-          scaffoldBackgroundColor:mBackgroundColor,
+          fontFamily: 'Montserrat',
+          scaffoldBackgroundColor: mBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: LandingPage(),
-
       ),
     );
   }
 }
-
-
-
-
