@@ -8,10 +8,6 @@ import '../auth/google_auth.dart';
 import '../auth/auth.dart';
 import '../authentication/log.dart';
 
-
-
-
-
 //user profile
 class ProfileUserScreen extends StatefulWidget {
 

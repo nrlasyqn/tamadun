@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tamadun/auth/auth.dart';
 import 'package:tamadun/user_details.dart';
 
 class LoginController with ChangeNotifier {
   // object
   final _googleSignIn = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
-  UserDetails? userDetails;
+  UserModel? userModel;
 
   // fucntion for google login
 
@@ -21,7 +22,7 @@ class LoginController with ChangeNotifier {
       final requestData = await FacebookAuth.i.getUserData(
         fields: "email, name, picture",
       );
-      userDetails = UserDetails(
+      userModel = UserModel(
         displayName: requestData["name"],
         email: requestData["email"],
         photoURL: requestData["picture"]["data"]["url"] ?? " ",
@@ -34,7 +35,7 @@ class LoginController with ChangeNotifier {
   logout() async {
     googleSignInAccount = await _googleSignIn.signOut();
     await FacebookAuth.i.logOut();
-    userDetails = null;
+    userModel = null;
     notifyListeners();
   }
 }

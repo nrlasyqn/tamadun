@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/profile_container.dart';
+import 'package:tamadun/auth/database_service.dart';
 
 import 'auth/auth.dart';
 import 'auth/google_auth.dart';
@@ -440,28 +440,26 @@ class _EditProfileState extends State<EditProfile> {
 
                 //button Update
                 SizedBox(height: 20),
-                SizedBox(height: 20),
                 GestureDetector(
                   onTap: saveProfile,
                   child: Container(
                     padding: EdgeInsets.all(4),
                     height: 50,
-                    width: 150,
+                    width: 350,
                     decoration: BoxDecoration(
-                      color: Color(hexColor('a8fa87')),
+                      color: Color(hexColor('FFFFFF')),
                       border: Border.all(
                         width: 1,
-                        color: Colors.lightGreenAccent,
+                        color: Colors.black,
                       ),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Center(
                       child: Text(
-                        "Update Name",
+                        "Save",
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'PoppinsRegular',
-                          fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
