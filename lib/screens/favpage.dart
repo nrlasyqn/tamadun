@@ -79,7 +79,16 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
                 return const Center(
-                  child: Text("Something is wrong"),
+                  child: Text("Something is wrong!"),
+                );
+              }
+              else if(snapshot.data == null){
+                return const Center(
+                  child: Text("You haven’t favorited anything yet.\nBrowse to an event in the timeline and tap save icon to save something in this list.",style: TextStyle(
+                  fontFamily: 'PoppinsLight',
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,),
                 );
               }
               return Material(

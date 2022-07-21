@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tamadun/auth/auth.dart';
-import 'package:tamadun/user_details.dart';
 
 class LoginController with ChangeNotifier {
   // object

@@ -3,38 +3,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/screens/empierofislam.dart';
 import 'package:tamadun/screens/homosapiens.dart';
+import 'package:tamadun/screens/the_ummah.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import '../info_page/info_islamic.dart';
 
-class TimelineHomosapiens extends StatefulWidget {
-  const TimelineHomosapiens({Key? key}) : super(key: key);
+class TimelineUmmah extends StatefulWidget {
+  const TimelineUmmah({Key? key}) : super(key: key);
 
   @override
-  State<TimelineHomosapiens> createState() => _TimelineHomosapiensState();
+  State<TimelineUmmah> createState() => _TimelineUmmahState();
 }
 
-class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
-  final List _homosapiens = [];
+class _TimelineUmmahState extends State<TimelineUmmah> {
+  final List _ummah = [];
   var _firestoreInstance = FirebaseFirestore.instance;
 
   timelineHomosapiens() async {
-    QuerySnapshot qn_homosapiens =
-    await _firestoreInstance.collection("first-man-on-earth").get();
+    QuerySnapshot qn_ummah =
+    await _firestoreInstance.collection("the-ummah").get();
     setState(() {
-      for (int i = 0; i < qn_homosapiens.docs.length; i++) {
-        _homosapiens.add({
-          "info-title": qn_homosapiens.docs[i]["info-title"],
-          "info-sub": qn_homosapiens.docs[i]["info-sub"],
-          "info-desc": qn_homosapiens.docs[i]["info-desc"],
-          "info-img": qn_homosapiens.docs[i]["info-img"],
-          "info-video": qn_homosapiens.docs[i]["info-video"],
-          "info-surah": qn_homosapiens.docs[i]["info-surah"],
-          "info-translation": qn_homosapiens.docs[i]["info-translation"],
-          "info-surah_name": qn_homosapiens.docs[i]["info-surah_name"],
+      for (int i = 0; i < qn_ummah.docs.length; i++) {
+        _ummah.add({
+          "info-title": qn_ummah.docs[i]["info-title"],
+          "info-sub": qn_ummah.docs[i]["info-sub"],
+          "info-desc": qn_ummah.docs[i]["info-desc"],
+          "info-img": qn_ummah.docs[i]["info-img"],
+          "info-video": qn_ummah.docs[i]["info-video"],
         });
       }
     });
-    return qn_homosapiens.docs;
+    return qn_ummah.docs;
   }
 
   @override
@@ -60,12 +58,12 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
           ),
           onPressed: () {
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => homosapiens()));
+                .push(MaterialPageRoute(builder: (context) => ummah()));
           },
         ),
       ),
       body: ListView.builder(
-          itemCount: _homosapiens.length,
+          itemCount: _ummah.length,
           itemBuilder: (_, index) {
             return TimelineTile(
               alignment: TimelineAlign.manual,
@@ -86,14 +84,14 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
                             context,
                             MaterialPageRoute(
                                 builder: (_) =>
-                                    InfoHomosapiens(_homosapiens[index]))),
+                                    InfoHomosapiens(_ummah[index]))),
                         child: Container(
                           height: 200,
                           width: 420,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                _homosapiens[index]["info-img"][0],
+                                _ummah[index]["info-img"][0],
                               ),
                               fit: BoxFit.cover,
                             ),
@@ -112,7 +110,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          "${_homosapiens[index]["info-title"]}",
+                          "${_ummah[index]["info-title"]}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
@@ -124,7 +122,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
               ),
               startChild: Center(
                 child: Text(
-                  "${_homosapiens[index]["info-sub"]}",
+                  "${_ummah[index]["info-sub"]}",
                   textAlign: TextAlign.center,
                 ),
               ),

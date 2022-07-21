@@ -14,3 +14,5 @@ Color mFacebookColor = Color(0xFF4277BC);
 
 Color mTitleTextColor = Color(0xFF2D140D);
 
+Color mMorePageColor = Color(0xFFcd5c5c);
+

@@ -153,7 +153,13 @@ class _universeClassState extends State<universe> {
                             Container(
                               width: 300,
                               child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FetchTimelineBefore()));
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
                                       side: BorderSide(
@@ -187,7 +193,13 @@ class _universeClassState extends State<universe> {
                             Container(
                               width: 300,
                               child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FetchTimelineBefore()));
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
                                       side: BorderSide(

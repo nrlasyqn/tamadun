@@ -1,30 +1,76 @@
+// import 'package:flutter/material.dart';
+//
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter FB Story Icon ex',
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Flutter FB Story Icon ex'),
+//         ),
+//         body: Padding(
+//           padding: const EdgeInsets.all(8.0),
+//           child: Align(
+//             alignment: Alignment.topCenter,
+//             child: CircleAvatar(
+//               radius: 135,
+//               backgroundColor: Colors.blue,
+//               child: CircleAvatar(
+//                 radius: 125,
+//                 backgroundColor: Colors.white,
+//                 child: CircleAvatar(
+//                   radius: 115,
+//                   backgroundImage: NetworkImage(
+//                       'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083390_1280.jpg'),
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/auth/auth.dart';
-import 'package:tamadun/authentication/log.dart';
-import 'package:tamadun/screens/user_profile_page.dart';
-
-import '../auth/facebook_auth.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tamadun/auth/facebook_auth.dart';
+import 'package:tamadun/widget/profilemenu_more.dart';
+import '../auth/auth.dart';
 import '../auth/google_auth.dart';
-import 'aboutus.dart';
-import 'home_page.dart';
+import '../authentication/log.dart';
+import '../screens/aboutus.dart';
+import '../screens/home_page.dart';
+import '../screens/user_profile_page.dart';
+import '../widget/constant.dart';
 
 //morepage
-class MoreScreen extends StatefulWidget {
+class Morepage extends StatefulWidget {
   bool isGmail = false;
-
-  MoreScreen({required this.isGmail, Key? key}) : super(key: key);
+  Morepage({required this.isGmail, Key? key}) : super(key: key);
 
   @override
-  _MoreScreenState createState() => _MoreScreenState();
+  _MorepageState createState() => _MorepageState();
 }
 
-class _MoreScreenState extends State<MoreScreen> {
+class _MorepageState extends State<Morepage> {
   User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  String aqwiseURL = 'https://tinyimg.io/i/gRsrF16.jpg';
+  UserModel? loggedInUser = UserModel();
+  AuthService authService = AuthService();
+  AuthFacebook authFacebook = AuthFacebook();
+
+  String? ImageUrl;
+  XFile? xfile;
+  late File file;
+  File? pickedImage;
 
   @override
   void initState() {
@@ -39,8 +85,6 @@ class _MoreScreenState extends State<MoreScreen> {
     });
   }
 
-  AuthService authService = AuthService();
-  AuthFacebook authFacebook = AuthFacebook();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,218 +100,204 @@ class _MoreScreenState extends State<MoreScreen> {
           },
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          // if user login through google or facebook
-          child: widget.isGmail
-              ? ListView(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom:
-                                BorderSide(color: Color(hexColor('E7E7E7')))),
-                      ),
-                      //user profile
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(authService.getUserPicture()),
-                        ),
-                        title: Text("${authService.getUserdisplayname()}",
-                            style: TextStyle(
-                              fontFamily: 'PoppinsMedium',
-                              fontSize: 16,
-                              color: Colors.black,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileUserScreen()));
-                        },
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(
-                              hexColor('E7E7E7'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      //aq wise info
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(aqwiseURL),
-                        ),
-                        title: Text('About Us',
-                            style: TextStyle(
-                              fontFamily: 'PoppinsMedium',
-                              fontSize: 16,
-                              color: Colors.black,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => aboutus()));
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 80),
-                      margin: EdgeInsets.all(20),
-                      width: 30,
-                      child: RaisedButton(
-                        elevation: 5,
-                        onPressed: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-                          authService.signOut();
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) {
-                            return LoginScreen();
-                          }), ModalRoute.withName('/'));
-                        },
-                        padding: EdgeInsets.all(15),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(color: Colors.black, width: 1)),
-                        color: Colors.white,
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'PoppinsRegular',
-                            fontSize: 18,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: widget.isGmail
+                ? Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                // background image and bottom contents
+                Expanded(
+                  flex: 1,
+                  child: Column(children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: CircleAvatar(
+                          radius: 85,
+                          backgroundColor: mMorePageColor,
+                          child: CircleAvatar(
+                            radius: 75,
+                            backgroundImage: pickedImage == null
+                                ? NetworkImage(loggedInUser?.photoURL! == ''
+                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                : loggedInUser!.photoURL!)
+                                : FileImage(pickedImage!) as ImageProvider,
                           ),
                         ),
                       ),
                     ),
-                    // Text(
-                    //   "Welcome \nMr. ${authService.getUserdisplayname()}",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    // ),
-                  ],
-                )
-              //if user login through normal login
-              : ListView(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                            bottom:
-                                BorderSide(color: Color(hexColor('E7E7E7')))),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(loggedInUser.photoURL ??
-                              "http://cdn.onlinewebfonts.com/svg/img_24787.png"),
-                        ),
-                        title: Text("${loggedInUser.displayName}",
-                            style: TextStyle(
-                              fontFamily: 'PoppinsMedium',
-                              fontSize: 16,
-                              color: Colors.black,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileUserScreen()));
-                        },
-                      ),
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("${loggedInUser!.displayName ?? authService.getUserdisplayname()}", style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'PoppinsRegular',
+                        fontSize: 18,
+                      ),),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color(
-                              hexColor('E7E7E7'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(aqwiseURL),
-                        ),
-                        title: Text('About Us',
-                            style: TextStyle(
-                              fontFamily: 'PoppinsMedium',
-                              fontSize: 16,
-                              color: Colors.black,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => aboutus()));
-                        },
-                      ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("${loggedInUser!.role ?? authService.getUserRole()}", style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'PoppinsItalic',
+                        fontSize: 16,
+                      ),),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 80),
-                      margin: EdgeInsets.all(20),
-                      width: 30,
-                      child: RaisedButton(
-                        elevation: 5,
-                        onPressed: () async {
-                          final User? user = await firebaseAuth.currentUser;
-                          if (user == null) {
-                            Scaffold.of(context).showSnackBar(const SnackBar(
-                              content: Text('No one has signed in.'),
-                            ));
-                            return;
-                          }
-                          signOut();
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => LoginScreen()));
-                        },
-                        padding: EdgeInsets.all(15),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(color: Colors.black, width: 1)),
-                        color: Colors.white,
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'PoppinsRegular',
-                            fontSize: 18,
-                          ),
+                    Column(
+                      children: [
+                        SizedBox(height: 20),
+                        ProfileMenu(
+                          text: "My Profile",
+                          icon: "assets/icons/User Icon.svg",
+                          press: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile_view(isGmail: false,))),
+                          },
                         ),
-                      ),
+                        ProfileMenu(
+                          text: "About Us",
+                          icon: "assets/icons/icon_about.svg",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => aboutus()));
+                          },
+                        ),
+                        ProfileMenu(
+                          text: "Log Out",
+                          icon: "assets/icons/Log out.svg",
+                          press: ()async {
+                            final User? user = await firebaseAuth.currentUser;
+                            if (user == null) {
+                              Scaffold.of(context).showSnackBar(const SnackBar(
+                                content: Text('No one has signed in.'),
+                              ));
+                              return;
+                            }
+                            logout(context);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => LoginScreen()));
+                          },
+                        ),
+                      ],
                     ),
-                  ],
+                  ]),
                 ),
+              ],
+            )
+                : Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                // background image and bottom contents
+                Expanded(
+                  flex: 1,
+                  child: Column(children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: CircleAvatar(
+                          radius: 85,
+                          backgroundColor: mMorePageColor,
+                          child: CircleAvatar(
+                            radius: 75,
+                            backgroundImage: pickedImage == null
+                                ? NetworkImage(loggedInUser?.photoURL! == ''
+                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                : loggedInUser!.photoURL!)
+                                : FileImage(pickedImage!) as ImageProvider,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("${loggedInUser!.displayName ?? authFacebook.getUserdisplayname()}", style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'PoppinsRegular',
+                        fontSize: 18,
+                      ),),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("${loggedInUser!.role ?? authFacebook.getUserRole()}", style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'PoppinsItalic',
+                        fontSize: 16,
+                      ),),
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 20),
+                        ProfileMenu(
+                          text: "My Profile",
+                          icon: "assets/icons/User Icon.svg",
+                          press: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile_view(isGmail: false,))),
+                          },
+                        ),
+                        ProfileMenu(
+                          text: "About Us",
+                          icon: "assets/icons/icon_about.svg",
+                          press: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => aboutus()));
+                          },
+                        ),
+                        ProfileMenu(
+                          text: "Log Out",
+                          icon: "assets/icons/Log out.svg",
+                          press: ()async {
+                            final User? user = await firebaseAuth.currentUser;
+                            if (user == null) {
+                              Scaffold.of(context).showSnackBar(const SnackBar(
+                                content: Text('No one has signed in.'),
+                              ));
+                              return;
+                            }
+                            logout(context);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => LoginScreen()));
+                          },
+                        ),
+                      ],
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
+}
 
-  void signOut() async {
-    await firebaseAuth.signOut().then((value) => {
-          setState(() {
-            user = null;
-          })
-        });
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
 
-  // the logout function
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
+// the logout function
+Future<void> logout(BuildContext context) async {
+  await FirebaseAuth.instance.signOut();
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) {
+        return LoginScreen();
+      }), ModalRoute.withName('/'));
 }
 
 int hexColor(String color) {

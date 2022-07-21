@@ -1,3 +1,4 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,6 +35,14 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
         duration: Duration(seconds: 1),
         content: Text(
             'Added to Favourite!'))));
+  }
+
+  void share(BuildContext context){
+    String message = 'Check out this useful content!';
+    RenderBox? box = context.findRenderObject() as RenderBox;
+
+    Share.share(message, subject: 'Desription',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   @override
@@ -88,6 +97,11 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   );
                 },
               ),
+              IconButton(
+                icon: Icon(Icons.share_outlined),
+                color: Colors.black,
+                onPressed: () => share(context, ),
+              ),
             ]),
         body: SingleChildScrollView(
           child: Column(
@@ -137,17 +151,18 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   alignment: Alignment.centerLeft,
                   child: Text(widget._beforeExist['info-desc'],
                       style: const TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsLight',
+                        fontSize: 16.0,
+                        fontFamily: 'PoppinsRegular',
                         color: Colors.black,
                       )),
                 ),
+                SizedBox(height: 16,),
                 Align(
                   alignment: Alignment.center,
                   child: Text(widget._beforeExist['info-surah'],
                       style: const TextStyle(
                         fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsThin',
                         color: Colors.black,
                       )),
                 ),
@@ -156,16 +171,16 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   child: Text(widget._beforeExist['info-surah_name'],
                       style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsLight',
                         color: Colors.black,
                       )),
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text("Terjemahan: ",
+                  child: Text("Translation: ",
                       style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsLight',
                         fontStyle: FontStyle.italic,
                         color: Colors.black,
                       )),
@@ -175,7 +190,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   child: Text(widget._beforeExist['info-translation'],
                       style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsLight',
                         fontStyle: FontStyle.italic,
                         color: Colors.black,
                       )),

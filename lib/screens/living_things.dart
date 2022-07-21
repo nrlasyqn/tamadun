@@ -153,7 +153,13 @@ class _living_thingsClassState extends State<living_things> {
                             Container(
                               width: 300,
                               child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TimelineLivingThings()));
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
                                       side: BorderSide(

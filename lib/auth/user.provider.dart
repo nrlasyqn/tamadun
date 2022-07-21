@@ -116,7 +116,7 @@ class AppUser extends ChangeNotifier {
   Future<void> getData(
       String firstname, String lastname, String email, String url) async {
     await firestoreInstance
-        .collection("quranIrabUsers")
+        .collection("Users")
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {

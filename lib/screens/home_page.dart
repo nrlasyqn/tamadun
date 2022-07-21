@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PageController _pageController = PageController();
   List <Widget> _screen =[
-    MainPage(),SearchPage(),FavScreenTwo(), MoreScreen(isGmail: false,),
+    MainPage(),SearchPage(),FavScreenTwo(), Morepage(isGmail: false,),
   ];
   int _selectedIndex = 0;
   void _onPageChanged(int index) {
