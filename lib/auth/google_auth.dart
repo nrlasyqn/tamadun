@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tamadun/screens/home_page.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-final GoogleSignIn _googleSignIn = GoogleSignIn();
+GoogleSignIn _googleSignIn = GoogleSignIn();
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 var userID;
 var userDisplayName;
@@ -33,17 +33,15 @@ class AuthService {
       final User? user = authResult.user;
 
       if (user != null) {
-        User user = await _firebaseAuth.currentUser!;
+        User user = _firebaseAuth.currentUser!;
 
         userID = user.uid;
         userDisplayName = user.displayName;
         userPicture = user.photoURL;
         userEmail = user.email;
 
-        updateTask(user);
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+        updateTask(user).then((value) => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage())));
       }
     } catch (e) {
       print(e);
