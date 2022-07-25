@@ -11,7 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(TamadunApp());
+  runApp(const TamadunApp());
 }
 
 class TamadunApp extends StatefulWidget {
@@ -42,7 +42,7 @@ class _TamadunAppState extends State<TamadunApp> {
           scaffoldBackgroundColor: mBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LandingPage(),
+        home: const LandingPage(),
       ),
     );
   }
