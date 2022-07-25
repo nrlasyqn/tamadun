@@ -6,18 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/timeline/timeline_living_things.dart';
 
-import '../info_video/info_video_livingthings.dart';
 import '../timeline/timeline_beforebigbang.dart';
 
-class InfoLivingThings extends StatefulWidget {
+class VideoLivingThings extends StatefulWidget {
   final _livingthings;
-  const InfoLivingThings(this._livingthings);
+  const VideoLivingThings(this._livingthings);
 
   @override
-  State<InfoLivingThings> createState() => _InfoLivingThingsState();
+  State<VideoLivingThings> createState() => _VideoLivingThingsState();
 }
 
-class _InfoLivingThingsState extends State<InfoLivingThings> {
+class _VideoLivingThingsState extends State<VideoLivingThings> {
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -145,68 +144,10 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text("Description",
-                        style: const TextStyle(
+                    child: Text('Video',
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._livingthings['info-desc'],
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
-                  ),
-                  SizedBox(height: 16,),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-surah'],
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'PoppinsThin',
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-surah_name'],
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text("Translation: ",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-translation'],textAlign:TextAlign.justify,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black,
-                        )),
-                  ),
-                  SizedBox(height: 16,),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._livingthings['info-desc_one'],
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsRegular',
                           color: Colors.black,
                         )),
                   ),
@@ -214,47 +155,18 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   SizedBox(
                     height: 10,
                   ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      MaterialButton(
-                        onPressed: () {
-                          //todo:Before The Existence
-                          final before = FirebaseFirestore.instance
-                              .collection('living-things');
-                          before.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _livingthings = doc;
-                              setState(() {
-                                if (doc["info-title"] == widget._livingthings["info-title"]) {
-                                  print(widget._livingthings["info-video"]);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              VideoLivingThings(_livingthings)));
-                                }
-                              });
-                            });
-                          });
-                        },
-                        child: Text("Video"),
-                        color: Colors.yellow,
-                      ),
-                      MaterialButton(
-                        color: Colors.deepPurpleAccent,
-                        onPressed: () {
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    MyApp()));*/
-                        },
-                        child: Text("Description"),
-                      ),
-                    ],
+                  //todo: insert video here
+                  Container(
+                    height: 300,
+                    child: VideoPlayer(
+                      videoData: widget._livingthings['info-video'],
+                    ),
                   ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   //
                   // MaterialButton(
                   //   shape: RoundedRectangleBorder(
