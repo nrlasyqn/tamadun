@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 
-
 class InfoTheExistence extends StatefulWidget {
   final _theExist;
   const InfoTheExistence(this._theExist);
@@ -15,13 +14,12 @@ class InfoTheExistence extends StatefulWidget {
 }
 
 class _InfoTheExistenceState extends State<InfoTheExistence> {
-
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
     CollectionReference _collectionRef =
-    FirebaseFirestore.instance.collection("tamadun-users-favorites");
+        FirebaseFirestore.instance.collection("tamadun-users-favorites");
     return _collectionRef
         .doc(currentUser!.email)
         .collection("favorite-items")
@@ -30,18 +28,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
       "info-title": widget._theExist["info-title"],
       "info-sub": widget._theExist["info-sub"],
       "info-img": widget._theExist["info-img"],
-    }).then((value) => ScaffoldMessenger.of(context)
-        .showSnackBar( const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-            'Added to Favourite !'))));
+    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                duration: Duration(seconds: 1),
+                content: Text('Added to Favourite !'))));
   }
 
-  void share(BuildContext context){
+  void share(BuildContext context) {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -72,7 +70,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     .doc(FirebaseAuth.instance.currentUser!.email)
                     .collection("favorite-items")
                     .where("info-title",
-                    isEqualTo: widget._theExist['info-title'])
+                        isEqualTo: widget._theExist['info-title'])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
@@ -86,13 +84,13 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                           : print("Already added"),
                       icon: snapshot.data.docs.length == 0
                           ? const Icon(
-                        Icons.favorite_outline,
-                        color: Colors.black,
-                      )
+                              Icons.favorite_outline,
+                              color: Colors.black,
+                            )
                           : const Icon(
-                        Icons.favorite,
-                        color: Colors.pink,
-                      ),
+                              Icons.favorite,
+                              color: Colors.pink,
+                            ),
                     ),
                   );
                 },
@@ -100,7 +98,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
               IconButton(
                 icon: Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context, ),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
         body: SingleChildScrollView(
@@ -116,7 +116,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._theExist['info-title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -125,7 +125,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._theExist['info-sub'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -138,10 +138,10 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   endIndent: 5,
                   thickness: 1,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Description",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -156,16 +156,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                         color: Colors.black,
                       )),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("   Big Bang",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsRegular',
                         color: Colors.black,
                       )),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: Text(widget._theExist['info-surah'][0],
@@ -246,7 +248,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                         color: Colors.black,
                       )),
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text("   Sky",
