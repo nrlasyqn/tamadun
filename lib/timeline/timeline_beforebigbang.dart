@@ -1,8 +1,9 @@
-import 'package:tamadun/screens/beforetheexistence.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tamadun/screens/beforetheexistence.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+
 import '../info_page/info_beforebigbang.dart';
 
 class FetchTimelineBefore extends StatefulWidget {
@@ -18,7 +19,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
 
   fetchTimelineBefore() async {
     QuerySnapshot qn_before =
-    await _firestoreInstance.collection("before-the-existence").get();
+        await _firestoreInstance.collection("before-the-existence").get();
     setState(() {
       for (int i = 0; i < qn_before.docs.length; i++) {
         _beforeExist.add({
@@ -114,15 +115,13 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                           color: Colors.purple[200]),
                       child: Padding(
                         padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          "${_beforeExist[index]["info-title"]}",
-                          textAlign: TextAlign.center,
+                        child: Text("${_beforeExist[index]["info-title"]}",
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
-                            )
-                        ),
+                            )),
                       ),
                     ),
                   ],

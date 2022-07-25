@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/info_video/info_video_beforebigbang.dart';
 
-class InfoBeforeExistence extends StatefulWidget {
+class TestInfo extends StatefulWidget {
   final _beforeExist;
-  const InfoBeforeExistence(this._beforeExist);
+  const TestInfo(this._beforeExist);
   @override
-  State<InfoBeforeExistence> createState() => _InfoBeforeExistenceState();
+  State<TestInfo> createState() => _TestInfoState();
 }
 
-class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
+class _TestInfoState extends State<TestInfo> {
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -105,7 +104,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._beforeExist['info-title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -114,7 +113,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._beforeExist['info-sub'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -127,10 +126,10 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   endIndent: 5,
                   thickness: 1,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Description",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -147,229 +146,99 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                         color: Colors.black,
                       )),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah'][0],
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah_name'][0],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text("Translation: ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-translation'][0],
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-
-                SizedBox(
-                  height: 10,
-                ),
-
-                Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(color: Colors.grey),
-                  ),
-                  child: ExpansionTile(
-                    title: Text(widget._beforeExist['tafsir-text'][0],
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'PoppinsMedium',
-                          color: Colors.black,
-                        )),
-                    // Contents
+                for (int i = 0;
+                    i < widget._beforeExist['info-surah'].length;
+                    i++)
+                  Column(
                     children: [
-                      ListTile(
-                        title: Text(widget._beforeExist['info-tafsir-name'][0],
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                              color: Colors.black,
-                            )),
-                        subtitle: Text(widget._beforeExist['info-tafsir'][0],
-                            textAlign: TextAlign.justify,
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(widget._beforeExist['info-surah'][i],
                             style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
+                              fontSize: 18.0,
+                              fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
                       ),
-                      ListTile(
-                        title: Text(widget._beforeExist['info-tafsir-name'][1],
-                            style: TextStyle(
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(widget._beforeExist['info-surah_name'][i],
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
-                              color: Colors.black,
-                            )),
-                        subtitle: Text(widget._beforeExist['info-tafsir'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
                               color: Colors.black,
                             )),
                       ),
-                      ListTile(
-                        title: Text(widget._beforeExist['info-tafsir-name'][2],
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("Translation: ",
                             style: TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
-                              color: Colors.black,
-                            )),
-                        subtitle: Text(widget._beforeExist['info-tafsir'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
+                              fontStyle: FontStyle.italic,
                               color: Colors.black,
                             )),
                       ),
-                      ListTile(
-                        title: Text(widget._beforeExist['info-tafsir-name'][3],
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                              color: Colors.black,
-                            )),
-                        subtitle: Text(widget._beforeExist['info-tafsir'][3],
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(widget._beforeExist['info-translation'][i],
                             textAlign: TextAlign.justify,
                             style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                              fontStyle: FontStyle.italic,
                               color: Colors.black,
                             )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
+                        child: ExpansionTile(
+                          title: Text(widget._beforeExist['tafsir-text'][i],
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )),
+                          // Contents
+                          children: [
+                            for (int ii = 0;
+                                ii <
+                                    widget._beforeExist['info-tafsir-name']
+                                        .length;
+                                ii++)
+                              ListTile(
+                                title: Text(
+                                    widget._beforeExist['info-tafsir-name'][ii],
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily: 'PoppinsMedium',
+                                      color: Colors.black,
+                                    )),
+                                subtitle:
+                                    Text(widget._beforeExist['info-tafsir'][ii],
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontSize: 15.0,
+                                          fontFamily: 'PoppinsLight',
+                                          color: Colors.black,
+                                        )),
+                              ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                //todo: second surah here
 
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah'][1],
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah_name'][1],
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['trans-text'][1],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-translation'][1],
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                //todo: third surah here
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah'][2],
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah_name'][2],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['trans-text'][2],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-translation'][2],
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[

@@ -1,29 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 
-
-
 class InfoTheExistence extends StatefulWidget {
   final _theExist;
-  const InfoTheExistence(this._theExist);
+  const InfoTheExistence(this._theExist, {Key? key}) : super(key: key);
 
   @override
   State<InfoTheExistence> createState() => _InfoTheExistenceState();
 }
 
 class _InfoTheExistenceState extends State<InfoTheExistence> {
-
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     var currentUser = auth.currentUser;
-    CollectionReference _collectionRef =
-    FirebaseFirestore.instance.collection("tamadun-users-favorites");
-    return _collectionRef
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection("tamadun-users-favorites");
+    return collectionRef
         .doc(currentUser!.email)
         .collection("favorite-items")
         .doc()
@@ -31,19 +27,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
       "info-title": widget._theExist["info-title"],
       "info-sub": widget._theExist["info-sub"],
       "info-img": widget._theExist["info-img"],
-    }).then((value) =>
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(
-            duration: Duration(seconds: 1),
-            content: Text(
-                'Added to Favourite !'))));
+    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                duration: Duration(seconds: 1),
+                content: Text('Added to Favourite !'))));
   }
 
   void share(BuildContext context) {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -58,7 +53,6 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
               style: const TextStyle(
                 fontSize: 18.0,
                 fontFamily: 'PoppinsMedium',
-
                 color: Colors.black,
               ),
             ),
@@ -79,7 +73,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     .doc(FirebaseAuth.instance.currentUser!.email)
                     .collection("favorite-items")
                     .where("info-title",
-                    isEqualTo: widget._theExist['info-title'])
+                        isEqualTo: widget._theExist['info-title'])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
@@ -88,19 +82,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: IconButton(
-                      onPressed: () =>
-                      snapshot.data.docs.length == 0
+                      onPressed: () => snapshot.data.docs.length == 0
                           ? addFavorite()
                           : print("Already added"),
                       icon: snapshot.data.docs.length == 0
                           ? const Icon(
-                        Icons.favorite_outline,
-                        color: Colors.black,
-                      )
+                              Icons.favorite_outline,
+                              color: Colors.black,
+                            )
                           : const Icon(
-                        Icons.favorite,
-                        color: Colors.pink,
-                      ),
+                              Icons.favorite,
+                              color: Colors.pink,
+                            ),
                     ),
                   );
                 },
@@ -108,7 +101,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
               IconButton(
                 icon: Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context,),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
         body: SingleChildScrollView(
@@ -126,7 +121,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._theExist['info-title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -161,11 +156,10 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     height: 15,
                   ),
 
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Big Bang",
-                        style: const TextStyle(
-
+                        style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -182,7 +176,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
@@ -199,13 +193,13 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-surah_name'][0],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
                     child: Text("Translation: ",
                         style: TextStyle(
@@ -219,24 +213,22 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-translation'][0],
                         textAlign: TextAlign.justify,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
                   //todo: TAFSEER FOR (surah an-ANBIYA':30)
                   ExpansionTile(
-
                     title: Text(widget._theExist['tafsir-text'][0],
                         style: const TextStyle(
                           fontSize: 18.0,
@@ -247,66 +239,69 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     // Contents
                     children: [
                       ListTile(
-
                         title: Text(widget._theExist['info-tafsir-name'][0],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-0'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-0'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][1],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-0'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-0'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][2],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-0'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-0'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][3],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-0'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-0'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -314,21 +309,20 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     height: 1,
                     thickness: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
+                  const SizedBox(
+                    height: 10,
+                  ),
 
                   //todo: info-surah(surah hud:7)
                   Align(
@@ -343,13 +337,13 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-surah_name'][1],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
                     child: Text("Translation: ",
                         style: TextStyle(
@@ -363,18 +357,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-translation'][1],
                         textAlign: TextAlign.justify,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   //todo: TAFSEER FOR (surah HUD:7)
@@ -389,64 +383,68 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     children: [
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][0],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-1'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-1'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][4],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-1'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-1'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][2],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-1'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-1'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][5],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-1'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-1'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -454,47 +452,45 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     height: 1,
                     thickness: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Creation Of Sky And Earth",
-                        style: const TextStyle(
-
+                        style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   //todo: info-surah-three(surah al-anbiya':33)
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Sky:",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 13,
                   ),
                   Align(
@@ -509,13 +505,13 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-surah_name'][2],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
                     child: Text("Translation: ",
                         style: TextStyle(
@@ -529,18 +525,18 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     alignment: Alignment.center,
                     child: Text(widget._theExist['info-translation'][2],
                         textAlign: TextAlign.justify,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   //todo: TAFSEER FOR (surah an-ANBIYA':33)
@@ -555,49 +551,52 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     children: [
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][6],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-2'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-2'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][1],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-2'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-2'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][2],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-2'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-2'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][0],
                             style: TextStyle(
@@ -605,14 +604,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-2'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-2'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -627,7 +627,6 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   SizedBox(
                     height: 10,
                   ),
-
 
                   SizedBox(
                     height: 10,
@@ -701,14 +700,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-3'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-3'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][0],
                             style: TextStyle(
@@ -716,14 +716,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-3'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-3'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][6],
                             style: TextStyle(
@@ -731,14 +732,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-3'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-3'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][2],
                             style: TextStyle(
@@ -746,14 +748,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-3'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-3'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -769,11 +772,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     height: 10,
                   ),
 
-
                   SizedBox(
                     height: 10,
                   ),
-
 
                   //todo: info-surah-two(surah zukhruf:10)
                   Align(
@@ -851,14 +852,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-4'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-4'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][1],
                             style: TextStyle(
@@ -866,14 +868,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-4'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-4'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][5],
                             style: TextStyle(
@@ -881,14 +884,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-4'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-4'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][0],
                             style: TextStyle(
@@ -896,14 +900,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-4'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-4'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -918,7 +923,6 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   SizedBox(
                     height: 10,
                   ),
-
 
                   SizedBox(
                     height: 10,
@@ -992,14 +996,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-5'][0],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-5'][0],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][0],
                             style: TextStyle(
@@ -1007,14 +1012,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-5'][1],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-5'][1],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][5],
                             style: TextStyle(
@@ -1022,14 +1028,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-5'][2],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-5'][2],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                       ListTile(
                         title: Text(widget._theExist['info-tafsir-name'][2],
                             style: TextStyle(
@@ -1037,14 +1044,15 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
-                        subtitle: Text(
-                            widget._theExist['info-tafsir-surah-5'][3],
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsLight',
-                              color: Colors.black,
-                            )),),
+                        subtitle:
+                            Text(widget._theExist['info-tafsir-surah-5'][3],
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                      ),
                     ],
                   ),
                   const Divider(
@@ -1059,7 +1067,6 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   SizedBox(
                     height: 10,
                   ),
-
 
                   SizedBox(
                     height: 10,
@@ -1130,7 +1137,6 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                       ),
                     ],
                   ),
-
 
                   //
                   // MaterialButton(
