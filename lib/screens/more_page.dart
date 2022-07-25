@@ -42,6 +42,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
+import 'package:tamadun/webview.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
 import '../auth/google_auth.dart';
@@ -256,7 +257,7 @@ class _MorepageState extends State<Morepage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => aboutus()));
+                                    builder: (context) => WebViewLoad()));
                           },
                         ),
                         ProfileMenu(

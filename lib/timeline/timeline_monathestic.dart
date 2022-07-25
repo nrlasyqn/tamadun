@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/screens/empierofislam.dart';
-import 'package:tamadun/screens/homosapiens.dart';
+import 'package:tamadun/info_page/info_monathestic.dart';
 import 'package:tamadun/screens/monotheistic_empire.dart';
-import 'package:tamadun/screens/the_ummah.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-import '../info_page/info_islamic.dart';
 
 class TimelineMonathestic extends StatefulWidget {
   const TimelineMonathestic({Key? key}) : super(key: key);
@@ -84,7 +81,7 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
                             context,
                             MaterialPageRoute(
                                 builder: (_) =>
-                                    InfoHomosapiens(_monathestic[index]))),
+                                    InfoMonathestic(_monathestic[index]))),
                         child: Container(
                           height: 200,
                           width: 420,

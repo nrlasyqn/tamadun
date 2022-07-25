@@ -31,6 +31,14 @@ class _TimelineExistenceState extends State<TimelineExistence> {
           "info-surah": qn_exist.docs[i]["info-surah"],
           "info-translation": qn_exist.docs[i]["info-translation"],
           "info-surah_name": qn_exist.docs[i]["info-surah_name"],
+          "info-tafsir-surah-0": qn_exist.docs[i]["info-tafsir-surah-0"],
+          "info-tafsir-surah-1": qn_exist.docs[i]["info-tafsir-surah-1"],
+          "info-tafsir-surah-2": qn_exist.docs[i]["info-tafsir-surah-2"],
+          "info-tafsir-surah-3": qn_exist.docs[i]["info-tafsir-surah-3"],
+          "info-tafsir-surah-4": qn_exist.docs[i]["info-tafsir-surah-4"],
+          "info-tafsir-surah-5": qn_exist.docs[i]["info-tafsir-surah-5"],
+          "info-tafsir-name": qn_exist.docs[i]["info-tafsir-name"],
+          "tafsir-text": qn_exist.docs[i]["tafsir-text"],
         });
       }
     });
