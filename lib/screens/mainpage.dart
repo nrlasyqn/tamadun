@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tamadun/screens/monotheistic_empire.dart';
 import 'package:tamadun/screens/the_existence.dart';
 import 'package:tamadun/screens/living_things.dart';
 import 'package:flutter/material.dart';
 import 'beforetheexistence.dart';
 import 'empierofislam.dart';
 import 'homosapiens.dart';
+import 'the_ummah.dart';
+import 'monotheistic_empire.dart';
 
 class MainPage extends StatefulWidget {
   //MainPage({Key? key}) : super(key: key);
@@ -254,6 +257,88 @@ class _MainPageState extends State<MainPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
+                                              ummah()));
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Ink.image(
+                                      image: NetworkImage("${snapshot.data!['image'][5]}"),
+                                      height: 115,
+                                      width: 330,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      //'The Islamic Empier',
+                                        "${snapshot.data!['title'][4]}",
+                                        style: TextStyle(
+                                          fontFamily: 'PoppinsSemiBold',
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        )),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              ),
+                            )),
+                      ),
+                      Center(
+                        child: Container(
+                            padding: const EdgeInsets.fromLTRB(36, 6, 36, 6),
+                            child: Material(
+                              color: Colors.black54,
+                              elevation: 8,
+                              borderRadius: BorderRadius.circular(18),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: InkWell(
+                                splashColor: Colors.white,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              monotheistic_empire()));
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Ink.image(
+                                      image: NetworkImage("${snapshot.data!['image'][5]}"),
+                                      height: 115,
+                                      width: 330,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      //'The Islamic Empier',
+                                        "${snapshot.data!['title'][5]}",
+                                        style: TextStyle(
+                                          fontFamily: 'PoppinsSemiBold',
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        )),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              ),
+                            )),
+                      ),
+                      Center(
+                        child: Container(
+                            padding: const EdgeInsets.fromLTRB(36, 6, 36, 6),
+                            child: Material(
+                              color: Colors.black54,
+                              elevation: 8,
+                              borderRadius: BorderRadius.circular(18),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: InkWell(
+                                splashColor: Colors.white,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
                                               empierofislam()));
                                 },
                                 child: Column(
@@ -268,7 +353,7 @@ class _MainPageState extends State<MainPage> {
                                     const SizedBox(height: 10),
                                     Text(
                                       //'The Islamic Empier',
-                                        "${snapshot.data!['title'][4]}",
+                                        "${snapshot.data!['title'][6]}",
                                         style: TextStyle(
                                           fontFamily: 'PoppinsSemiBold',
                                           fontSize: 16,

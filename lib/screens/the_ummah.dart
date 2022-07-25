@@ -1,23 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/timeline/timeline_islamic.dart';
-import '../screens/empierofislam.dart';
-import '../screens/living_things.dart';
-import '../screens/the_ummah.dart';
+import 'package:tamadun/screens/homosapiens.dart';
+import 'package:tamadun/screens/monotheistic_empire.dart';
+import 'package:tamadun/timeline/timeline_theexistence.dart';
+import 'package:tamadun/timeline/timeline_ummah.dart';
+import '../screens/beforetheexistence.dart';
 import 'home_page.dart';
 
-class homosapiens extends StatefulWidget {
+class ummah extends StatefulWidget {
   @override
-  _homosapiensClassState createState() => _homosapiensClassState();
+  _ummahClassState createState() => _ummahClassState();
 }
 
-class _homosapiensClassState extends State<homosapiens> {
+class _ummahClassState extends State<ummah> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(207, 191, 148, 1.0),
+        backgroundColor: Color.fromRGBO(201, 167, 194, 1.0),
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: Text(
@@ -40,7 +41,7 @@ class _homosapiensClassState extends State<homosapiens> {
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
             .collection('mainTopic')
-            .doc('homosapiens')
+            .doc('ummah')
             .get(),
         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError)
@@ -59,8 +60,8 @@ class _homosapiensClassState extends State<homosapiens> {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              Color.fromRGBO(207, 191, 148, 1.0),
-                              Color.fromRGBO(207, 191, 148, 1.0),
+                              Color.fromRGBO(201, 167, 194, 1.0),
+                              Color.fromRGBO(201, 167, 194, 1.0),
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomLeft)),
@@ -118,7 +119,7 @@ class _homosapiensClassState extends State<homosapiens> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          TimelineHomosapiens()));
+                                          TimelineUmmah()));
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(80.0),
@@ -147,90 +148,6 @@ class _homosapiensClassState extends State<homosapiens> {
                               ),
                             )),
                       ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Container(
-                        width: 300,
-                        child: RaisedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          TimelineHomosapiens()));
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80.0),
-                                side: BorderSide(
-                                    color: Colors.black, width: 2)),
-                            elevation: 0.0,
-                            padding: EdgeInsets.all(0.0),
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                    maxWidth: 300.0, minHeight: 50.0),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${snapshot.data!['topic-2']}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: 'PoppinsMedium',
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Container(
-                        width: 300,
-                        child: RaisedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          TimelineHomosapiens()));
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80.0),
-                                side: BorderSide(
-                                    color: Colors.black, width: 2)),
-                            elevation: 0.0,
-                            padding: EdgeInsets.all(0.0),
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                    maxWidth: 300.0, minHeight: 50.0),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "${snapshot.data!['topic-3']}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: 'PoppinsMedium',
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-
                     ],
                   ),
                 ),
@@ -253,7 +170,7 @@ class _homosapiensClassState extends State<homosapiens> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => living_things()));
+                                  builder: (context) => homosapiens()));
                         },
                       ),
                     ],
@@ -278,7 +195,7 @@ class _homosapiensClassState extends State<homosapiens> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ummah()));
+                                  builder: (context) => monotheistic_empire()));
                         },
                       ),
                     ],

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 import '../timeline/timeline_empier.dart';
 
@@ -33,6 +34,14 @@ class _InfoEmpireState extends State<InfoEmpire> {
         duration: Duration(seconds: 1),
         content: Text(
             'Added to Favourite!'))));
+  }
+
+  void share(BuildContext context){
+    String message = 'Check out this useful content!';
+    RenderBox? box = context.findRenderObject() as RenderBox;
+
+    Share.share(message, subject: 'Desription',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   @override
@@ -88,6 +97,11 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   );
                 },
               ),
+              IconButton(
+                icon: Icon(Icons.share_outlined),
+                color: Colors.black,
+                onPressed: () => share(context, ),
+              ),
             ]),
         body: SingleChildScrollView(
           child: Column(
@@ -137,49 +151,50 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   alignment: Alignment.centerLeft,
                   child: Text(widget._empire['info-desc'],
                       style: const TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._empire['info-surah'],
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._empire['info-surah_name'],
-                      style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsRegular',
                         color: Colors.black,
                       )),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text("Terjemahan: ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._empire['info-translation'],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
+                SizedBox(height: 16,),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Text(widget._empire['info-surah'],
+                //       style: const TextStyle(
+                //         fontSize: 18.0,
+                //         fontFamily: 'PoppinsThin',
+                //         color: Colors.black,
+                //       )),
+                // ),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Text(widget._empire['info-surah_name'],
+                //       style: TextStyle(
+                //         fontSize: 16.0,
+                //         fontFamily: 'PoppinsLight',
+                //         color: Colors.black,
+                //       )),
+                // ),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Text("Translation: ",
+                //       style: TextStyle(
+                //         fontSize: 16.0,
+                //         fontFamily: 'PoppinsLight',
+                //         fontStyle: FontStyle.italic,
+                //         color: Colors.black,
+                //       )),
+                // ),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Text(widget._empire['info-translation'],
+                //       style: TextStyle(
+                //         fontSize: 16.0,
+                //         fontFamily: 'PoppinsLight',
+                //         fontStyle: FontStyle.italic,
+                //         color: Colors.black,
+                //       )),
+                // ),
                 SizedBox(
                   height: 10,
                 ),

@@ -135,47 +135,48 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(widget._homosapiens['info-desc'],
+                  child: Text(widget._homosapiens['info-desc'][0],
                       style: const TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 16.0,
+                        fontFamily: 'PoppinsRegular',
+                        color: Colors.black,
+                      )),
+                ),
+                SizedBox(height: 16,),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(widget._homosapiens['info-surah'][0],
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontFamily: 'PoppinsThin',
+                        color: Colors.black,
+                      )),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(widget._homosapiens['info-surah_name'][0],
+                      style: TextStyle(
+                        fontSize: 16.0,
                         fontFamily: 'PoppinsLight',
                         color: Colors.black,
                       )),
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(widget._homosapiens['info-surah'],
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._homosapiens['info-surah_name'],
+                  child: Text("Translation: ",
                       style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text("Terjemahan: ",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsLight',
                         fontStyle: FontStyle.italic,
                         color: Colors.black,
                       )),
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(widget._homosapiens['info-translation'],
+                  child: Text(widget._homosapiens['info-translation'][0],
                       style: TextStyle(
                         fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
+                        fontFamily: 'PoppinsLight',
                         fontStyle: FontStyle.italic,
                         color: Colors.black,
                       )),

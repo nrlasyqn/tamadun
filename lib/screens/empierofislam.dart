@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/screens/home_page.dart';
+import 'package:tamadun/screens/monotheistic_empire.dart';
 import 'package:tamadun/timeline/timeline_empier.dart';
 
 import '../screens/beforetheexistence.dart';
@@ -155,7 +156,13 @@ class _empierofislamClassState extends State<empierofislam> {
                             Container(
                               width: 300,
                               child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TimelineEmpire()));
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
                                       side: BorderSide(
@@ -189,7 +196,13 @@ class _empierofislamClassState extends State<empierofislam> {
                             Container(
                               width: 300,
                               child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TimelineEmpire()));
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
                                       side: BorderSide(
@@ -239,7 +252,7 @@ class _empierofislamClassState extends State<empierofislam> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => homosapiens()));
+                                        builder: (context) => monotheistic_empire()));
                               },
                             ),
                           ],

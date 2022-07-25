@@ -109,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsMedium',
-                                                fontSize: 15,
+                                                fontSize: 16,
                                                 color: Colors.black,
                                               ),
 
@@ -120,7 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsRegular',
-                                                fontSize: 11,
+                                                fontSize: 14,
                                                 color: Colors.black87,
                                               ),
                                             ),

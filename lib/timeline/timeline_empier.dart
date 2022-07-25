@@ -28,9 +28,6 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
           "info-desc": qn_empire.docs[i]["info-desc"],
           "info-img": qn_empire.docs[i]["info-img"],
           "info-video": qn_empire.docs[i]["info-video"],
-          "info-surah": qn_empire.docs[i]["info-surah"],
-          "info-translation": qn_empire.docs[i]["info-translation"],
-          "info-surah_name": qn_empire.docs[i]["info-surah_name"],
         });
       }
     });
@@ -50,7 +47,7 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "Glorious Empire of Islam",
+          "The Islamic Empire",
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
