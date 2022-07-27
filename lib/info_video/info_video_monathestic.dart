@@ -138,6 +138,15 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                         color: Colors.black,
                       )),
                 ),
+                Container(
+                  height: 300,
+                  child: VideoPlayer(
+                    videoData: widget._monathestic['info-video'][0],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -153,7 +162,7 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                               final _monathestic = doc;
                               setState(() {
                                 if (doc["info-title"] == widget._monathestic["info-title"]) {
-                                  print(widget._monathestic["info-video"]);
+                                  print(widget._monathestic["info-video"][0]);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

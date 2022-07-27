@@ -26,15 +26,12 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
           "info-sub": qn_before.docs[i]["info-sub"],
           "info-desc": qn_before.docs[i]["info-desc"],
           "info-img": qn_before.docs[i]["info-img"],
-          "info-video": qn_before.docs[i]["info-video"],
           "info-surah": qn_before.docs[i]["info-surah"],
           "info-translation": qn_before.docs[i]["info-translation"],
           "info-surah_name": qn_before.docs[i]["info-surah_name"],
-          "info-tafsir": qn_before.docs[i]["info-tafsir"],
-          "info-tafsir-name": qn_before.docs[i]["info-tafsir-name"],
           "trans-text": qn_before.docs[i]["trans-text"],
-          "tafsir-text": qn_before.docs[i]["tafsir-text"],
           "surah-id": qn_before.docs[i]["surah-id"],
+          "video-id": qn_before.docs[i]["video-id"],
         });
       }
     });

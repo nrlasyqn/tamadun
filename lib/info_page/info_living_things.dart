@@ -138,7 +138,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._livingthings['info-desc'][0],textAlign:TextAlign.center,
+                    child: Text(widget._livingthings['info-desc'][0],
                         style: const TextStyle(
                           fontSize: 15.0,
                           fontFamily: 'PoppinsRegular',

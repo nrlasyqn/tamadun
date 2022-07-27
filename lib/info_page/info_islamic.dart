@@ -136,7 +136,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-desc'][0],textAlign:TextAlign.center,
+                    child: Text(widget._homosapiens['info-desc'][0],
                         style: const TextStyle(
                           fontSize: 15.0,
                           fontFamily: 'PoppinsRegular',

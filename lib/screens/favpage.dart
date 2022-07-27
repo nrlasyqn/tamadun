@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/info_page/info_islamic.dart';
 import 'package:tamadun/info_page/info_living_things.dart';
+import 'package:tamadun/info_page/info_monathestic.dart';
+import 'package:tamadun/info_page/info_ummah.dart';
 
 import '../info_page/info-theexistence.dart';
 import '../info_page/info_beforebigbang.dart';
@@ -148,6 +150,55 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               InfoTheExistence(_theExist)));
+                                }
+                              });
+                            });
+                          });
+
+                          //todo: Ummah
+                          //todo:The Existence
+                          final ummah = FirebaseFirestore.instance
+                              .collection('ummah').doc('the-prophets').collection("prophets-button");
+                          ummah.get().then((QuerySnapshot snapshot) {
+                            snapshot.docs.forEach((DocumentSnapshot doc) {
+                              final _ummah = doc;
+                              setState(() {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
+                                  print(_documentSnapshot["info-title"]);
+                                  print(_documentSnapshot.id);
+                                  print(doc["info-title"]);
+                                  print(doc.id);
+                                  print(_ummah.id);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TheProphet(_ummah)));
+                                }
+                              });
+                            });
+                          });
+
+                          //todo: mono
+                          final monathestic = FirebaseFirestore.instance
+                              .collection('monathestic-empire');
+                          monathestic.get().then((QuerySnapshot snapshot) {
+                            snapshot.docs.forEach((DocumentSnapshot doc) {
+                              final _monathestic = doc;
+                              setState(() {
+                                if (doc["info-title"] ==
+                                    _documentSnapshot["info-title"]) {
+                                  print(_documentSnapshot["info-title"]);
+                                  print(_documentSnapshot.id);
+                                  print(doc["info-title"]);
+                                  print(doc.id);
+                                  print(_monathestic.id);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InfoMonathestic(_monathestic)));
                                 }
                               });
                             });
