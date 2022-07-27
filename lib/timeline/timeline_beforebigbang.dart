@@ -34,6 +34,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
           "info-tafsir-name": qn_before.docs[i]["info-tafsir-name"],
           "trans-text": qn_before.docs[i]["trans-text"],
           "tafsir-text": qn_before.docs[i]["tafsir-text"],
+          "surah-id": qn_before.docs[i]["surah-id"],
         });
       }
     });

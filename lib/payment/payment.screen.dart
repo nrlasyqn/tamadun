@@ -211,26 +211,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               decimal: false),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            label: Text('Email'),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(width: 1, color: Colors.blue),
-                            ),
-                          ),
-                          validator: (e) {
-                            if (e!.isEmpty) {
-                              return 'Email cannot be null';
-                            }
-                          },
-                          controller: _email,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: false),
-                        ),
-                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(

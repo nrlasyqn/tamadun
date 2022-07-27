@@ -1,18 +1,15 @@
-import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/timeline/timeline_living_things.dart';
-
 import '../info_video/info_video_livingthings.dart';
-import '../timeline/timeline_beforebigbang.dart';
+//import 'package:tamadun/timeline/timeline_living_things.dart';
+//import '../timeline/timeline_beforebigbang.dart';
 
 class InfoLivingThings extends StatefulWidget {
   final _livingthings;
   const InfoLivingThings(this._livingthings);
-
   @override
   State<InfoLivingThings> createState() => _InfoLivingThingsState();
 }
@@ -39,15 +36,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
             'Added to Favourite!'))));
   }
 
-  void share(BuildContext context){
-    String message = 'Check out this useful content!';
-    RenderBox? box = context.findRenderObject() as RenderBox;
-
-    Share.share(message, subject: 'Desription',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-  }
-
-
+  bool isReadmore= false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,11 +89,6 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   );
                 },
               ),
-              IconButton(
-                icon: Icon(Icons.share_outlined),
-                color: Colors.black,
-                onPressed: () => share(context, ),
-              ),
             ]),
         body: SingleChildScrollView(
           child: Column(
@@ -116,7 +100,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                 height: 5,
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(14.0),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -154,17 +138,20 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._livingthings['info-desc'],
+                    child: Text(widget._livingthings['info-desc'][0],textAlign:TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 15.0,
                           fontFamily: 'PoppinsRegular',
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(height: 16,),
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   Align(
                     alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-surah'],
+                    child: Text(widget._livingthings['info-surah'][0],textAlign:TextAlign.center,
                         style: const TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'PoppinsThin',
@@ -173,16 +160,26 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-surah_name'],
+                    child: Text(widget._livingthings['info-surah_name'][0],
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           color: Colors.black,
                         )),
                   ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text("translation: ",
+                  //       style: TextStyle(
+                  //         fontSize: 16.0,
+                  //         fontFamily: 'PoppinsMedium',
+                  //         fontStyle: FontStyle.italic,
+                  //         color: Colors.black,
+                  //       )),
+                  // ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text("Translation: ",
+                    child: Text(widget._livingthings['trans-text'][0],textAlign:TextAlign.center,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
@@ -192,7 +189,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text(widget._livingthings['info-translation'],textAlign:TextAlign.justify,
+                    child: Text(widget._livingthings['info-translation'][0],textAlign:TextAlign.center,
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
@@ -200,61 +197,307 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(height: 16,),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._livingthings['info-desc_one'],
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
+                  SizedBox(
+                    height: 10,
                   ),
-
+                  SizedBox(
+                    height: 10,
+                  ),
+                  //   Align(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: Text(widget._livingthings['info-desc_one'],
+                  //        style: const TextStyle(
+                  //           fontSize: 15.0,
+                  //           fontFamily: 'PoppinsLight',
+                  //           color: Colors.black,
+                  //         )),
+                  //   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  //  Align(
+                  //    alignment: Alignment.centerLeft,
+                  //    child: Text(widget._livingthings['info-desc_one'],
+                  //        style: const TextStyle(
+                  //          fontSize: 15.0,
+                  //          fontFamily: 'PoppinsLight',
+                  //          color: Colors.black,
+                  //        )),
+                  //  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  //todo: Tafseer here
+                  //  Align(
+                  //    alignment: Alignment.centerLeft,
+                  //    child: Text('Video',
+                  //        style: TextStyle(
+                  //          fontSize: 20.0,
+                  //          fontFamily: 'PoppinsMedium',
+                  //          color: Colors.black,
+                  //        )),
+                  //  ),
+                  /*  Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text("Tafseer",
+                         style: const TextStyle(
+                           fontSize: 20.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                SizedBox(
+                  height: 13,
+                ),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir-name'][0],
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 6,
+                   ),
+                   TextWrapper(text: widget._livingthings['info-tafsir'][0]),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir-name'][1],
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 10,
+                   ),
+                   TextWrapper(text: widget._livingthings['info-tafsir'][1],),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir-name'][2],
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 6,
+                   ),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir'][2],textAlign:TextAlign.justify,
+                         style: const TextStyle(
+                           fontSize: 15.0,
+                           fontFamily: 'PoppinsLight',
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 10,
+                   ),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir-name'][3],
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 6,
+                   ),
+                   SizedBox(width: 20,),
+                   Align(
+                     alignment: Alignment.centerLeft,
+                     child: Text(widget._livingthings['info-tafsir'][3],textAlign:TextAlign.justify,
+                         style: const TextStyle(
+                           fontSize: 15.0,
+                           fontFamily: 'PoppinsLight',
+                           color: Colors.black,
+                         )),
+                   ),*/
+
+                  //todo: insert video here
+                  //  Container(
+                  //    height: 300,
+                  //    child: VideoPlayer(
+                  //      videoData: widget._livingthings['info-video'],
+                  //    ),
+                  //  ),
+
+                  /* SizedBox(
+                  height: 15,
+                ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-surah'][1],
+                         style: const TextStyle(
+                           fontSize: 18.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-surah_name'][1],textAlign:TextAlign.justify,
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['trans-text'][1],textAlign:TextAlign.center,
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           fontStyle: FontStyle.italic,
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-translation'][1],textAlign:TextAlign.justify,
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           fontStyle: FontStyle.italic,
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 15,
+                   ),
+                   //todo: third surah here
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-surah'][2],textAlign:TextAlign.justify,
+                         style: const TextStyle(
+                           fontSize: 18.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-surah_name'][2],
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['trans-text'][2],textAlign:TextAlign.center,
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           fontStyle: FontStyle.italic,
+                           color: Colors.black,
+                         )),
+                   ),
+                   Align(
+                     alignment: Alignment.center,
+                     child: Text(widget._livingthings['info-translation'][2],textAlign:TextAlign.justify,
+                         style: TextStyle(
+                           fontSize: 16.0,
+                           fontFamily: 'PoppinsMedium',
+                           fontStyle: FontStyle.italic,
+                           color: Colors.black,
+                         )),
+                   ),
+                   SizedBox(
+                     height: 10,
+                   ),*/
+
+                  //button video & description
+                  /*   Column(
+                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                     children: <Widget>[
+                       MaterialButton(
+                         onPressed: () {
+                           //todo:Before The Existence
+                           final before = FirebaseFirestore.instance
+                               .collection('living-things');
+                           before.get().then((QuerySnapshot snapshot) {
+                             snapshot.docs.forEach((DocumentSnapshot doc) {
+                               final _livingthings = doc;
+                               setState(() {
+                                 if (doc["info-title"] == widget._livingthings["info-title"]) {
+                                   print(widget._livingthings["info-video"]);
+
+                                 }
+                               });
+                             });
+                           });
+                         },
+                         child: Text("Video"),
+                         color: Colors.yellow,
+                       ),
+                       MaterialButton(
+                         color: Colors.deepPurpleAccent,
+                         onPressed: () {},
+                         child: Text("Description"),
+                       ),
+                     ],
+                   ),*/
+                  Row(
                     children: <Widget>[
-                      MaterialButton(
-                        onPressed: () {
-                          //todo:Before The Existence
-                          final before = FirebaseFirestore.instance
-                              .collection('living-things');
-                          before.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _livingthings = doc;
-                              setState(() {
-                                if (doc["info-title"] == widget._livingthings["info-title"]) {
-                                  print(widget._livingthings["info-video"]);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              VideoLivingThings(_livingthings)));
-                                }
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Description',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () {
+                            final living_things = FirebaseFirestore.instance
+                                .collection('living-things');
+                            living_things.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _livingthings = doc;
+                                setState(() {
+                                  if (doc["info-title"] == widget._livingthings["info-title"]) {
+                                    print(widget._livingthings["info-video"][0]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VideoLivingThings(_livingthings)));
+                                  }
+                                });
                               });
                             });
-                          });
-                        },
-                        child: Text("Video"),
-                        color: Colors.yellow,
-                      ),
-                      MaterialButton(
-                        color: Colors.deepPurpleAccent,
-                        onPressed: () {
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    MyApp()));*/
-                        },
-                        child: Text("Description"),
+                          },
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
+
+
                   //
                   // MaterialButton(
                   //   shape: RoundedRectangleBorder(
@@ -277,11 +520,99 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   //
                   // SizedBox(
                   //   height: 5,
-                  // )
+                  // )*/
                 ]),
               ),
             ],
           ),
-        ));
+        )
+    );
+  }
+}
+
+// Create a expandable/ collapsable text widget
+class TextWrapper extends StatefulWidget {
+  const TextWrapper({Key? key, required this.text}) : super(key: key);
+
+  final String text;
+
+  @override
+  _TextWrapperState createState() => _TextWrapperState();
+}
+
+class _TextWrapperState extends State<TextWrapper>
+    with TickerProviderStateMixin {
+  bool isExpanded = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          child: ConstrainedBox(
+              constraints: isExpanded
+                  ? const BoxConstraints()
+                  : const BoxConstraints(maxHeight: 70),
+              child: Text(
+                widget.text,
+                style: const TextStyle(fontSize: 16),
+                softWrap: true,
+                overflow: TextOverflow.fade,
+              ))),
+      isExpanded
+          ? Align(
+        alignment: Alignment.centerRight,
+        child: OutlinedButton.icon(
+            icon: const Icon(Icons.arrow_upward),
+            label: const Text('Read less'),
+            onPressed: () => setState(() => isExpanded = false)),
+      )
+          : Align(
+        alignment: Alignment.centerRight,
+        child: TextButton.icon(
+            icon: const Icon(Icons.arrow_downward),
+            label: const Text('Read more'),
+            onPressed: () => setState(() => isExpanded = true)),
+      )
+    ]);
+  }
+}
+
+//create expandable/collapsable text widget
+class ExpandableText extends StatefulWidget {
+  ExpandableText(this.text);
+
+  final String text;
+  bool isExpanded = false;
+
+  @override
+  _ExpandableTextState createState() => new _ExpandableTextState();
+}
+
+class _ExpandableTextState extends State<ExpandableText> {
+  @override
+  Widget build(BuildContext context) {
+    return new Column(children: <Widget>[
+      new ConstrainedBox(
+          constraints: widget.isExpanded
+              ? new BoxConstraints()
+              : new BoxConstraints(maxHeight: 50.0),
+          child: new Text(
+            style: const TextStyle(
+              fontSize: 15.0,
+              fontFamily: 'PoppinsLight',
+              color: Colors.black,
+            ),
+            widget.text,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+          )),
+      widget.isExpanded
+          ? new Container()
+          : new FlatButton(
+          child:  Align
+            (alignment: Alignment.centerRight,
+              child: Text('Read More...')),
+          onPressed: () => setState(() => widget.isExpanded = true))
+    ]);
   }
 }

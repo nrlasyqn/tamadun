@@ -1,4 +1,5 @@
 import 'package:share_plus/share_plus.dart';
+import 'package:tamadun/info_page/info_living_things.dart';
 import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -159,7 +160,7 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
                   Container(
                     height: 300,
                     child: VideoPlayer(
-                      videoData: widget._livingthings['info-video'],
+                      videoData: widget._livingthings['info-video'][0],
                     ),
                   ),
 
@@ -167,6 +168,48 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
                     height: 10,
                   ),
 
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Description',style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                          onPressed: () {
+                            final living_things = FirebaseFirestore.instance
+                                .collection('living-things');
+                            living_things.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _livingthings = doc;
+                                setState(() {
+                                  if (doc["info-title"] == widget._livingthings["info-title"]) {
+                                    print(widget._livingthings["info-video"][0]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                InfoLivingThings(_livingthings)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                          onPressed: () {
+
+                          },
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
                   //
                   // MaterialButton(
                   //   shape: RoundedRectangleBorder(

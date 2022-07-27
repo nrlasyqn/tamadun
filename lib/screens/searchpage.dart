@@ -8,6 +8,7 @@ import '../info_page/info_beforebigbang.dart';
 import '../info_page/info_empier.dart';
 import '../info_page/info_islamic.dart';
 import '../info_page/info_living_things.dart';
+import '../info_page/info_ummah.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -293,7 +294,41 @@ class _SearchPageState extends State<SearchPage> {
                                                 });
                                               });
 
-
+                                              //todo:Prophets / the Ummah
+                                              final prophet = FirebaseFirestore.instance.collection('ummah').doc('the-prophets').collection("prophets-button");
+                                              prophet.get()
+                                                  .then((
+                                                  QuerySnapshot snapshots) {
+                                                snapshots.docs
+                                                    .forEach((
+                                                    DocumentSnapshot docs) {
+                                                  final _ummah = docs;
+                                                  setState(() {
+                                                    if (data["info-title"] ==
+                                                        docs["info-title"]) {
+                                                      print(
+                                                          data["info-title"]);
+                                                      print(
+                                                          docs.id);
+                                                      print(
+                                                          docs["info-title"]);
+                                                      print(
+                                                          docs .id);
+                                                      print(
+                                                          _ummah
+                                                              .id);
+                                                      Navigator
+                                                          .push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (
+                                                                  context) =>
+                                                                  TheProphet(
+                                                                      _ummah)));
+                                                    }
+                                                  });
+                                                });
+                                              });
 
 
                                             })));
