@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/screens/the_existence.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+
 import '../info_page/info-theexistence.dart';
 
 class TimelineExistence extends StatefulWidget {
@@ -13,13 +14,12 @@ class TimelineExistence extends StatefulWidget {
 }
 
 class _TimelineExistenceState extends State<TimelineExistence> {
-
   final List _theExist = [];
   var _firestoreInstance = FirebaseFirestore.instance;
 
   fetchExistence() async {
     QuerySnapshot qn_exist =
-    await _firestoreInstance.collection("the-existence-of-universe").get();
+        await _firestoreInstance.collection("the-existence-of-universe").get();
     setState(() {
       for (int i = 0; i < qn_exist.docs.length; i++) {
         _theExist.add({
@@ -27,18 +27,16 @@ class _TimelineExistenceState extends State<TimelineExistence> {
           "info-sub": qn_exist.docs[i]["info-sub"],
           "info-desc": qn_exist.docs[i]["info-desc"],
           "info-img": qn_exist.docs[i]["info-img"],
-          "info-video": qn_exist.docs[i]["info-video"],
           "info-surah": qn_exist.docs[i]["info-surah"],
           "info-translation": qn_exist.docs[i]["info-translation"],
           "info-surah_name": qn_exist.docs[i]["info-surah_name"],
           "info-tafsir-surah-0": qn_exist.docs[i]["info-tafsir-surah-0"],
           "info-tafsir-surah-1": qn_exist.docs[i]["info-tafsir-surah-1"],
           "info-tafsir-surah-2": qn_exist.docs[i]["info-tafsir-surah-2"],
-          "info-tafsir-surah-3": qn_exist.docs[i]["info-tafsir-surah-3"],
-          "info-tafsir-surah-4": qn_exist.docs[i]["info-tafsir-surah-4"],
-          "info-tafsir-surah-5": qn_exist.docs[i]["info-tafsir-surah-5"],
-          "info-tafsir-name": qn_exist.docs[i]["info-tafsir-name"],
           "tafsir-text": qn_exist.docs[i]["tafsir-text"],
+          "surah-id": qn_exist.docs[i]["surah-id"],
+          "video-id": qn_exist.docs[i]["video-id"],
+          "tafseer-id": qn_exist.docs[i]["tafseer-id"],
         });
       }
     });
@@ -54,7 +52,6 @@ class _TimelineExistenceState extends State<TimelineExistence> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -78,7 +75,7 @@ class _TimelineExistenceState extends State<TimelineExistence> {
           itemBuilder: (_, index) {
             return TimelineTile(
               alignment: TimelineAlign.manual,
-              indicatorStyle: IndicatorStyle(
+              indicatorStyle: const IndicatorStyle(
                 width: 13,
               ),
               beforeLineStyle: LineStyle(

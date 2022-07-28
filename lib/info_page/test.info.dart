@@ -248,8 +248,8 @@ class _TestInfoState extends State<TestInfo> {
                         final before = FirebaseFirestore.instance
                             .collection('before-the-existence');
                         before.get().then((QuerySnapshot snapshot) {
-                          snapshot.docs.forEach((DocumentSnapshot doc) {
-                            final _beforeExist = doc;
+                          for (var doc in snapshot.docs) {
+                            final beforeExist = doc;
                             setState(() {
                               if (doc["info-title"] ==
                                   widget._beforeExist["info-title"]) {
@@ -258,15 +258,14 @@ class _TestInfoState extends State<TestInfo> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            VideoBeforeExistence(
-                                                _beforeExist)));
+                                            VideoBeforeExistence(beforeExist)));
                               }
                             });
-                          });
+                          }
                         });
                       },
-                      child: Text("Video"),
                       color: Colors.yellow,
+                      child: const Text("Video"),
                     ),
                     MaterialButton(
                       color: Colors.deepPurpleAccent,
@@ -277,7 +276,7 @@ class _TestInfoState extends State<TestInfo> {
                                 builder: (context) =>
                                     MyApp()));*/
                       },
-                      child: Text("Description"),
+                      child: const Text("Description"),
                     ),
                   ],
                 ),

@@ -17,10 +17,10 @@ class _the_existenceClassState extends State<the_existence> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(207, 165, 148, 1.0),
+        backgroundColor: const Color.fromRGBO(207, 165, 148, 1.0),
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           'Tamadun',
           style: TextStyle(
             fontFamily: 'MontserratBold',
@@ -43,10 +43,11 @@ class _the_existenceClassState extends State<the_existence> {
             .doc('universe')
             .get(),
         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError)
+          if (snapshot.hasError) {
             return Center(
               child: Text(snapshot.hasError.toString()),
             );
+          }
           return snapshot.hasData
               ? SingleChildScrollView(
                   child: Stack(
@@ -109,7 +110,7 @@ class _the_existenceClassState extends State<the_existence> {
                             ),
                             Text(
                               "${snapshot.data!['second-title']}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18.0,
                                 fontFamily: 'PoppinsSemiBold',
                                 color: Colors.black,
