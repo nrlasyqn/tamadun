@@ -304,7 +304,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   alignment: Alignment.center,
                   child: Text(widget._beforeExist['trans-text'][1],
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         fontStyle: FontStyle.italic,
@@ -315,14 +315,14 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                   alignment: Alignment.center,
                   child: Text(widget._beforeExist['info-translation'][1],
                       textAlign: TextAlign.justify,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         fontStyle: FontStyle.italic,
                         color: Colors.black,
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 //todo: third surah here
@@ -339,7 +339,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(widget._beforeExist['info-surah_name'][2],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
