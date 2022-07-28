@@ -1,5 +1,4 @@
 import 'package:share_plus/share_plus.dart';
-import 'package:tamadun/info_page/info-theexistence.dart';
 import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,17 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../info_page/info_beforebigbang.dart';
+import '../info_page/info_ummah.dart';
 import '../timeline/timeline_beforebigbang.dart';
 
-class VideoExistence extends StatefulWidget {
-  final _theExist;
-  const VideoExistence(this._theExist);
+class VideoUmmah extends StatefulWidget {
+  final _ummah;
+  const VideoUmmah(this._ummah);
 
   @override
-  State<VideoExistence> createState() => _VideoExistenceState();
+  State<VideoUmmah> createState() => _VideoUmmahState();
 }
 
-class _VideoExistenceState extends State<VideoExistence> {
+class _VideoUmmahState extends State<VideoUmmah> {
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,9 +29,9 @@ class _VideoExistenceState extends State<VideoExistence> {
         .collection("favorite-items")
         .doc()
         .set({
-      "info-title": widget._theExist["info-title"],
-      "info-sub": widget._theExist["info-sub"],
-      "info-img": widget._theExist["info-img"],
+      "info-title": widget._ummah["info-title"],
+      "info-sub": widget._ummah["info-sub"],
+      "info-img": widget._ummah["info-img"],
     }).then((value) => ScaffoldMessenger.of(context)
         .showSnackBar( const SnackBar(
         duration: Duration(seconds: 1),
@@ -52,7 +52,7 @@ class _VideoExistenceState extends State<VideoExistence> {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-              widget._theExist['info-title'],
+              widget._ummah['info-title'],
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -74,7 +74,7 @@ class _VideoExistenceState extends State<VideoExistence> {
                     .doc(FirebaseAuth.instance.currentUser!.email)
                     .collection("favorite-items")
                     .where("info-title",
-                    isEqualTo: widget._theExist['info-title'])
+                    isEqualTo: widget._ummah['info-title'])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
@@ -109,7 +109,7 @@ class _VideoExistenceState extends State<VideoExistence> {
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._theExist['info-img'][0]),
+                child: Image.network(widget._ummah['info-img'][0]),
               ),
               const SizedBox(
                 height: 5,
@@ -117,7 +117,7 @@ class _VideoExistenceState extends State<VideoExistence> {
               Column(children: <Widget>[
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(widget._theExist['info-title'],
+                  child: Text(widget._ummah['info-title'],
                       style: TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
@@ -126,7 +126,7 @@ class _VideoExistenceState extends State<VideoExistence> {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(widget._theExist['info-sub'],
+                  child: Text(widget._ummah['info-sub'],
                       style: TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
@@ -156,7 +156,7 @@ class _VideoExistenceState extends State<VideoExistence> {
                 Container(
                   height: 300,
                   child: VideoPlayer(
-                    videoData: widget._theExist['info-video'][0],
+                    videoData: widget._ummah['info-video'][0],
                   ),
                 ),
                 SizedBox(
@@ -171,20 +171,19 @@ class _VideoExistenceState extends State<VideoExistence> {
                           color: Colors.white,
                         ),),
 
-                        onPressed: () {
-                          final exist = FirebaseFirestore.instance
-                              .collection('the-existence-of-universe');
-                          exist.get().then((QuerySnapshot snapshot) {
+                        onPressed: () async{
+                          final ummah = FirebaseFirestore.instance.collection('ummah').doc('the-prophets').collection("prophets-button");
+                          ummah.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _theExist = doc;
+                              final _ummah = doc;
                               setState(() {
-                                if (doc["info-title"] == widget._theExist["info-title"]) {
-                                  print(widget._theExist["info-video"][0]);
+                                if (doc["info-title"] == widget._ummah["info-title"]) {
+                                  print(widget._ummah["info-video"][0]);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              InfoTheExistence(_theExist)));
+                                              TheProphet(_ummah)));
                                 }
                               });
                             });

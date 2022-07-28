@@ -31,6 +31,10 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
           "info-surah": qn_homosapiens.docs[i]["info-surah"],
           "info-translation": qn_homosapiens.docs[i]["info-translation"],
           "info-surah_name": qn_homosapiens.docs[i]["info-surah_name"],
+          "info-tafsir": qn_homosapiens.docs[i]["info-tafsir"],
+          "info-tafsir-name": qn_homosapiens.docs[i]["info-tafsir-name"],
+          "trans-text": qn_homosapiens.docs[i]["trans-text"],
+          "tafsir-text": qn_homosapiens.docs[i]["tafsir-text"],
         });
       }
     });

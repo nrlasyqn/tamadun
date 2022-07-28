@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tamadun/screens/monotheistic_empire.dart';
+import 'package:tamadun/screens/snackbar.dart';
 import 'package:tamadun/screens/the_existence.dart';
 import 'package:tamadun/screens/living_things.dart';
 import 'package:flutter/material.dart';
@@ -114,12 +116,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              the_existence()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      the_existence()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               the_existence()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -163,12 +193,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              living_things()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      living_things()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               living_things()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -212,12 +270,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              homosapiens()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      homosapiens()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               homosapiens()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -253,12 +339,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ummah()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ummah()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               ummah()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -294,12 +408,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              monotheistic_empire()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      monotheistic_empire()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               monotheistic_empire()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -335,12 +477,40 @@ class _MainPageState extends State<MainPage> {
                               child: InkWell(
                                 splashColor: Colors.white,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              empierofislam()));
+                                  final userRole = FirebaseFirestore.instance.collection("Users");
+                                  userRole.get().then((QuerySnapshot snapshot) {
+                                    snapshot.docs.forEach((DocumentSnapshot doc) {
+                                      final currUser = FirebaseAuth.instance.currentUser!.email;
+                                      if (doc['email'] == currUser) {
+                                        if (doc['role'] == 'standard') {
+                                          // print(doc['role']);
+                                          // print(doc['email']);
+                                          showFloatingFlushbar(
+                                              context: context,
+                                              message:
+                                              'Upgrade to Premium Now!!',
+                                              isError: false);
+                                        }
+                                        if (doc['role'] == 'premium') {
+                                          print(doc['role']);
+                                          print(doc['email']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      empierofislam()));
+                                        }
+                                      }
+                                    });
+                                  });
                                 },
+                                // onTap: () {
+                                //   Navigator.push(
+                                //       context,
+                                //       MaterialPageRoute(
+                                //           builder: (context) =>
+                                //               empierofislam()));
+                                // },
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tamadun/button.dart';
 import 'package:tamadun/screens/empierofislam.dart';
 import 'package:tamadun/screens/homosapiens.dart';
 import 'package:tamadun/screens/the_ummah.dart';
@@ -20,15 +21,13 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
 
   timelineHomosapiens() async {
     QuerySnapshot qn_ummah =
-    await _firestoreInstance.collection("the-ummah").get();
+    await _firestoreInstance.collection("ummah").get();
     setState(() {
       for (int i = 0; i < qn_ummah.docs.length; i++) {
         _ummah.add({
           "info-title": qn_ummah.docs[i]["info-title"],
-          "info-sub": qn_ummah.docs[i]["info-sub"],
-          "info-desc": qn_ummah.docs[i]["info-desc"],
           "info-img": qn_ummah.docs[i]["info-img"],
-          "info-video": qn_ummah.docs[i]["info-video"],
+
         });
       }
     });
@@ -75,49 +74,52 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
                 color: Colors.black,
               ),
               lineXY: 0.2,
-              endChild: Padding(
-                padding: EdgeInsets.all(45.0),
-                child: Column(
-                  children: [
-                    GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) =>
-                                    InfoHomosapiens(_ummah[index]))),
-                        child: Container(
-                          height: 200,
-                          width: 420,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                _ummah[index]["info-img"][0],
+              endChild: SizedBox(
+                height: 600,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(50,140,40,45.0),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      j())),
+                          child: Container(
+                            height: 200,
+                            width: 420,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  _ummah[index]["info-img"][0],
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            constraints: const BoxConstraints(minHeight: 120),
+                          )),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Container(
+                        width: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.purple[200]),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            "${_ummah[index]["info-title"]}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.bold),
                           ),
-                          constraints: const BoxConstraints(minHeight: 120),
-                        )),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.purple[200]),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          "${_ummah[index]["info-title"]}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               startChild: Center(

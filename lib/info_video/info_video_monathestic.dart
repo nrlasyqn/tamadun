@@ -4,16 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/info_video/info_video_beforebigbang.dart';
-import 'package:tamadun/info_video/info_video_monathestic.dart';
 
-class InfoMonathestic extends StatefulWidget {
+class VideoMonathestic extends StatefulWidget {
   final _monathestic;
-  const InfoMonathestic(this._monathestic);
+  const VideoMonathestic(this._monathestic);
   @override
-  State<InfoMonathestic> createState() => _InfoMonathesticState();
+  State<VideoMonathestic> createState() => _VideoMonathesticState();
 }
 
-class _InfoMonathesticState extends State<InfoMonathestic> {
+class _VideoMonathesticState extends State<VideoMonathestic> {
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -132,45 +131,28 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text("Description",
+                  child: Text("Video",
                       style: const TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
                       )),
                 ),
-
-
-
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._monathestic['info-desc'],textAlign:TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
+                Container(
+                  height: 300,
+                  child: VideoPlayer(
+                    videoData: widget._monathestic['info-video'][0],
+                  ),
                 ),
-
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: RaisedButton(
                         child: Text('Description',style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsMedium',
-                        ),),
-                        onPressed: () => null,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Expanded(
-                      child: RaisedButton(
-                        child: Text('Video',style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsMedium',
                         ),),
                         onPressed: () {
                           final monathestic = FirebaseFirestore.instance
@@ -185,13 +167,23 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              VideoMonathestic(_monathestic)));
+                                              VideoBeforeExistence(_monathestic)));
                                 }
                               });
                             });
                           });
                         },
                         color: Colors.grey,
+                      ),
+                    ),
+                    Expanded(
+                      child: RaisedButton(
+                        child: Text('Video',style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                        onPressed: () {
+                        },
+                        color: Colors.black,
                       ),
                     ),
                   ],

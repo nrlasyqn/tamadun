@@ -8,6 +8,7 @@ import '../info_page/info_beforebigbang.dart';
 import '../info_page/info_empier.dart';
 import '../info_page/info_islamic.dart';
 import '../info_page/info_living_things.dart';
+import '../info_page/info_ummah.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -293,7 +294,41 @@ class _SearchPageState extends State<SearchPage> {
                                                 });
                                               });
 
-
+                                              //todo:Prophets / the Ummah
+                                              final prophet = FirebaseFirestore.instance.collection('ummah').doc('the-prophets').collection("prophets-button");
+                                              prophet.get()
+                                                  .then((
+                                                  QuerySnapshot snapshots) {
+                                                snapshots.docs
+                                                    .forEach((
+                                                    DocumentSnapshot docs) {
+                                                  final _ummah = docs;
+                                                  setState(() {
+                                                    if (data["info-title"] ==
+                                                        docs["info-title"]) {
+                                                      print(
+                                                          data["info-title"]);
+                                                      print(
+                                                          docs.id);
+                                                      print(
+                                                          docs["info-title"]);
+                                                      print(
+                                                          docs .id);
+                                                      print(
+                                                          _ummah
+                                                              .id);
+                                                      Navigator
+                                                          .push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (
+                                                                  context) =>
+                                                                  TheProphet(
+                                                                      _ummah)));
+                                                    }
+                                                  });
+                                                });
+                                              });
 
 
                                             })));
@@ -305,146 +340,208 @@ class _SearchPageState extends State<SearchPage> {
                                   .toLowerCase()
                                   .startsWith(inputText.toLowerCase())) {
                                 return GestureDetector(
-                                    onTap: () async {
-                                      //doc is fetch from specific firebase based on the title
-                                      //_documentSnapshot is from tamadun-users-favorite
+                                  onTap: () async {
+                                    //doc is fetch from specific firebase based on the title
+                                    //_documentSnapshot is from tamadun-users-favorite
 
-                                      //todo:Before The Existence
-                                      final before = FirebaseFirestore
-                                          .instance.collection(
-                                          'before-the-existence');
-                                      before.get().then((
-                                          QuerySnapshot snapshots) {
-                                        snapshots.docs.forEach((
-                                            DocumentSnapshot docs) {
-                                          final _beforeExist = docs;
-                                          setState(() {
-                                            //doc from before the existence
-                                            //data = tamadun-info
-                                            if (data['info-title'] ==
-                                                docs ['info-title']) {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(
-                                                      builder: (
-                                                          context) =>
-                                                          InfoBeforeExistence(
-                                                              _beforeExist)));
-                                            }
-                                          });
-                                        });});
+                                    //todo:Before The Existence
+                                    final before = FirebaseFirestore
+                                        .instance.collection(
+                                        'before-the-existence');
+                                    before.get().then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs.forEach((
+                                          DocumentSnapshot docs) {
+                                        final _beforeExist = docs;
+                                        setState(() {
+                                          //doc from before the existence
+                                          //data = tamadun-info
+                                          if (data['info-title'] ==
+                                              docs ['info-title']) {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        InfoBeforeExistence(
+                                                            _beforeExist)));
+                                          }
+                                        });
+                                      });});
 
 
-                                      //todo:The Existence
-                                      final exist = FirebaseFirestore.instance
-                                          .collection('the-existence-of-universe');
-                                      exist.get().then((QuerySnapshot snapshots) {
-                                        snapshots.docs
-                                            .forEach((DocumentSnapshot docs) {
-                                          final _theExist = docs;
-                                          setState(() {
-                                            if (data["info-title"] ==
-                                                docs["info-title"]) {
-                                              print(data["info-title"]);
-                                              print(docs.id);
-                                              print(docs["info-title"]);
-                                              print(docs.id);
-                                              print(_theExist.id);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          InfoTheExistence(
-                                                              _theExist)));
-                                            }
-                                          });
+                                    //todo:The Existence
+                                    final exist = FirebaseFirestore
+                                        .instance.collection(
+                                        'the-existence-of-universe');
+                                    exist.get().then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs.forEach((
+                                          DocumentSnapshot docs) {
+                                        final _theExist = docs;
+                                        setState(() {
+                                          if (data["info-title"] ==
+                                              docs["info-title"]) {
+                                            print(
+                                                data["info-title"]);
+                                            print(docs.id);
+                                            print(
+                                                docs["info-title"]);
+                                            print(docs.id);
+                                            print(_theExist.id);
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        InfoTheExistence(
+                                                            _theExist)));
+                                          }
+                                        });});});
+
+
+                                    //todo: Homosapiens
+                                    final homosapiens = FirebaseFirestore
+                                        .instance.collection(
+                                        'first-man-on-earth');
+                                    homosapiens.get().then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs.forEach((
+                                          DocumentSnapshot docs) {
+                                        final _homosapiens = docs;
+                                        setState(() {
+                                          if (data["info-title"] ==
+                                              docs["info-title"]) {
+                                            print(
+                                                data["info-title"]);
+                                            print(docs.id);
+                                            print(
+                                                docs["info-title"]);
+                                            print(docs.id);
+                                            print(_homosapiens
+                                                .id);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        InfoHomosapiens(
+                                                            _homosapiens)));
+                                          }
+                                        });});});
+
+
+                                    //todo: living_things
+                                    final living_things = FirebaseFirestore
+                                        .instance
+                                        .collection(
+                                        'living-things');
+                                    living_things.get()
+                                        .then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs
+                                          .forEach((
+                                          DocumentSnapshot docs) {
+                                        final _livingthings = docs;
+                                        setState(() {
+                                          if (data["info-title"] ==
+                                              docs["info-title"]) {
+                                            print(
+                                                data["info-title"]);
+                                            print(docs.id);
+                                            print(
+                                                docs["info-title"]);
+                                            print(docs.id);
+                                            print(
+                                                _livingthings
+                                                    .id);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        InfoLivingThings(
+                                                            _livingthings)));
+                                          }
+                                        });});});
+
+
+
+                                    //todo: Glorious of Empire Islam
+                                    final glorious = FirebaseFirestore
+                                        .instance
+                                        .collection(
+                                        'the-islamic-empire');
+                                    glorious.get()
+                                        .then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs
+                                          .forEach((
+                                          DocumentSnapshot docs) {
+                                        final _empire = docs;
+                                        setState(() {
+                                          if (data["info-title"] ==
+                                              docs["info-title"]) {
+                                            print(
+                                                data["info-title"]);
+                                            print(
+                                                docs.id);
+                                            print(
+                                                docs["info-title"]);
+                                            print(
+                                                docs .id);
+                                            print(
+                                                _empire
+                                                    .id);
+                                            Navigator
+                                                .push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        InfoEmpire(
+                                                            _empire)));
+                                          }
                                         });
                                       });
+                                    });
 
-                                      //todo: Homosapiens
-                                      final homosapiens = FirebaseFirestore.instance
-                                          .collection('first-man-on-earth');
-                                      homosapiens
-                                          .get()
-                                          .then((QuerySnapshot snapshots) {
-                                        snapshots.docs
-                                            .forEach((DocumentSnapshot docs) {
-                                          final _homosapiens = docs;
-                                          setState(() {
-                                            if (data["info-title"] ==
-                                                docs["info-title"]) {
-                                              print(data["info-title"]);
-                                              print(docs.id);
-                                              print(docs["info-title"]);
-                                              print(docs.id);
-                                              print(_homosapiens.id);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          InfoHomosapiens(
-                                                              _homosapiens)));
-                                            }
-                                          });
+                                    //todo:Prophets / the Ummah
+                                    final prophet = FirebaseFirestore.instance.collection('ummah').doc('the-prophets').collection("prophets-button");
+                                    prophet.get()
+                                        .then((
+                                        QuerySnapshot snapshots) {
+                                      snapshots.docs
+                                          .forEach((
+                                          DocumentSnapshot docs) {
+                                        final _ummah = docs;
+                                        setState(() {
+                                          if (data["info-title"] ==
+                                              docs["info-title"]) {
+                                            print(
+                                                data["info-title"]);
+                                            print(
+                                                docs.id);
+                                            print(
+                                                docs["info-title"]);
+                                            print(
+                                                docs .id);
+                                            print(
+                                                _ummah
+                                                    .id);
+                                            Navigator
+                                                .push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (
+                                                        context) =>
+                                                        TheProphet(
+                                                            _ummah)));
+                                          }
                                         });
                                       });
+                                    });
 
-                                      //todo: living_things
-                                      final living_things = FirebaseFirestore
-                                          .instance
-                                          .collection('living-things');
-                                      living_things
-                                          .get()
-                                          .then((QuerySnapshot snapshots) {
-                                        snapshots.docs
-                                            .forEach((DocumentSnapshot docs) {
-                                          final _livingthings = docs;
-                                          setState(() {
-                                            if (data["info-title"] ==
-                                                docs["info-title"]) {
-                                              print(data["info-title"]);
-                                              print(docs.id);
-                                              print(docs["info-title"]);
-                                              print(docs.id);
-                                              print(_livingthings.id);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          InfoLivingThings(
-                                                              _livingthings)));
-                                            }
-                                          });
-                                        });
-                                      });
 
-                                      //todo: Glorious of Empire Islam
-                                      final glorious = FirebaseFirestore.instance
-                                          .collection('the-islamic-empire');
-                                      glorious
-                                          .get()
-                                          .then((QuerySnapshot snapshots) {
-                                        snapshots.docs
-                                            .forEach((DocumentSnapshot docs) {
-                                          final _empire = docs;
-                                          setState(() {
-                                            if (data["info-title"] ==
-                                                docs["info-title"]) {
-                                              print(data["info-title"]);
-                                              print(docs.id);
-                                              print(docs["info-title"]);
-                                              print(docs.id);
-                                              print(_empire.id);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          InfoEmpire(_empire)));
-                                            }
-                                          });
-                                        });
-                                      });
-
-                                    },
+                                  },
                                     child: Card(
                                       elevation: 0.74,
                                       child: SingleChildScrollView(

@@ -2,17 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../info_video/info_video-islamic.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tamadun/info_page/info_empier.dart';
+import 'package:tamadun/info_page/video.dart';
+import '../timeline/timeline_empier.dart';
 
-class InfoHomosapiens extends StatefulWidget {
-  final _homosapiens;
-  const InfoHomosapiens( this._homosapiens);
+class InfoVideoEmpire extends StatefulWidget {
+  final _empire;
+  const InfoVideoEmpire(this._empire);
+
   @override
-  State<InfoHomosapiens> createState() => _InfoHomosapiensState();
+  State<InfoVideoEmpire> createState() => _InfoVideoEmpireState();
 }
 
-class _InfoHomosapiensState extends State<InfoHomosapiens> {
-
+class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
   //todo: add favorite function
   Future addFavorite() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -24,9 +27,9 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
         .collection("favorite-items")
         .doc()
         .set({
-      "info-title": widget._homosapiens["info-title"],
-      "info-sub": widget._homosapiens["info-sub"],
-      "info-img": widget._homosapiens["info-img"],
+      "info-title": widget._empire["info-title"],
+      "info-sub": widget._empire["info-sub"],
+      "info-img": widget._empire["info-img"],
     }).then((value) => ScaffoldMessenger.of(context)
         .showSnackBar( const SnackBar(
         duration: Duration(seconds: 1),
@@ -34,13 +37,20 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
             'Added to Favourite!'))));
   }
 
-  bool isReadmore= false;
+  void share(BuildContext context){
+    String message = 'Check out this useful content!';
+    RenderBox? box = context.findRenderObject() as RenderBox;
+
+    Share.share(message, subject: 'Desription',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Text(
-              widget._homosapiens['info-title'],
+              widget._empire['info-title'],
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -49,6 +59,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
+              //todo: timeline empire
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -62,7 +73,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                     .doc(FirebaseAuth.instance.currentUser!.email)
                     .collection("favorite-items")
                     .where("info-title",
-                    isEqualTo: widget._homosapiens['info-title'])
+                    isEqualTo: widget._empire['info-title'])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
@@ -87,12 +98,17 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   );
                 },
               ),
+              IconButton(
+                icon: Icon(Icons.share_outlined),
+                color: Colors.black,
+                onPressed: () => share(context, ),
+              ),
             ]),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._homosapiens['info-img'][0]),
+                child: Image.network(widget._empire['info-img'][0]),
               ),
               const SizedBox(
                 height: 5,
@@ -102,7 +118,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-title'],
+                    child: Text(widget._empire['info-title'],
                         style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
@@ -111,7 +127,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-sub'],
+                    child: Text(widget._empire['info-sub'],
                         style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
@@ -125,98 +141,73 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                     endIndent: 5,
                     thickness: 1,
                   ),
+                  SizedBox(height: 16,),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text(widget._empire['info-surah'],
+                  //       style: const TextStyle(
+                  //         fontSize: 18.0,
+                  //         fontFamily: 'PoppinsThin',
+                  //         color: Colors.black,
+                  //       )),
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text(widget._empire['info-surah_name'],
+                  //       style: TextStyle(
+                  //         fontSize: 16.0,
+                  //         fontFamily: 'PoppinsLight',
+                  //         color: Colors.black,
+                  //       )),
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text("Translation: ",
+                  //       style: TextStyle(
+                  //         fontSize: 16.0,
+                  //         fontFamily: 'PoppinsLight',
+                  //         fontStyle: FontStyle.italic,
+                  //         color: Colors.black,
+                  //       )),
+                  // ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text(widget._empire['info-translation'],
+                  //       style: TextStyle(
+                  //         fontSize: 16.0,
+                  //         fontFamily: 'PoppinsLight',
+                  //         fontStyle: FontStyle.italic,
+                  //         color: Colors.black,
+                  //       )),
+                  // ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text("Description",
-                        style: const TextStyle(
+                    child: Text('Video',
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-desc'][0],
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
-                  ),
+
                   SizedBox(
                     height: 10,
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._homosapiens['info-surah'][0],textAlign:TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'PoppinsThin',
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._homosapiens['info-surah_name'][0],
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          color: Colors.black,
-                        )),
-                  ),
-                  //    Align(
-                  //      alignment: Alignment.center,
-                  //      child: Text("translation: ",
-                  //          style: TextStyle(
-                  //            fontSize: 16.0,
-                  //            fontFamily: 'PoppinsMedium',
-                  //            fontStyle: FontStyle.italic,
-                  //            color: Colors.black,
-                  //          )),
-                  //    ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._homosapiens['trans-text'][0],textAlign:TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black,
-                        )),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(widget._homosapiens['info-translation'][0],textAlign:TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsLight',
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black,
-                        )),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  //    Align(
-                  //      alignment: Alignment.centerLeft,
-                  //      child: Text('Video',
-                  //          style: TextStyle(
-                  //            fontSize: 20.0,
-                  //            fontFamily: 'PoppinsMedium',
-                  //            color: Colors.black,
-                  //          )),
-                  //    ),
-
-
-
                   //todo: insert video here
-                  //    Container(
-                  //      height: 300,
-                  //      child: VideoPlayer(
-                  //        videoData: widget._homosapiens['info-video'],
-                  //      ),
-                  //    ),
+                  Container(
+                    height: 300,
+                    child: VideoPlayer(
+                      videoData: widget._empire['info-video'],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
 
                   Row(
                     children: <Widget>[
@@ -224,34 +215,21 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                         child: RaisedButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
-                          ),),
-                          onPressed: () => null,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Expanded(
-                        child: RaisedButton(
-                          child: Text('Video',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
                           ),),
                           onPressed: () {
-                            final homosapiens = FirebaseFirestore.instance
-                                .collection('first-man-on-earth');
-                            homosapiens.get().then((QuerySnapshot snapshot) {
+                            final empire = FirebaseFirestore.instance
+                                .collection('the-islamic-empire');
+                            empire.get().then((QuerySnapshot snapshot) {
                               snapshot.docs.forEach((DocumentSnapshot doc) {
-                                final _homosapiens = doc;
+                                final _empire = doc;
                                 setState(() {
-                                  if (doc["info-title"] == widget._homosapiens["info-title"]) {
-                                    print(widget._homosapiens["info-video"][0]);
+                                  if (doc["info-title"] == widget._empire["info-title"]) {
+                                    print(widget._empire["info-video"][0]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                VideoHomosapiens(_homosapiens)));
+                                                InfoEmpire(_empire)));
                                   }
                                 });
                               });
@@ -260,9 +238,18 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                           color: Colors.grey,
                         ),
                       ),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                          onPressed: () {
+                          },
+                          color: Colors.black,
+                        ),
+                      ),
                     ],
                   ),
-
                   //
                   // MaterialButton(
                   //   shape: RoundedRectangleBorder(
@@ -290,8 +277,6 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
               ),
             ],
           ),
-
-        )
-    );
+        ));
   }
 }
