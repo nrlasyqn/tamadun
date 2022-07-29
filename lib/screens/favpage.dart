@@ -180,7 +180,7 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                             });
                           });
 
-                          //todo: mono
+                          //todo: mona
                           final monathestic = FirebaseFirestore.instance
                               .collection('monathestic-empire');
                           monathestic.get().then((QuerySnapshot snapshot) {

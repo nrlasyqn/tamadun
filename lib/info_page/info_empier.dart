@@ -45,12 +45,32 @@ class _InfoEmpireState extends State<InfoEmpire> {
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
+  //todo: get surah id from before-creation @ before-exist db
+  final List _suraList = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  getSurah() async {
+    List surahid = widget._empire["desc-id"];
+    surahid.forEach((element) {
+      getTafsir(element);
+    });
+  }
+
+  @override
+  void initState() {
+    getSurah();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Text(
               widget._empire['info-title'],
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -114,7 +134,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
                 height: 5,
               ),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -137,8 +157,6 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   const Divider(
                     color: Colors.black,
                     height: 25,
-                    indent: 5,
-                    endIndent: 5,
                     thickness: 1,
                   ),
                   Align(
@@ -150,16 +168,30 @@ class _InfoEmpireState extends State<InfoEmpire> {
                           color: Colors.black,
                         )),
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._empire['info-desc'],
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
-                  ),
                   SizedBox(height: 16,),
+                  for (int sura = 0; sura < _suraList.length; sura++) ...[
+                    for (int tafsir = 0; tafsir < _suraList[sura]["info-mini-title"].length; tafsir++) ...[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child:Text("${_suraList[sura]["info-mini-title"][tafsir]}",textAlign:TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontFamily: 'PoppinsRegular',
+                              color: Colors.black,
+                            )),
+                      ),
+                      SizedBox(height: 16,),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("${_suraList[sura]["info-desc"][tafsir]}",textAlign:TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsLight',
+                              color: Colors.black,
+                            )),
+                      ),
+                    ]
+                  ],
                   // Align(
                   //   alignment: Alignment.center,
                   //   child: Text(widget._empire['info-surah'],
@@ -198,12 +230,9 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   //         color: Colors.black,
                   //       )),
                   // ),
-                  SizedBox(
-                    height: 10,
-                  ),
 
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
 
                   Row(
@@ -234,7 +263,6 @@ class _InfoEmpireState extends State<InfoEmpire> {
                                 final _empire = doc;
                                 setState(() {
                                   if (doc["info-title"] == widget._empire["info-title"]) {
-                                    print(widget._empire["info-video"][0]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -279,5 +307,17 @@ class _InfoEmpireState extends State<InfoEmpire> {
             ],
           ),
         ));
+  }
+
+  //todo: get tafsir info & name
+  void getTafsir(element) async {
+    DocumentSnapshot qnSurah =
+    await _firestoreInstance.collection("desc").doc(element).get();
+    setState(() {
+      _suraList.add({
+        "info-desc": qnSurah["info-desc"],
+        "info-mini-title": qnSurah["info-mini-title"],
+      });
+    });
   }
 }

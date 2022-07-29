@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:ndialog/ndialog.dart';
-import 'package:tamadun/testing/text.dart';
+import 'package:tamadun/widget/profile_widget.dart';
 import '../auth/auth.dart';
 import '../auth/database_service.dart';
 import '../auth/google_auth.dart';

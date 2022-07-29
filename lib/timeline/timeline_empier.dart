@@ -25,9 +25,9 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
         _empire.add({
           "info-title": qn_empire.docs[i]["info-title"],
           "info-sub": qn_empire.docs[i]["info-sub"],
-          "info-desc": qn_empire.docs[i]["info-desc"],
+          "desc-id": qn_empire.docs[i]["desc-id"],
           "info-img": qn_empire.docs[i]["info-img"],
-          "info-video": qn_empire.docs[i]["info-video"],
+          "video-id": qn_empire.docs[i]["video-id"],
         });
       }
     });
@@ -48,6 +48,8 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
         backgroundColor: Colors.white,
         title: const Text(
           "The Islamic Empire",
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(

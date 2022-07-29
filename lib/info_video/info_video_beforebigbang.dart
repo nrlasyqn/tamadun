@@ -130,102 +130,106 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
               const SizedBox(
                 height: 5,
               ),
-              Column(children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._beforeExist['info-title'],
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._beforeExist['info-sub'],
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                const Divider(
-                  color: Colors.black,
-                  height: 25,
-                  indent: 5,
-                  endIndent: 5,
-                  thickness: 1,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Video",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 25,
+                    thickness: 1,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Video",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
 
-                ///note: vid_id --> from topic collection
-                ///note: vid_coll ---> video collection db
-                for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
-                  for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child:  Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            height: 300,
-                            child: VideoPlayer(
-                              videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
-                            ),
-                          )),
-                    ),
-                ],
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        child: Text('Description',style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                        onPressed: () => null,
-                        color: Colors.black,
+                  ///note: vid_id --> from topic collection
+                  ///note: vid_coll ---> video collection db
+                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
+                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child:  Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 300,
+                              child: VideoPlayer(
+                                videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                              ),
+                            )),
                       ),
-                    ),
-                    Expanded(
-                      child: RaisedButton(
-                        child: Text('Video',style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                        onPressed: () {
-                          final before = FirebaseFirestore.instance
-                              .collection('before-the-existence');
-                          before.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _beforeExist = doc;
-                              setState(() {
-                                if (doc["info-title"] == widget._beforeExist["info-title"]) {
-                                  print(widget._beforeExist["info-video"]);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InfoBeforeExistence(_beforeExist)));
-                                }
+                  ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Description',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () {
+                            final before = FirebaseFirestore.instance
+                                .collection('before-the-existence');
+                            before.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _beforeExist = doc;
+                                setState(() {
+                                  if (doc["info-title"] == widget._beforeExist["info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                InfoBeforeExistence(_beforeExist)));
+                                  }
+                                });
                               });
                             });
-                          });
-                        },
-                        color: Colors.grey,
+                          },
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ]),
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () {},
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
             ],
           ),
         ));

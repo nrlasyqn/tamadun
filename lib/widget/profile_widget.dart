@@ -1,9 +1,5 @@
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../widget/constant.dart';
+import 'constant.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({

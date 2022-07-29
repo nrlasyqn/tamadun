@@ -47,6 +47,23 @@ class _VideoExistenceState extends State<VideoExistence> {
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
+  getSurah() async{
+    List _videoid = widget._theExist["video-id"];
+    _videoid.forEach((element) {
+      getTafsir(element);
+
+    });
+  }
+
+  final List _videoList = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+  @override
+  void initState() {
+    getSurah();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,123 +131,142 @@ class _VideoExistenceState extends State<VideoExistence> {
               const SizedBox(
                 height: 5,
               ),
-              Column(children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._theExist['info-title'],
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._theExist['info-sub'],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                const Divider(
-                  color: Colors.black,
-                  height: 25,
-                  indent: 5,
-                  endIndent: 5,
-                  thickness: 1,
-                ),
-                //todo: insert video here
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Video',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 300,
-                  child: VideoPlayer(
-                    videoData: widget._theExist['info-video'][0],
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-title'],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-sub'],
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 25,
+                    thickness: 1,
+                  ),
+                  //todo: insert video here
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Video',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
+                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child:  Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 300,
+                              child: VideoPlayer(
+                                videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                              ),
+                            )),
+                      ),
+                  ],
 
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        child: Text('Description',style: TextStyle(
-                          color: Colors.white,
-                        ),),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Description',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
 
-                        onPressed: () {
-                          final exist = FirebaseFirestore.instance
-                              .collection('the-existence-of-universe');
-                          exist.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _theExist = doc;
-                              setState(() {
-                                if (doc["info-title"] == widget._theExist["info-title"]) {
-                                  print(widget._theExist["info-video"][0]);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InfoTheExistence(_theExist)));
-                                }
+                          onPressed: () {
+                            final exist = FirebaseFirestore.instance
+                                .collection('the-existence-of-universe');
+                            exist.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _theExist = doc;
+                                setState(() {
+                                  if (doc["info-title"] == widget._theExist["info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                InfoTheExistence(_theExist)));
+                                  }
+                                });
                               });
                             });
-                          });
-                        },
-                        color: Colors.grey,
+                          },
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: RaisedButton(
-                        child: Text('Video',style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                        onPressed: () => null,
-                        color: Colors.black,
+                      Expanded(
+                        child: RaisedButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  )
 
-                //
-                // MaterialButton(
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.circular(10.0),
-                //   ),
-                //   elevation: 0,
-                //   color: Colors.blue[200],
-                //   minWidth: double.maxFinite,
-                //   height: 50,
-                //   onPressed: () {
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => FavScreenTwo()));
-                //   },
-                //   child: const Text('Favorite',
-                //       style: TextStyle(
-                //           color: Colors.black,
-                //           fontFamily: 'PoppinsMedium',
-                //           fontSize: 16)),
-                // ),
-                //
-                // SizedBox(
-                //   height: 5,
-                // )
-              ]),
+                  //
+                  // MaterialButton(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   elevation: 0,
+                  //   color: Colors.blue[200],
+                  //   minWidth: double.maxFinite,
+                  //   height: 50,
+                  //   onPressed: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //         builder: (context) => FavScreenTwo()));
+                  //   },
+                  //   child: const Text('Favorite',
+                  //       style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontFamily: 'PoppinsMedium',
+                  //           fontSize: 16)),
+                  // ),
+                  //
+                  // SizedBox(
+                  //   height: 5,
+                  // )
+                ]),
+              ),
             ],
           ),
         ));
+  }
+
+  void getTafsir(element) async{
+    DocumentSnapshot qnVideo =
+    await _firestoreInstance.collection("video").doc(element).get();
+    setState((){
+      _videoList.add({
+        "info-video":qnVideo["info-video"],
+      });
+    });
   }
 }

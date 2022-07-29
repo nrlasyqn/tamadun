@@ -42,7 +42,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
-import 'package:tamadun/testing/text.dart';
+import 'package:tamadun/widget/profile_widget.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
 import '../auth/google_auth.dart';

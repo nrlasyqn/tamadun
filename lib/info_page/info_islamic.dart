@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import '../info_video/info_video-islamic.dart';
 
 class InfoHomosapiens extends StatefulWidget {
@@ -33,7 +34,13 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
         content: Text(
             'Added to Favourite!'))));
   }
+  void share(BuildContext context) {
+    String message = 'Check out this useful content!';
+    RenderBox? box = context.findRenderObject() as RenderBox;
 
+    Share.share(message, subject: 'Desription',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
   bool isReadmore= false;
   @override
   Widget build(BuildContext context) {
@@ -41,6 +48,8 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
         appBar: AppBar(
             title: Text(
               widget._homosapiens['info-title'],
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -87,6 +96,11 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   );
                 },
               ),
+              IconButton(
+                icon: Icon(Icons.share_outlined),
+                color: Colors.black,
+                onPressed: () => share(context,),
+              ),
             ]),
         body: SingleChildScrollView(
           child: Column(
@@ -98,7 +112,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                 height: 5,
               ),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -121,8 +135,6 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   const Divider(
                     color: Colors.black,
                     height: 25,
-                    indent: 5,
-                    endIndent: 5,
                     thickness: 1,
                   ),
                   Align(
@@ -136,7 +148,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-desc'][0],
+                    child: Text(widget._homosapiens['info-desc'][0],textAlign:TextAlign.justify,
                         style: const TextStyle(
                           fontSize: 15.0,
                           fontFamily: 'PoppinsRegular',
@@ -246,7 +258,6 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                                 final _homosapiens = doc;
                                 setState(() {
                                   if (doc["info-title"] == widget._homosapiens["info-title"]) {
-                                    print(widget._homosapiens["info-video"][0]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

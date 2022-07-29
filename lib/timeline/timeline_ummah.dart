@@ -27,7 +27,6 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
         _ummah.add({
           "info-title": qn_ummah.docs[i]["info-title"],
           "info-img": qn_ummah.docs[i]["info-img"],
-
         });
       }
     });
@@ -47,7 +46,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "The First Man on Earth",
+          "The Ummah",
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(

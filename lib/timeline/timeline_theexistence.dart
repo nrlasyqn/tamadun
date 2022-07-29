@@ -27,18 +27,16 @@ class _TimelineExistenceState extends State<TimelineExistence> {
           "info-sub": qn_exist.docs[i]["info-sub"],
           "info-desc": qn_exist.docs[i]["info-desc"],
           "info-img": qn_exist.docs[i]["info-img"],
-          "info-video": qn_exist.docs[i]["info-video"],
           "info-surah": qn_exist.docs[i]["info-surah"],
           "info-translation": qn_exist.docs[i]["info-translation"],
           "info-surah_name": qn_exist.docs[i]["info-surah_name"],
           "info-tafsir-surah-0": qn_exist.docs[i]["info-tafsir-surah-0"],
           "info-tafsir-surah-1": qn_exist.docs[i]["info-tafsir-surah-1"],
           "info-tafsir-surah-2": qn_exist.docs[i]["info-tafsir-surah-2"],
-          "info-tafsir-surah-3": qn_exist.docs[i]["info-tafsir-surah-3"],
-          "info-tafsir-surah-4": qn_exist.docs[i]["info-tafsir-surah-4"],
-          "info-tafsir-surah-5": qn_exist.docs[i]["info-tafsir-surah-5"],
-          "info-tafsir-name": qn_exist.docs[i]["info-tafsir-name"],
           "tafsir-text": qn_exist.docs[i]["tafsir-text"],
+          "surah-id": qn_exist.docs[i]["surah-id"],
+          "video-id": qn_exist.docs[i]["video-id"],
+          "tafseer-id": qn_exist.docs[i]["tafseer-id"],
         });
       }
     });
@@ -59,7 +57,9 @@ class _TimelineExistenceState extends State<TimelineExistence> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "The Existence of Universe",
+          "The Starting Point of Universe Creation",
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -86,49 +86,52 @@ class _TimelineExistenceState extends State<TimelineExistence> {
                 color: Colors.black,
               ),
               lineXY: 0.2,
-              endChild: Padding(
-                padding: EdgeInsets.all(45.0),
-                child: Column(
-                  children: [
-                    GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) =>
-                                    InfoTheExistence(_theExist[index]))),
-                        child: Container(
-                          height: 200,
-                          width: 420,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                _theExist[index]["info-img"][0],
+              endChild: SizedBox(
+                height: 600,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(50,140,40,45.0),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      InfoTheExistence(_theExist[index]))),
+                          child: Container(
+                            height: 200,
+                            width: 420,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  _theExist[index]["info-img"][0],
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            constraints: const BoxConstraints(minHeight: 120),
+                          )),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Container(
+                        width: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.purple[200]),
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            "${_theExist[index]["info-title"]}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.bold),
                           ),
-                          constraints: const BoxConstraints(minHeight: 120),
-                        )),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.purple[200]),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          "${_theExist[index]["info-title"]}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               startChild: Center(
