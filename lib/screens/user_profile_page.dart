@@ -42,6 +42,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
+import 'package:tamadun/screens/more_page.dart';
 import 'package:tamadun/widget/profile_widget.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
@@ -73,6 +74,7 @@ class _Profile_viewState extends State<Profile_view> {
   XFile? xfile;
   late File file;
   File? pickedImage;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -98,11 +100,17 @@ class _Profile_viewState extends State<Profile_view> {
           color: Colors.black,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+                context, MaterialPageRoute(builder: (context) => Morepage(isGmail: false)));
           },
         ),
       ),
-      body: SafeArea(
+      body: isLoading
+          ? Center(
+        child: CircularProgressIndicator(
+          color: Colors.purple,
+        ),
+      )
+          : SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -229,18 +237,33 @@ class _Profile_viewState extends State<Profile_view> {
                         )
                     ),
                     SizedBox(height: 20,),
-                    Column(
-                      children: [
-                        ProfileWidget(
-                          text: "Edit Profile",
-                          press: () {
+                    Container(
+                      height: 50,
+                      width: 350,
+                      child: ElevatedButton(
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child:  Text('Edit Profile',style: TextStyle(
+                                fontFamily: 'PoppinsRegular',
+                                fontSize: 18,
+                                color: Colors.white,))
+                          ),
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                              backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius:BorderRadius.circular(10),
+                                  )
+                              )
+                          ),
+                          onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditProfile()));
-                          },
-                        ),
-                      ],
+                          }
+                      ),
                     ),
                   ]),
                 ),
@@ -368,18 +391,33 @@ class _Profile_viewState extends State<Profile_view> {
                         )
                     ),
                     SizedBox(height: 20,),
-                    Column(
-                      children: [
-                        ProfileWidget(
-                          text: "Edit Profile",
-                          press: () {
+                    Container(
+                      height: 50,
+                      width: 350,
+                      child: ElevatedButton(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child:  Text('Edit Profile',style: TextStyle(
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                              color: Colors.white,))
+                          ),
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                              backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:BorderRadius.circular(10),
+                                  )
+                              )
+                          ),
+                          onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditProfile()));
-                          },
-                        ),
-                      ],
+                          }
+                      ),
                     ),
                   ]),
                 ),

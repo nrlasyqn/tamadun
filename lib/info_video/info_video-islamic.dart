@@ -53,11 +53,18 @@ class _VideoHomosapiensState extends State<VideoHomosapiens> {
 
     });
   }
-
+  bool _isloading = false;
   final List _videoList = [];
   var _firestoreInstance = FirebaseFirestore.instance;
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     getSurah();
     // TODO: implement initState
     super.initState();
@@ -121,7 +128,11 @@ class _VideoHomosapiensState extends State<VideoHomosapiens> {
                 onPressed: () => share(context,),
               ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
               children: [
                 Container(
@@ -283,14 +294,14 @@ class _VideoHomosapiensState extends State<VideoHomosapiens> {
                     //               ],
                     //             ),
                     //
-                                SizedBox(
-                                  height: 5,
-                                ),
+                    SizedBox(
+                      height: 5,
+                    ),
 
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: RaisedButton(
+                          child: MaterialButton(
                             child: Text('Description',style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -318,7 +329,7 @@ class _VideoHomosapiensState extends State<VideoHomosapiens> {
                           ),
                         ),
                         Expanded(
-                          child: RaisedButton(
+                          child: MaterialButton(
                             child: Text('Video',style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,

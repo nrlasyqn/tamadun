@@ -27,6 +27,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
         _ummah.add({
           "info-title": qn_ummah.docs[i]["info-title"],
           "info-img": qn_ummah.docs[i]["info-img"],
+          "info-sub": qn_ummah.docs[i]["info-sub"],
         });
       }
     });

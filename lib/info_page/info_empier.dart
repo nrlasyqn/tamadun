@@ -55,9 +55,16 @@ class _InfoEmpireState extends State<InfoEmpire> {
       getTafsir(element);
     });
   }
-
+  bool _isloading = false;
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     getSurah();
     // TODO: implement initState
     super.initState();
@@ -124,7 +131,11 @@ class _InfoEmpireState extends State<InfoEmpire> {
                 onPressed: () => share(context, ),
               ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -190,46 +201,9 @@ class _InfoEmpireState extends State<InfoEmpire> {
                               color: Colors.black,
                             )),
                       ),
+                      SizedBox(height: 16,),
                     ]
                   ],
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-surah'],
-                  //       style: const TextStyle(
-                  //         fontSize: 18.0,
-                  //         fontFamily: 'PoppinsThin',
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-surah_name'],
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text("Translation: ",
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         fontStyle: FontStyle.italic,
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-translation'],
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         fontStyle: FontStyle.italic,
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
 
                   SizedBox(
                     height: 20,
@@ -238,7 +212,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -249,7 +223,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Video',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,

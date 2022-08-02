@@ -55,9 +55,17 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
       getTheVideo(element);
     });
   }
+  bool _isloading = false;
 
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     getVideo();
     // TODO: implement initState
     super.initState();
@@ -121,7 +129,11 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                 onPressed: () => share(context, ),
               ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -188,7 +200,7 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -216,7 +228,7 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Video',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,

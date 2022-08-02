@@ -54,9 +54,16 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
   }
 
   late List tafserid;
-
+  bool _isloading = false;
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     tafserid = widget._theExist["surah-id"];
     getTafser();
     // TODO: implement initState
@@ -125,7 +132,11 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                 onPressed: () => share(context, ),
               ),
             ]),
-        body: SingleChildScrollView(
+        body:_isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ): SingleChildScrollView(
           child: Column(children: [
             Container(
               child: Image.network(widget._theExist['info-img'][0]),

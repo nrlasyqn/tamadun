@@ -24,15 +24,16 @@ class ProfileWidget extends StatelessWidget {
           backgroundColor: mMorePageColor,
         ),
         onPressed: press,
-        child: Row(
-          children: [
-            SizedBox(width: 20),
-            Expanded(child: Text(text,style: TextStyle(
-              fontFamily: 'PoppinsRegular',
-              fontSize: 18,
-              color: Colors.white,
-            ),textAlign: TextAlign.center,)),
-          ],
+        child: Center(
+          child: Row(
+            children: [
+              SizedBox(width: 20),
+              Expanded(child: Text(text,style: TextStyle(
+                fontFamily: 'PoppinsRegular',
+                fontSize: 18,
+                color: Colors.white,))),
+            ],
+          ),
         ),
       ),
     );

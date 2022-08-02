@@ -176,14 +176,16 @@ class _universeClassState extends State<universe> {
                                     if (doc['role'] == 'premium') {
                                       print(doc['role']);
                                       print(doc['email']);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   FetchTimelineBefore()));
                                     }
-                                  }
-                                });
+                                  
+    );}
+                                }});
                               });
                             },
                             shape: RoundedRectangleBorder(

@@ -55,8 +55,16 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
 
   final List _videoList = [];
   var _firestoreInstance = FirebaseFirestore.instance;
+  bool _isloading = false;
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     getSurah();
     // TODO: implement initState
     super.initState();
@@ -120,7 +128,11 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
                 onPressed: () => share(context,),
               ),
             ]),
-        body: SingleChildScrollView(
+        body:_isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ): SingleChildScrollView(
           child: Column(
               children: [
                 Container(
@@ -209,7 +221,7 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: RaisedButton(
+                          child: MaterialButton(
                             child: Text('Description',style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,
@@ -237,7 +249,7 @@ class _VideoLivingThingsState extends State<VideoLivingThings> {
                           ),
                         ),
                         Expanded(
-                          child: RaisedButton(
+                          child: MaterialButton(
                             child: Text('Video',style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.0,

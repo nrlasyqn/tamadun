@@ -46,6 +46,18 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
   }
 
   bool isReadmore= false;
+  bool _isloading = false;
+
+  void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +118,11 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                 onPressed: () => share(context,),
               ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -481,7 +497,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -492,7 +508,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Video',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -633,7 +649,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           )),
       widget.isExpanded
           ? new Container()
-          : new FlatButton(
+          : new MaterialButton(
           child:  Align
             (alignment: Alignment.centerRight,
               child: Text('Read More...')),

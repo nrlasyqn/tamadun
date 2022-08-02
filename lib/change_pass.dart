@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamadun/authentication/log.dart';
 import 'package:tamadun/authentication/reg.dart';
 import 'package:tamadun/screens/home_page.dart';
+import 'package:tamadun/widget/constant.dart';
 import 'package:tamadun/widget/profile_widget.dart';
 
 import '../auth/facebook_auth.dart';
@@ -202,22 +203,52 @@ class _ChangePassState extends State<ChangePass> {
                         //   }
                         // },
                         //     child: Text("Change Password")),
-                          SizedBox(height: 10),
-                          Column(
-                            children: [
-                              ProfileWidget(
-                                text: "Change Password",
-                                press: () {
+                          SizedBox(height: 20),
+                          Container(
+                            height: 50,
+                            width: 350,
+                            child: ElevatedButton(
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                    child:  Text('Change Password',style: TextStyle(
+                                      fontFamily: 'PoppinsRegular',
+                                      fontSize: 18,
+                                      color: Colors.white,))
+                                ),
+                                style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                                    backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:BorderRadius.circular(10),
+                                        )
+                                    )
+                                ),
+                                onPressed: () {
                                   if(_formKey.currentState!.validate()){
                                     setState(() {
                                       newPassword = newpasswordController.text;
                                     });
                                     changePassword();
                                   }
-                                },
-                              ),
-                            ],
+                                }
+                            ),
                           ),
+                          // Column(
+                          //   children: [
+                          //     ProfileWidget(
+                          //       text: "Change Password",
+                          //       press: () {
+                          //         if(_formKey.currentState!.validate()){
+                          //           setState(() {
+                          //             newPassword = newpasswordController.text;
+                          //           });
+                          //           changePassword();
+                          //         }
+                          //       },
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
