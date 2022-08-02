@@ -89,8 +89,9 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
               color: Colors.black,
               //todo: timeline monathestic
               onPressed: () {
-                Navigator.pop(context);
-              },
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });},
             ),
 
             //todo: favorite button

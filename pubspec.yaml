@@ -103,7 +103,8 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/sky.riv
-    - assets/splashscreen.gif
+    #assets/splashscreen.gif
+    - assets/splashscreen2.gif
     - assets/universe.gif
     - assets/videos/testvid.mp4
     - images/beforeuniverse.jpeg

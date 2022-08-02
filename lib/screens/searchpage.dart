@@ -53,8 +53,11 @@ class _SearchPageState extends State<SearchPage> {
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.black,
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              /*Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));*/
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+              });
             },
           ),
         ),

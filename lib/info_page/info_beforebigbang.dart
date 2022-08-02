@@ -85,10 +85,9 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                Future.delayed(Duration.zero, () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   Navigator.pop(context);
-                });
-              },
+                });},
             ),
 
             //todo: favorite button

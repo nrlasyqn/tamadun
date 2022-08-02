@@ -57,8 +57,11 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => monotheistic_empire()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => monotheistic_empire()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => monotheistic_empire()));
+            });
           },
         ),
       ),

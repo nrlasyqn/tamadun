@@ -65,8 +65,11 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => homosapiens()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => homosapiens()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homosapiens()));
+            });
           },
         ),
       ),

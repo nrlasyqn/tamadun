@@ -66,8 +66,11 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => living_things()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => living_things()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => living_things()));
+            });
           },
         ),
       ),

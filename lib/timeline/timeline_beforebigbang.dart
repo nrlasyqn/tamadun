@@ -64,8 +64,11 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => universe()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => universe()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => universe()));
+            });
           },
         ),
       ),

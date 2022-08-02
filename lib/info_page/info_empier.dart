@@ -88,8 +88,9 @@ class _InfoEmpireState extends State<InfoEmpire> {
               color: Colors.black,
               //todo: timeline empire
               onPressed: () {
-                Navigator.pop(context);
-              },
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });},
             ),
 
             //todo: favorite button

@@ -72,8 +72,9 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                Navigator.pop(context);
-              },
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });},
             ),
 
             //todo: favorite button

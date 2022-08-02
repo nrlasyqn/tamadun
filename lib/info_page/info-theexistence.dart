@@ -89,8 +89,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
                 Navigator.pop(context);
-              },
+              });},
             ),
 
             //todo: favorite button

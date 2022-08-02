@@ -21,30 +21,30 @@ class _SplashScreenState extends State<SplashScreen> {
             decoration: const BoxDecoration(
                 image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("assets/splashscreen.gif"),
+              image: AssetImage("assets/splashscreen2.gif"),
             )),
             child: Column(
               children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
-                  //todo: insert text
-                  child: const Text(
-                    'Tamadun.',
-                    style: TextStyle(
-                      fontSize: 64,
-                      color: Colors.white,
-                      fontFamily: 'MontserratExtraBold',
-                    ),
-                  ),
-                ),
-                const Text(
-                  "lingua revolution & human civilization",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontFamily: 'PoppinsMedium',
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
+                //   //todo: insert text
+                //   child: const Text(
+                //     'Tamadun.',
+                //     style: TextStyle(
+                //       fontSize: 64,
+                //       color: Colors.white,
+                //       fontFamily: 'MontserratExtraBold',
+                //     ),
+                //   ),
+                // ),
+                // const Text(
+                //   "lingua revolution & human civilization",
+                //   style: TextStyle(
+                //     fontSize: 16,
+                //     color: Colors.white,
+                //     fontFamily: 'PoppinsMedium',
+                //   ),
+                // ),
                 Expanded(
                   child: Bottom(),
                 )

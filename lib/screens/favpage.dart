@@ -52,8 +52,11 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => HomePage()));
+            /* Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            });
           },
         ),
       ),

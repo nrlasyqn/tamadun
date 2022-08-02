@@ -1,39 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter FB Story Icon ex',
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Flutter FB Story Icon ex'),
-//         ),
-//         body: Padding(
-//           padding: const EdgeInsets.all(8.0),
-//           child: Align(
-//             alignment: Alignment.topCenter,
-//             child: CircleAvatar(
-//               radius: 135,
-//               backgroundColor: Colors.blue,
-//               child: CircleAvatar(
-//                 radius: 125,
-//                 backgroundColor: Colors.white,
-//                 child: CircleAvatar(
-//                   radius: 115,
-//                   backgroundImage: NetworkImage(
-//                       'https://cdn.pixabay.com/photo/2018/01/15/07/52/woman-3083390_1280.jpg'),
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
-import 'package:tamadun/screens/more_page.dart';
 import 'package:tamadun/widget/profile_widget.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
@@ -50,7 +13,7 @@ import '../auth/google_auth.dart';
 import '../authentication/log.dart';
 import '../screens/aboutus.dart';
 import '../screens/home_page.dart';
-import '../screens/user_profile_page.dart';
+import '../screens/more_page.dart';
 import 'user_edit_profile.dart';
 import '../widget/constant.dart';
 
@@ -74,11 +37,17 @@ class _Profile_viewState extends State<Profile_view> {
   XFile? xfile;
   late File file;
   File? pickedImage;
-  bool isLoading = false;
+  bool _isloading = false;
 
   @override
   void initState() {
-    super.initState();
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     FirebaseFirestore.instance
         .collection("Users")
         .doc(user!.uid)
@@ -87,6 +56,7 @@ class _Profile_viewState extends State<Profile_view> {
       this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
+    super.initState();
   }
 
   @override
@@ -99,18 +69,19 @@ class _Profile_viewState extends State<Profile_view> {
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Morepage(isGmail: false)));
+            /*Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Morepage(isGmail: false,)));
+            });
           },
         ),
       ),
-      body: isLoading
-          ? Center(
+      body: _isloading ? Center(
         child: CircularProgressIndicator(
           color: Colors.purple,
         ),
-      )
-          : SafeArea(
+      ):SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -185,7 +156,7 @@ class _Profile_viewState extends State<Profile_view> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Text(
-                              "${loggedInUser!.email ?? authFacebook.getUserEmail()}",
+                              "${loggedInUser!.email ?? authService.getUserEmail()}",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'PoppinsRegular',
@@ -225,7 +196,7 @@ class _Profile_viewState extends State<Profile_view> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Text(
-                              "${loggedInUser!.bio ?? authFacebook.getUserBio()}",
+                              "${loggedInUser!.bio ?? authService.getUserBio()}",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'PoppinsRegular',
@@ -239,7 +210,7 @@ class _Profile_viewState extends State<Profile_view> {
                     SizedBox(height: 20,),
                     Container(
                       height: 50,
-                      width: 350,
+                      width:350,
                       child: ElevatedButton(
                           child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -393,21 +364,21 @@ class _Profile_viewState extends State<Profile_view> {
                     SizedBox(height: 20,),
                     Container(
                       height: 50,
-                      width: 350,
+                      width:350,
                       child: ElevatedButton(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                            child:  Text('Edit Profile',style: TextStyle(
-                              fontFamily: 'PoppinsRegular',
-                              fontSize: 18,
-                              color: Colors.white,))
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child:  Text('Edit Profile',style: TextStyle(
+                                fontFamily: 'PoppinsRegular',
+                                fontSize: 18,
+                                color: Colors.white,))
                           ),
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
                               backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                      borderRadius:BorderRadius.circular(10),
+                                    borderRadius:BorderRadius.circular(10),
                                   )
                               )
                           ),
