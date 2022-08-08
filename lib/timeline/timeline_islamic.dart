@@ -27,7 +27,6 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
           "info-sub": qn_homosapiens.docs[i]["info-sub"],
           "info-desc": qn_homosapiens.docs[i]["info-desc"],
           "info-img": qn_homosapiens.docs[i]["info-img"],
-          "info-video": qn_homosapiens.docs[i]["info-video"],
           "info-surah": qn_homosapiens.docs[i]["info-surah"],
           "info-translation": qn_homosapiens.docs[i]["info-translation"],
           "info-surah_name": qn_homosapiens.docs[i]["info-surah_name"],
@@ -35,6 +34,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
           "info-tafsir-name": qn_homosapiens.docs[i]["info-tafsir-name"],
           "trans-text": qn_homosapiens.docs[i]["trans-text"],
           "tafsir-text": qn_homosapiens.docs[i]["tafsir-text"],
+          "video-id": qn_homosapiens.docs[i]["video-id"],
         });
       }
     });
@@ -55,6 +55,8 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
         backgroundColor: Colors.white,
         title: const Text(
           "The First Man on Earth",
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -63,8 +65,11 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => homosapiens()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => homosapiens()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homosapiens()));
+            });
           },
         ),
       ),

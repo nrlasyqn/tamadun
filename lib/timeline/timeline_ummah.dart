@@ -27,7 +27,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
         _ummah.add({
           "info-title": qn_ummah.docs[i]["info-title"],
           "info-img": qn_ummah.docs[i]["info-img"],
-
+          "info-sub": qn_ummah.docs[i]["info-sub"],
         });
       }
     });
@@ -47,7 +47,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "The First Man on Earth",
+          "The Ummah",
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -56,8 +56,11 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ummah()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => ummah()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ummah()));
+            });
           },
         ),
       ),

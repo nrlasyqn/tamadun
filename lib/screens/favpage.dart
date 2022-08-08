@@ -24,30 +24,17 @@ class FavScreenTwo extends StatefulWidget {
 }
 
 class _FavScreenTwoState extends State<FavScreenTwo> {
-  //  final List _beforeExist = [];
-  //
-  // Future<void> getuserfav() async{
-  //   final before = FirebaseFirestore.instance.collection('before-the-existence');
-  //   final exist = FirebaseFirestore.instance.collection('the-existence');
-  //
-  //   before.get().then((QuerySnapshot snapshot) {
-  //       snapshot.docs.forEach((DocumentSnapshot documentSnapshot) {
-  //         if (snapshot.docs.isNotEmpty) {
-  //           print(documentSnapshot.data());
-  //         }  else{
-  //           print("Data Not Found");
-  //         }
-  //       });
-  //
-  //   });
-  // }
-  //
-  //  @override
-  //  void initState() {
-  //    // TODO: implement initState
-  //    getuserfav();
-  //    super.initState();
-  //  }
+  bool _isloading = false;
+
+  void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        _isloading = false;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,41 +52,53 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => HomePage()));
+            /* Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            });
           },
         ),
       ),
-      body: SafeArea(
+      body: _isloading
+          ? Center(
+        child: CircularProgressIndicator(
+          color: Colors.purple,
+        ),
+      )
+          : SafeArea(
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("tamadun-users-favorites")
                 .doc(FirebaseAuth.instance.currentUser!.email)
                 .collection("favorite-items") //changed
                 .snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
                 return const Center(
                   child: Text("Something is wrong!"),
                 );
-              }
-              else if(snapshot.data == null){
+              } else if (snapshot.data == null) {
                 return const Center(
-                  child: Text("You haven’t favorited anything yet.\nBrowse to an event in the timeline and tap save icon to save something in this list.",style: TextStyle(
-                  fontFamily: 'PoppinsLight',
-                    fontSize: 20,
+                  child: Text(
+                    "You haven’t favorited anything yet.\nBrowse to an event in the timeline and tap save icon to save something in this list.",
+                    style: TextStyle(
+                      fontFamily: 'PoppinsLight',
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,),
                 );
               }
               return Material(
                 child: ListView.builder(
-                    itemCount:
-                        snapshot.data == null ? 0 : snapshot.data!.docs.length,
+                    itemCount: snapshot.data == null
+                        ? 0
+                        : snapshot.data!.docs.length,
                     itemBuilder: (_, index) {
                       DocumentSnapshot _documentSnapshot =
-                          snapshot.data!.docs[index];
+                      snapshot.data!.docs[index];
                       return GestureDetector(
                         //todo: when user click on the favorites item it will redirect user to info page
                         onTap: () async {
@@ -149,7 +148,8 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              InfoTheExistence(_theExist)));
+                                              InfoTheExistence(
+                                                  _theExist)));
                                 }
                               });
                             });
@@ -158,7 +158,9 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                           //todo: Ummah
                           //todo:The Existence
                           final ummah = FirebaseFirestore.instance
-                              .collection('ummah').doc('the-prophets').collection("prophets-button");
+                              .collection('ummah')
+                              .doc('the-prophets')
+                              .collection("prophets-button");
                           ummah.get().then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _ummah = doc;
@@ -180,10 +182,12 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                             });
                           });
 
-                          //todo: mono
+                          //todo: mona
                           final monathestic = FirebaseFirestore.instance
                               .collection('monathestic-empire');
-                          monathestic.get().then((QuerySnapshot snapshot) {
+                          monathestic
+                              .get()
+                              .then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _monathestic = doc;
                               setState(() {
@@ -198,7 +202,8 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              InfoMonathestic(_monathestic)));
+                                              InfoMonathestic(
+                                                  _monathestic)));
                                 }
                               });
                             });
@@ -207,7 +212,9 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                           //todo: Homosapiens
                           final homosapiens = FirebaseFirestore.instance
                               .collection('first-man-on-earth');
-                          homosapiens.get().then((QuerySnapshot snapshot) {
+                          homosapiens
+                              .get()
+                              .then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _homosapiens = doc;
                               setState(() {
@@ -222,7 +229,8 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              InfoHomosapiens(_homosapiens)));
+                                              InfoHomosapiens(
+                                                  _homosapiens)));
                                 }
                               });
                             });
@@ -231,7 +239,9 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                           //todo: living_things
                           final living_things = FirebaseFirestore.instance
                               .collection('living-things');
-                          living_things.get().then((QuerySnapshot snapshot) {
+                          living_things
+                              .get()
+                              .then((QuerySnapshot snapshot) {
                             snapshot.docs.forEach((DocumentSnapshot doc) {
                               final _livingthings = doc;
                               setState(() {
@@ -246,7 +256,8 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              InfoLivingThings(_livingthings)));
+                                              InfoLivingThings(
+                                                  _livingthings)));
                                 }
                               });
                             });
@@ -296,19 +307,20 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                             trailing: IconButton(
                                 onPressed: () {
                                   FirebaseFirestore.instance
-                                      .collection("tamadun-users-favorites")
+                                      .collection(
+                                      "tamadun-users-favorites")
                                       .doc(FirebaseAuth
-                                          .instance.currentUser!.email)
+                                      .instance.currentUser!.email)
                                       .collection("favorite-items")
                                       .doc(_documentSnapshot.id)
                                       .delete()
-                                      .then((value) =>
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  duration:
-                                                      Duration(seconds: 1),
-                                                  content: Text(
-                                                      'Remove Successfully'))));
+                                      .then((value) => ScaffoldMessenger
+                                      .of(context)
+                                      .showSnackBar(const SnackBar(
+                                      duration:
+                                      Duration(seconds: 1),
+                                      content: Text(
+                                          'Remove Successfully'))));
                                 },
                                 icon: const Icon(
                                   Icons.favorite,

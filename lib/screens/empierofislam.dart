@@ -230,6 +230,46 @@ class _empierofislamClassState extends State<empierofislam> {
                                     ),
                                   )),
                             ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Container(
+                              width: 300,
+                              child: RaisedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TimelineEmpire()));
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(80.0),
+                                      side: BorderSide(
+                                          color: Colors.black, width: 2)),
+                                  elevation: 0.0,
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 300.0, minHeight: 50.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "${snapshot.data!['topic-4']}",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontFamily: 'PoppinsMedium',
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                            ),
                           ],
                         ),
                       ),

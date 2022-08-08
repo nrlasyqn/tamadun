@@ -72,10 +72,17 @@ class _MorepageState extends State<Morepage> {
   XFile? xfile;
   late File file;
   File? pickedImage;
-
+  bool _isloading = false;
   @override
   void initState() {
     super.initState();
+    _isloading = true;
+    Future.delayed(Duration(seconds: 3),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
     FirebaseFirestore.instance
         .collection("Users")
         .doc(user!.uid)
@@ -101,7 +108,11 @@ class _MorepageState extends State<Morepage> {
           },
         ),
       ),
-      body: SafeArea(
+      body: _isloading ? Center(
+        child: CircularProgressIndicator(
+          color: Colors.purple,
+        ),
+      ):SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -177,7 +188,7 @@ class _MorepageState extends State<Morepage> {
                           press: ()async {
                             final User? user = await firebaseAuth.currentUser;
                             if (user == null) {
-                              Scaffold.of(context).showSnackBar(const SnackBar(
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text('No one has signed in.'),
                               ));
                               return;
@@ -266,7 +277,7 @@ class _MorepageState extends State<Morepage> {
                           press: ()async {
                             final User? user = await firebaseAuth.currentUser;
                             if (user == null) {
-                              Scaffold.of(context).showSnackBar(const SnackBar(
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text('No one has signed in.'),
                               ));
                               return;

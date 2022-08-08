@@ -24,8 +24,9 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
         _monathestic.add({
           "info-title": qn_monathestic.docs[i]["info-title"],
           "info-sub": qn_monathestic.docs[i]["info-sub"],
-          "info-desc": qn_monathestic.docs[i]["info-desc"],
           "info-img": qn_monathestic.docs[i]["info-img"],
+          "video-id": qn_monathestic.docs[i]["video-id"],
+          "desc-id": qn_monathestic.docs[i]["desc-id"],
         });
       }
     });
@@ -45,7 +46,9 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "The Monathestic Empire",
+          "The Monotheistic Empire",
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -54,8 +57,11 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => monotheistic_empire()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => monotheistic_empire()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => monotheistic_empire()));
+            });
           },
         ),
       ),

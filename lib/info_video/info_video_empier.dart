@@ -1,11 +1,11 @@
+import 'package:share_plus/share_plus.dart';
+import 'package:tamadun/info_page/info_empier.dart';
+import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:tamadun/info_page/info_empier.dart';
-import 'package:tamadun/info_page/video.dart';
-import '../timeline/timeline_empier.dart';
+
 
 class InfoVideoEmpire extends StatefulWidget {
   final _empire;
@@ -41,8 +41,33 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message, subject: 'Description',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
+  //todo: get video id from db
+  final List _videoList = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+  getVideo() async {
+    List _videoid = widget._empire["video-id"];
+    _videoid.forEach((element) {
+      getTheVideo(element);
+    });
+  }
+
+  bool _isloading = false;
+  @override
+  void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+
+    getVideo();
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -59,7 +84,6 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
-              //todo: timeline empire
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -99,12 +123,16 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
                 onPressed: () => share(context, ),
               ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -114,12 +142,12 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                 height: 5,
               ),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._empire['info-title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -128,7 +156,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._empire['info-sub'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -137,56 +165,11 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                   const Divider(
                     color: Colors.black,
                     height: 25,
-                    indent: 5,
-                    endIndent: 5,
                     thickness: 1,
                   ),
-                  SizedBox(height: 16,),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-surah'],
-                  //       style: const TextStyle(
-                  //         fontSize: 18.0,
-                  //         fontFamily: 'PoppinsThin',
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-surah_name'],
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text("Translation: ",
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         fontStyle: FontStyle.italic,
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Text(widget._empire['info-translation'],
-                  //       style: TextStyle(
-                  //         fontSize: 16.0,
-                  //         fontFamily: 'PoppinsLight',
-                  //         fontStyle: FontStyle.italic,
-                  //         color: Colors.black,
-                  //       )),
-                  // ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Video',
+                    child: Text("Video",
                         style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
@@ -194,27 +177,33 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                         )),
                   ),
 
-                  SizedBox(
+                  ///note: vid_id --> from topic collection
+                  ///note: vid_coll ---> video collection db
+                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
+                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child:  Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 300,
+                              child: VideoPlayer(
+                                videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                              ),
+                            )),
+                      ),
+                  ],
+                  const SizedBox(
                     height: 10,
                   ),
-                  //todo: insert video here
-                  Container(
-                    height: 300,
-                    child: VideoPlayer(
-                      videoData: widget._empire['info-video'],
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
                           ),),
                           onPressed: () {
                             final empire = FirebaseFirestore.instance
@@ -224,7 +213,6 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                                 final _empire = doc;
                                 setState(() {
                                   if (doc["info-title"] == widget._empire["info-title"]) {
-                                    print(widget._empire["info-video"][0]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -239,9 +227,11 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Video',style: TextStyle(
                             color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
                           ),),
                           onPressed: () {
                           },
@@ -250,33 +240,21 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                       ),
                     ],
                   ),
-                  //
-                  // MaterialButton(
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //   ),
-                  //   elevation: 0,
-                  //   color: Colors.blue[200],
-                  //   minWidth: double.maxFinite,
-                  //   height: 50,
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //         builder: (context) => FavScreenTwo()));
-                  //   },
-                  //   child: const Text('Favorite',
-                  //       style: TextStyle(
-                  //           color: Colors.black,
-                  //           fontFamily: 'PoppinsMedium',
-                  //           fontSize: 16)),
-                  // ),
-                  //
-                  // SizedBox(
-                  //   height: 5,
-                  // )
                 ]),
               ),
             ],
           ),
         ));
+  }
+
+  //todo: get video from video collection db
+  void getTheVideo(element) async{
+    DocumentSnapshot qnVideo =
+    await _firestoreInstance.collection("video").doc(element).get();
+    setState(() {
+      _videoList.add({
+        "info-video": qnVideo["info-video"],
+      });
+    });
   }
 }

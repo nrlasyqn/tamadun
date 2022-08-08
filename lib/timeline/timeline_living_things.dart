@@ -28,7 +28,6 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
           "info-sub": qn_before.docs[i]["info-sub"],
           "info-desc": qn_before.docs[i]["info-desc"],
           "info-img": qn_before.docs[i]["info-img"],
-          "info-video": qn_before.docs[i]["info-video"],
           "info-surah": qn_before.docs[i]["info-surah"],
           "info-tafsir": qn_before.docs[i]["info-tafsir"],
           "tafsir-text": qn_before.docs[i]["tafsir-text"],
@@ -36,6 +35,7 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
           "info-tafsir-name": qn_before.docs[i]["info-tafsir-name"],
           "info-translation": qn_before.docs[i]["info-translation"],
           "info-surah_name": qn_before.docs[i]["info-surah_name"],
+          "video-id": qn_before.docs[i]["video-id"],
         });
       }
     });
@@ -55,7 +55,9 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "Before the Existence of Universe",
+          "Living Things Before Creation of Man",
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
@@ -64,8 +66,11 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => living_things()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => living_things()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => living_things()));
+            });
           },
         ),
       ),

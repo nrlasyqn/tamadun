@@ -142,7 +142,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+            /* Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            });
           },
 
         ),

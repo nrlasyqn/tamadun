@@ -1,3 +1,4 @@
+import 'package:share_plus/share_plus.dart';
 import 'package:tamadun/info_page/video.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,13 +37,35 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
             'Added to Favourite!'))));
   }
 
+  void share(BuildContext context) {
+    String message = 'Check out this useful content!';
+    RenderBox? box = context.findRenderObject() as RenderBox;
+
+    Share.share(message, subject: 'Desription',
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+  }
+
   bool isReadmore= false;
+  bool _isloading = false;
+
+  void initState() {
+    _isloading = true;
+    Future.delayed(Duration(seconds: 5),(){
+      setState((){
+        _isloading=false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: Text(
               widget._livingthings['info-title'],
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
               ),
@@ -52,8 +75,9 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                Navigator.pop(context);
-              },
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });},
             ),
 
             //todo: favorite button
@@ -89,8 +113,17 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   );
                 },
               ),
+              IconButton(
+                icon: Icon(Icons.share_outlined),
+                color: Colors.black,
+                onPressed: () => share(context,),
+              ),
             ]),
-        body: SingleChildScrollView(
+        body: _isloading ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        ):SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -100,7 +133,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                 height: 5,
               ),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -123,8 +156,6 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   const Divider(
                     color: Colors.black,
                     height: 25,
-                    indent: 5,
-                    endIndent: 5,
                     thickness: 1,
                   ),
                   Align(
@@ -135,6 +166,10 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Image.network(widget._livingthings['info-img'][1]),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
@@ -167,6 +202,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           color: Colors.black,
                         )),
                   ),
+
                   // Align(
                   //   alignment: Alignment.center,
                   //   child: Text("translation: ",
@@ -197,8 +233,15 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
-                    height: 10,
+                  SizedBox(height: 10,),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._livingthings['info-desc'][1],
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
                   ),
                   SizedBox(
                     height: 10,
@@ -455,7 +498,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Description',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -466,7 +509,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                         ),
                       ),
                       Expanded(
-                        child: RaisedButton(
+                        child: MaterialButton(
                           child: Text('Video',style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.0,
@@ -480,7 +523,6 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                                 final _livingthings = doc;
                                 setState(() {
                                   if (doc["info-title"] == widget._livingthings["info-title"]) {
-                                    print(widget._livingthings["info-video"][0]);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -608,7 +650,7 @@ class _ExpandableTextState extends State<ExpandableText> {
           )),
       widget.isExpanded
           ? new Container()
-          : new FlatButton(
+          : new MaterialButton(
           child:  Align
             (alignment: Alignment.centerRight,
               child: Text('Read More...')),

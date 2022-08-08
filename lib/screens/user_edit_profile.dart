@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:ndialog/ndialog.dart';
-import 'package:tamadun/testing/text.dart';
+import 'package:tamadun/widget/profile_widget.dart';
 import '../auth/auth.dart';
 import '../auth/database_service.dart';
 import '../auth/google_auth.dart';
@@ -62,7 +62,7 @@ class _EditProfileState extends State<EditProfile> {
     try {
       String filename = DateTime.now().millisecondsSinceEpoch.toString();
       Reference storageRef =
-          FirebaseStorage.instance.ref().child('profileImage').child(filename);
+      FirebaseStorage.instance.ref().child('profileImage').child(filename);
       UploadTask uploadTask = storageRef.putFile(File(pickedImage!.path));
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
       await taskSnapshot.ref.getDownloadURL().then((url) async {
@@ -108,6 +108,13 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
+    isLoading = true;
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+
     FirebaseFirestore.instance
         .collection("Users")
         .doc(user!.uid)
@@ -141,7 +148,13 @@ class _EditProfileState extends State<EditProfile> {
           },
         ),
       ),
-      body: SafeArea(
+      body: isLoading
+          ? Center(
+        child: CircularProgressIndicator(
+          color: Colors.purple,
+        ),
+      )
+          : SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -161,10 +174,12 @@ class _EditProfileState extends State<EditProfile> {
                             child: CircleAvatar(
                               radius: 75,
                               backgroundImage: pickedImage == null
-                                  ? NetworkImage(loggedInUser.photoURL! == ''
-                                      ? 'https://freesvg.org/img/abstract-user-flat-4.png'
-                                      : loggedInUser.photoURL!)
-                                  : FileImage(pickedImage!) as ImageProvider,
+                                  ? NetworkImage(loggedInUser.photoURL! ==
+                                  ''
+                                  ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                  : loggedInUser.photoURL!)
+                                  : FileImage(pickedImage!)
+                              as ImageProvider,
                             ),
                           ),
                         ),
@@ -190,15 +205,17 @@ class _EditProfileState extends State<EditProfile> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             ListTile(
-                                              leading: const Icon(Icons.image),
-                                              title: const Text('Gallery'),
+                                              leading:
+                                              const Icon(Icons.image),
+                                              title:
+                                              const Text('Gallery'),
                                               onTap: () {
                                                 getFromGallery();
                                               },
                                             ),
                                             ListTile(
-                                              leading:
-                                                  const Icon(Icons.camera_alt),
+                                              leading: const Icon(
+                                                  Icons.camera_alt),
                                               title: const Text('Camera'),
                                               onTap: () {
                                                 getFromCamera();
@@ -315,9 +332,9 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(height: 15),
                       isLoading
                           ? CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.lightGreen),
-                            )
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.lightGreen),
+                      )
                           : SizedBox.shrink(),
                     ],
                   ),
@@ -330,18 +347,57 @@ class _EditProfileState extends State<EditProfile> {
               ),
               Column(
                 children: [
-                  ProfileWidget(
-                    text: "Save",
-                    press: saveProfile,
+                  Container(
+                    height: 50,
+                    width: 350,
+                    child: ElevatedButton(
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child:  Text('Save Profile',style: TextStyle(
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                              color: Colors.white,))
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                            backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius:BorderRadius.circular(10),
+                                )
+                            )
+                        ),
+                        onPressed: saveProfile,
+                    ),
                   ),
-                  ProfileWidget(
-                    text: "Change Password",
-                    press: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePass()));
-                    },
+                  SizedBox(height: 20,),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    child: ElevatedButton(
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child:  Text('Change Password',style: TextStyle(
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                              color: Colors.white,))
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                            backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius:BorderRadius.circular(10),
+                                )
+                            )
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChangePass()));
+                        }
+                    ),
                   ),
                 ],
               ),

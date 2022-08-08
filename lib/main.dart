@@ -9,8 +9,7 @@ import 'login.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  runApp(const TamadunApp());
+  runApp(TamadunApp());
 }
 
 class TamadunApp extends StatefulWidget {
@@ -41,7 +40,7 @@ class _TamadunAppState extends State<TamadunApp> {
           scaffoldBackgroundColor: mBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const LandingPage(),
+        home: LandingPage(),
       ),
     );
   }
