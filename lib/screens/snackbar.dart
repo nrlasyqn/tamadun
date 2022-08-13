@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/screens/beforetheexistence.dart';
 
+import '../authentication/log.dart';
 import '../payment/payment.screen.dart';
 
 //snackbar -> upgrade to premium
@@ -13,14 +14,14 @@ void showFloatingFlushbar(
   Flushbar? flush;
   bool? _wasButtonClicked;
   flush = Flushbar<bool>(
-    title: "Hey",
-    message: message,
-    backgroundColor: isError! ? Colors.red : Colors.deepPurple,
+    title: "Hey", titleColor: Color(hexColor('#523819')),
+    message: message, messageColor: Color(hexColor('#523819')),
+    backgroundColor: isError! ? Color(hexColor('#fad399')): Color(hexColor('#fad399')),
     duration: Duration(seconds: 5),
     margin: EdgeInsets.all(20),
     icon: Icon(
       Icons.emoji_emotions_outlined,
-      color: Colors.white,
+      color: Color(hexColor('#be7a0d')),
     ),
     mainButton: MaterialButton(
       onPressed: () {
@@ -31,7 +32,7 @@ void showFloatingFlushbar(
       },
       child: Text(
         "Upgrade",
-        style: TextStyle(color: Colors.yellow),
+        style: TextStyle(color: Color(hexColor('#523819'))),
       ),
     ),
   ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})

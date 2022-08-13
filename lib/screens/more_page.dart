@@ -51,6 +51,7 @@ import '../screens/aboutus.dart';
 import '../screens/home_page.dart';
 import '../screens/user_profile_page.dart';
 import '../widget/constant.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //morepage
 class Morepage extends StatefulWidget {
@@ -77,7 +78,7 @@ class _MorepageState extends State<Morepage> {
   void initState() {
     super.initState();
     _isloading = true;
-    Future.delayed(Duration(seconds: 3),(){
+    Future.delayed(const Duration(seconds: 3),(){
       setState((){
         _isloading=false;
       });
@@ -98,9 +99,18 @@ class _MorepageState extends State<Morepage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        title: const Text(
+          'More',
+          style: TextStyle(
+            fontFamily: "MontserratBold",
+            fontSize: 24,
+            color: Colors.black,
+          ),
+          textAlign: TextAlign.center,
+        ),
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
             Navigator.push(
@@ -110,7 +120,7 @@ class _MorepageState extends State<Morepage> {
       ),
       body: _isloading ? Center(
         child: CircularProgressIndicator(
-          color: Colors.purple,
+          color: Color(hexColor('#25346a')),
         ),
       ):SafeArea(
         child: SingleChildScrollView(
@@ -130,12 +140,12 @@ class _MorepageState extends State<Morepage> {
                         alignment: Alignment.topCenter,
                         child: CircleAvatar(
                           radius: 85,
-                          backgroundColor: mMorePageColor,
+                          backgroundColor: Color(hexColor("BF#495885")),
                           child: CircleAvatar(
                             radius: 75,
                             backgroundImage: pickedImage == null
                                 ? NetworkImage(loggedInUser?.photoURL! == ''
-                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
                                 : loggedInUser!.photoURL!)
                                 : FileImage(pickedImage!) as ImageProvider,
                           ),
@@ -145,7 +155,7 @@ class _MorepageState extends State<Morepage> {
 
                     Align(
                       alignment: Alignment.center,
-                      child: Text("${loggedInUser!.displayName ?? authService.getUserdisplayname()}", style: TextStyle(
+                      child: Text("${loggedInUser!.displayName ?? authService.getUserdisplayname()}", style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'PoppinsRegular',
                         fontSize: 18,
@@ -153,7 +163,7 @@ class _MorepageState extends State<Morepage> {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: Text("${loggedInUser!.role ?? authService.getUserRole()}", style: TextStyle(
+                      child: Text("${loggedInUser!.role ?? authService.getUserRole()}", style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'PoppinsItalic',
                         fontSize: 16,
@@ -161,7 +171,7 @@ class _MorepageState extends State<Morepage> {
                     ),
                     Column(
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         ProfileMenu(
                           text: "My Profile",
                           icon: "assets/icons/User Icon.svg",
@@ -174,7 +184,7 @@ class _MorepageState extends State<Morepage> {
                         ),
                         ProfileMenu(
                           text: "About Us",
-                          icon: "assets/icons/icon_about.svg",
+                          icon: "assets/icons/aboutus_.svg",
                           press: () {
                             Navigator.push(
                                 context,
@@ -219,12 +229,12 @@ class _MorepageState extends State<Morepage> {
                         alignment: Alignment.topCenter,
                         child: CircleAvatar(
                           radius: 85,
-                          backgroundColor: mMorePageColor,
+                          backgroundColor: Color(hexColor("BF#495885")),
                           child: CircleAvatar(
                             radius: 75,
                             backgroundImage: pickedImage == null
                                 ? NetworkImage(loggedInUser?.photoURL! == ''
-                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
                                 : loggedInUser!.photoURL!)
                                 : FileImage(pickedImage!) as ImageProvider,
                           ),
@@ -234,7 +244,7 @@ class _MorepageState extends State<Morepage> {
 
                     Align(
                       alignment: Alignment.center,
-                      child: Text("${loggedInUser!.displayName ?? authFacebook.getUserdisplayname()}", style: TextStyle(
+                      child: Text("${loggedInUser!.displayName ?? authFacebook.getUserdisplayname()}", style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'PoppinsRegular',
                         fontSize: 18,
@@ -242,7 +252,7 @@ class _MorepageState extends State<Morepage> {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: Text("${loggedInUser!.role ?? authFacebook.getUserRole()}", style: TextStyle(
+                      child: Text("${loggedInUser!.role ?? authFacebook.getUserRole()}", style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'PoppinsItalic',
                         fontSize: 16,
@@ -250,7 +260,7 @@ class _MorepageState extends State<Morepage> {
                     ),
                     Column(
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         ProfileMenu(
                           text: "My Profile",
                           icon: "assets/icons/User Icon.svg",
@@ -306,9 +316,10 @@ class _MorepageState extends State<Morepage> {
 // the logout function
 Future<void> logout(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
+  Fluttertoast.showToast(msg: "You have successfully log out");
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) {
-        return LoginScreen();
+        return const LoginScreen();
       }), ModalRoute.withName('/'));
 }
 

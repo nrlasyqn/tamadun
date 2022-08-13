@@ -105,6 +105,7 @@ flutter:
     - assets/sky.riv
     #assets/splashscreen.gif
     - assets/splashscreen2.gif
+    - assets/splashscreen3.gif
     - assets/universe.gif
     - assets/videos/testvid.mp4
     - images/beforeuniverse.jpeg

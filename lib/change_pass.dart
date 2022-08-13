@@ -127,9 +127,9 @@ class _ChangePassState extends State<ChangePass> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            'Update Password',
+            'Change Password',
             style: TextStyle(
-              fontFamily: 'MontserratBold',
+              fontFamily: "MontserratBold",
               fontSize: 24,
               color: Colors.black,
             ),
@@ -137,7 +137,7 @@ class _ChangePassState extends State<ChangePass> {
           ),
           backgroundColor: Colors.white,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: Icon(Icons.arrow_back),
             color: Colors.black,
             onPressed: () {
               Navigator.pop(context);
@@ -149,7 +149,7 @@ class _ChangePassState extends State<ChangePass> {
           child: Container(
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
@@ -188,10 +188,22 @@ class _ChangePassState extends State<ChangePass> {
                               controller: newpasswordController,
                               validator: (value){
                                 if(value == null || value.isEmpty){
-                                  return 'Please Enter Password';
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        duration: Duration(seconds: 5),
+                                        content: Text('Please Enter Password!'),
+                                      )
+                                  );
+                                  //Fluttertoast.showToast(msg: 'Please Enter Valid Name!');
                                 }
                                 return null;
                               },
+                              // validator: (value){
+                              //   if(value == null || value.isEmpty){
+                              //     return 'Please Enter Password';
+                              //   }
+                              //   return null;
+                              // },
                             ),
                           ),
                         // ElevatedButton(onPressed: () {
@@ -206,18 +218,15 @@ class _ChangePassState extends State<ChangePass> {
                           SizedBox(height: 20),
                           Container(
                             height: 50,
-                            width: 350,
+                            width: double.maxFinite,
                             child: ElevatedButton(
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                    child:  Text('Change Password',style: TextStyle(
-                                      fontFamily: 'PoppinsRegular',
-                                      fontSize: 18,
-                                      color: Colors.white,))
-                                ),
+                                child: Text('Change Password',style: TextStyle(
+                                  fontFamily: 'PoppinsRegular',
+                                  fontSize: 18,
+                                  color: Colors.white,)),
                                 style: ButtonStyle(
-                                    foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                                    backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
+                                    foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
                                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                           borderRadius:BorderRadius.circular(10),

@@ -64,7 +64,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       showDialog(
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Buy Premium Product'),
+              title: const Text('Subscribes to Ummah Empire'),
               content: ListTile(
                   title: Text("Name: ${customer!['name']}"),
                   subtitle: Text(
@@ -133,13 +133,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: const Text("Payment Page",
           style: TextStyle(
             fontFamily: "MontserratBold",
+            fontSize: 24,
             color: Colors.black,
           ),),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
             /* Navigator.of(context)
@@ -215,41 +217,46 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               decimal: false),
                         ),
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            primary: const Color(0xff1b447b)),
-                        child: Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child: const Text(
-                            'validate',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'halter',
-                              fontSize: 14,
-                              package: 'flutter_credit_card',
+                      SizedBox(
+                        width: 200.0,
+                        height: 50.0,
+                        child:  ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              primary: const Color(0xff1b447b)),
+                          child: Container(
+                            margin: const EdgeInsets.all(8.0),
+                            child: const Text(
+                              'validate',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'halter',
+                                fontSize: 20,
+                                package: 'flutter_credit_card',
+                              ),
                             ),
                           ),
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              ///todo:replace email with user email
+                              await checkout(
+                                  context,
+                                  _phone.text,
+                                  cardNumber,
+                                  expiryDate,
+                                  cardHolderName,
+                                  cvvCode,
+                                  _email.text);
+                              print('valid');
+                            } else {
+                              print('inValid');
+                            }
+                          },
                         ),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            ///todo:replace email with user email
-                            await checkout(
-                                context,
-                                _phone.text,
-                                cardNumber,
-                                expiryDate,
-                                cardHolderName,
-                                cvvCode,
-                                _email.text);
-                            print('valid');
-                          } else {
-                            print('inValid');
-                          }
-                        },
-                      )
+                      ),
+
                     ],
                   ),
                 )),

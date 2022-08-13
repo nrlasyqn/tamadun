@@ -42,7 +42,7 @@ class _Profile_viewState extends State<Profile_view> {
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5),(){
+    Future.delayed(const Duration(seconds: 5),(){
       setState((){
         _isloading=false;
       });
@@ -61,12 +61,23 @@ class _Profile_viewState extends State<Profile_view> {
 
   @override
   Widget build(BuildContext context) {
+    Size screen = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            fontFamily: "MontserratBold",
+            fontSize: 24,
+            color: Colors.black,
+          ),
+          textAlign: TextAlign.center,
+        ),
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
             /*Navigator.push(
@@ -79,7 +90,7 @@ class _Profile_viewState extends State<Profile_view> {
       ),
       body: _isloading ? Center(
         child: CircularProgressIndicator(
-          color: Colors.purple,
+          color: Color(hexColor('#25346a')),
         ),
       ):SafeArea(
         child: SingleChildScrollView(
@@ -90,308 +101,359 @@ class _Profile_viewState extends State<Profile_view> {
               alignment: Alignment.center,
               children: <Widget>[
                 // background image and bottom contents
-                Expanded(
-                  flex: 1,
-                  child: Column(children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: CircleAvatar(
-                          radius: 85,
-                          backgroundColor: mMorePageColor,
+                Container(
+                  height: screen.height,
+                  width: screen.width,
+                  child: Expanded(
+                    flex: 1,
+                    child: Column(children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topCenter,
                           child: CircleAvatar(
-                            radius: 75,
-                            backgroundImage: pickedImage == null
-                                ? NetworkImage(loggedInUser?.photoURL! == ''
-                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
-                                : loggedInUser!.photoURL!)
-                                : FileImage(pickedImage!) as ImageProvider,
+                            radius: 85,
+                            backgroundColor: Color(hexColor("BF#495885")),
+                            child: CircleAvatar(
+                              radius: 75,
+                              backgroundImage: pickedImage == null
+                                  ? NetworkImage(loggedInUser?.photoURL! == ''
+                                  ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
+                                  : loggedInUser!.photoURL!)
+                                  : FileImage(pickedImage!) as ImageProvider,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text("${loggedInUser!.displayName ?? authService.getUserdisplayname()}", style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'PoppinsRegular',
-                        fontSize: 18,
-                      ),),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text("${loggedInUser!.role ?? authService.getUserRole()}", style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'PoppinsItalic',
-                        fontSize: 16,
-                      ),),
-                    ),
-                    SizedBox(height:20.0),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                        child: Text(" Email Address",style: TextStyle(
-                          fontFamily: 'PoppinsRegular',
-                          fontSize: 16,
-                        ),),
+                      Container(
+                        width: screen.width,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text("${loggedInUser!.displayName ?? authService.getUserdisplayname()}", style: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: 18,
+                          ),),
+                        ),
                       ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Container(
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            height: 50,
-                            width: 350,
-                            decoration: BoxDecoration(
-                              color: Color(hexColor('FFF5F6F9')),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(
-                                  hexColor('A9A4A4'),
+                      Container(
+                        height: screen.height/5.0,
+                        width: screen.width,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text("${loggedInUser!.role ?? authService.getUserRole()}", style: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'PoppinsItalic',
+                            fontSize: 16,
+                          ),),
+                        ),
+                      ),
+                      const SizedBox(height:20.0),
+                      Container(
+                          height: screen.height/10.0,
+                          width: screen.width,
+                          child : Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                                  child: Text(" Email Address",style: TextStyle(
+                                    fontFamily: 'PoppinsRegular',
+                                    fontSize: 16,
+                                  ),),
                                 ),
                               ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              "${loggedInUser!.email ?? authService.getUserEmail()}",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        )
-                    ),
-                    SizedBox(height: 15,),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                        child: Text(" Bio",style: TextStyle(
-                          fontFamily: 'PoppinsRegular',
-                          fontSize: 16,
-                        ),),
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Container(
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            height: 50,
-                            width: 350,
-                            decoration: BoxDecoration(
-                              color: Color(hexColor('FFF5F6F9')),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(
-                                  hexColor('A9A4A4'),
-                                ),
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              "${loggedInUser!.bio ?? authService.getUserBio()}",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        )
-                    ),
-                    SizedBox(height: 20,),
-                    Container(
-                      height: 50,
-                      width:350,
-                      child: ElevatedButton(
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child:  Text('Edit Profile',style: TextStyle(
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                                color: Colors.white,))
-                          ),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius:BorderRadius.circular(10),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                                  child: Container(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      height: 50,
+                                      width: screen.width,
+                                      decoration: BoxDecoration(
+                                        color: Color(hexColor('FFF5F6F9')),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Color(
+                                            hexColor('A9A4A4'),
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "${loggedInUser!.email ?? authService.getUserEmail()}",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'PoppinsRegular',
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
                                   )
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EditProfile()));
-                          }
+                              ),
+                            ],
+                          )
                       ),
-                    ),
-                  ]),
+
+                      const SizedBox(height: 15,),
+                      Container(
+                          height: screen.height/10.0,
+                          width: screen.width,
+                          child : Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                                  child: Text(" Bio",style: TextStyle(
+                                    fontFamily: 'PoppinsRegular',
+                                    fontSize: 16,
+                                  ),),
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                                  child: Container(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      height: 50,
+                                      width: screen.width,
+                                      decoration: BoxDecoration(
+                                        color: Color(hexColor('FFF5F6F9')),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Color(
+                                            hexColor('A9A4A4'),
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "${loggedInUser!.bio ?? authService.getUserBio()}",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'PoppinsRegular',
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  )
+                              ),
+
+                            ],
+                          )
+                      ),
+                      const SizedBox(height: 20,),
+                      Container(
+                        height: 50,
+                        width: screen.width * 0.91,
+                        child: ElevatedButton(
+                            child: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                child:  Text('Edit Profile',style: TextStyle(
+                                  fontFamily: 'PoppinsRegular',
+                                  fontSize: 18,
+                                  color: Colors.white,))
+                            ),
+                            style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius:BorderRadius.circular(10),
+                                    )
+                                )
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfile()));
+                            }
+                        ),
+                      ),
+                    ]),
+                  ),
                 ),
+
               ],
             )
                 : Stack(
               alignment: Alignment.center,
               children: <Widget>[
                 // background image and bottom contents
-                Expanded(
-                  flex: 1,
-                  child: Column(children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: CircleAvatar(
-                          radius: 85,
-                          backgroundColor: mMorePageColor,
+                Container(
+                  height: screen.height,
+                  width: screen.width,
+                  child: Expanded(
+                    flex: 1,
+                    child: Column(children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topCenter,
                           child: CircleAvatar(
-                            radius: 75,
-                            backgroundImage: pickedImage == null
-                                ? NetworkImage(loggedInUser?.photoURL! == ''
-                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
-                                : loggedInUser!.photoURL!)
-                                : FileImage(pickedImage!) as ImageProvider,
+                            radius: 85,
+                            backgroundColor: Color(hexColor("BF#495885")),
+                            child: CircleAvatar(
+                              radius: 75,
+                              backgroundImage: pickedImage == null
+                                  ? NetworkImage(loggedInUser?.photoURL! == ''
+                                  ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
+                                  : loggedInUser!.photoURL!)
+                                  : FileImage(pickedImage!) as ImageProvider,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text("${loggedInUser!.displayName ?? authFacebook.getUserdisplayname()}", style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'PoppinsRegular',
-                        fontSize: 18,
-                      ),),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text("${loggedInUser!.role ?? authFacebook.getUserRole()}", style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'PoppinsItalic',
-                        fontSize: 16,
-                      ),),
-                    ),
-                    SizedBox(height:20.0),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                        child: Text(" Email Address",style: TextStyle(
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text("${loggedInUser!.displayName ?? authFacebook.getUserdisplayname()}", style: const TextStyle(
+                          color: Colors.black,
                           fontFamily: 'PoppinsRegular',
+                          fontSize: 18,
+                        ),),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text("${loggedInUser!.role ?? authFacebook.getUserRole()}", style: const TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'PoppinsItalic',
                           fontSize: 16,
                         ),),
                       ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Container(
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            height: 50,
-                            width: 350,
-                            decoration: BoxDecoration(
-                              color: Color(hexColor('FFF5F6F9')),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(
-                                  hexColor('A9A4A4'),
+                      const SizedBox(height:20.0),
+                      Container(
+                          width: screen.width,
+                          child : Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                                  child: Text(" Email Address",style: TextStyle(
+                                    fontFamily: 'PoppinsRegular',
+                                    fontSize: 16,
+                                  ),),
                                 ),
                               ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              "${loggedInUser!.email ?? authFacebook.getUserEmail()}",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        )
-                    ),
-                    SizedBox(height: 15,),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                        child: Text(" Bio",style: TextStyle(
-                          fontFamily: 'PoppinsRegular',
-                          fontSize: 16,
-                        ),),
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Container(
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            height: 50,
-                            width: 350,
-                            decoration: BoxDecoration(
-                              color: Color(hexColor('FFF5F6F9')),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(
-                                  hexColor('A9A4A4'),
-                                ),
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              "${loggedInUser!.bio ?? authFacebook.getUserBio()}",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        )
-                    ),
-                    SizedBox(height: 20,),
-                    Container(
-                      height: 50,
-                      width:350,
-                      child: ElevatedButton(
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child:  Text('Edit Profile',style: TextStyle(
-                                fontFamily: 'PoppinsRegular',
-                                fontSize: 18,
-                                color: Colors.white,))
-                          ),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius:BorderRadius.circular(10),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                                  child: Container(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      height: 50,
+                                      width: screen.width,
+                                      decoration: BoxDecoration(
+                                        color: Color(hexColor('FFF5F6F9')),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Color(
+                                            hexColor('A9A4A4'),
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "${loggedInUser!.email ?? authFacebook.getUserEmail()}",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'PoppinsRegular',
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
                                   )
-                              )
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EditProfile()));
-                          }
+                              ),
+                            ],
+                          )
                       ),
-                    ),
-                  ]),
+
+                      const SizedBox(height: 15,),
+                      Container(
+                          width: screen.width,
+                          child : Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                                  child: Text(" Bio",style: TextStyle(
+                                    fontFamily: 'PoppinsRegular',
+                                    fontSize: 16,
+                                  ),),
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                                  child: Container(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      height: 50,
+                                      width: screen.width,
+                                      decoration: BoxDecoration(
+                                        color: Color(hexColor('FFF5F6F9')),
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Color(
+                                            hexColor('A9A4A4'),
+                                          ),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "${loggedInUser!.bio ?? authFacebook.getUserBio()}",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'PoppinsRegular',
+                                          fontSize: 18,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  )
+                              ),
+
+                            ],
+                          )
+                      ),
+                      const SizedBox(height: 20,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                        child: Container(
+                          height: 50,
+                          width: screen.width,
+                          child: ElevatedButton(
+                              child: const Text('Edit Profile',style: TextStyle(
+                                fontFamily: 'PoppinsRegular',
+                                fontSize: 18,
+                                color: Colors.white,)),
+                              style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                                  backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:BorderRadius.circular(10),
+                                      )
+                                  )
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditProfile()));
+                              }
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
                 ),
+
               ],
             ),
           ),
@@ -407,7 +469,7 @@ Future<void> logout(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) {
-        return LoginScreen();
+        return const LoginScreen();
       }), ModalRoute.withName('/'));
 }
 

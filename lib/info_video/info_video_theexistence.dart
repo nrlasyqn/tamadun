@@ -32,26 +32,25 @@ class _VideoExistenceState extends State<VideoExistence> {
       "info-title": widget._theExist["info-title"],
       "info-sub": widget._theExist["info-sub"],
       "info-img": widget._theExist["info-img"],
-    }).then((value) => ScaffoldMessenger.of(context)
-        .showSnackBar( const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-            'Added to Favourite!'))));
+    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(seconds: 1),
+            content: Text('Added to Favourite!'))));
   }
 
-  void share(BuildContext context){
+  void share(BuildContext context) {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
-  getSurah() async{
+  getSurah() async {
     List _videoid = widget._theExist["video-id"];
     _videoid.forEach((element) {
       getTafsir(element);
-
     });
   }
 
@@ -61,9 +60,9 @@ class _VideoExistenceState extends State<VideoExistence> {
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5),(){
-      setState((){
-        _isloading=false;
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        _isloading = false;
       });
     });
 
@@ -74,20 +73,29 @@ class _VideoExistenceState extends State<VideoExistence> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
         appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
             title: Text(
               widget._theExist['info-title'],
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                Navigator.pop(context);
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context);
+                });
               },
             ),
 
@@ -125,16 +133,22 @@ class _VideoExistenceState extends State<VideoExistence> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context, ),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
-        body:_isloading ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
-        ): SingleChildScrollView(
+        body: screenWidth < 576
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(
+                hexColor('#25346a'),
+              ),
+            ))
+            : SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -149,7 +163,7 @@ class _VideoExistenceState extends State<VideoExistence> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._theExist['info-title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -158,19 +172,21 @@ class _VideoExistenceState extends State<VideoExistence> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._theExist['info-sub'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
+
                   const Divider(
                     color: Colors.black,
                     height: 25,
                     thickness: 1,
                   ),
+
                   //todo: insert video here
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text('Video',
                         style: TextStyle(
@@ -179,19 +195,27 @@ class _VideoExistenceState extends State<VideoExistence> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
+
+                  const SizedBox(
                     height: 10,
                   ),
-                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
-                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+
+                  for (int vid_id = 0;
+                  vid_id < _videoList.length;
+                  vid_id++) ...[
+                    for (int vid_coll = 0;
+                    vid_coll <
+                        _videoList[vid_id]["info-video"].length;
+                    vid_coll++)
                       Padding(
-                        padding: EdgeInsets.all(5),
-                        child:  Align(
+                        padding: const EdgeInsets.all(5),
+                        child: Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
                               height: 300,
                               child: VideoPlayer(
-                                videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                                videoData:
+                                ("${_videoList[vid_id]["info-video"][vid_coll]}"),
                               ),
                             )),
                       ),
@@ -201,25 +225,34 @@ class _VideoExistenceState extends State<VideoExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          child: Text('Description',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
-                          ),),
-
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final exist = FirebaseFirestore.instance
-                                .collection('the-existence-of-universe');
-                            exist.get().then((QuerySnapshot snapshot) {
-                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                .collection(
+                                'the-existence-of-universe');
+                            exist
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
                                 final _theExist = doc;
                                 setState(() {
-                                  if (doc["info-title"] == widget._theExist["info-title"]) {
+                                  if (doc["info-title"] ==
+                                      widget
+                                          ._theExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                InfoTheExistence(_theExist)));
+                                                InfoTheExistence(
+                                                    _theExist)));
                                   }
                                 });
                               });
@@ -230,11 +263,14 @@ class _VideoExistenceState extends State<VideoExistence> {
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: Text('Video',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
-                          ),),
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () => null,
                           color: Colors.black,
                         ),
@@ -269,16 +305,190 @@ class _VideoExistenceState extends State<VideoExistence> {
               ),
             ],
           ),
-        ));
+        )
+            : screenWidth < 992
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(
+                hexColor('#25346a'),
+              ),
+            ))
+            : SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: Image.network(
+                    widget._theExist['info-img'][0]),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
+
+                  //todo: insert video here
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Video',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
+                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 500,
+                              width: 800,
+                              child: VideoPlayer(
+                                videoData:
+                                ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                              ),
+                            )),
+                      ),
+                  ],
+
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () {
+                            final exist = FirebaseFirestore
+                                .instance
+                                .collection(
+                                'the-existence-of-universe');
+                            exist
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach(
+                                      (DocumentSnapshot doc) {
+                                    final _theExist = doc;
+                                    setState(() {
+                                      if (doc["info-title"] ==
+                                          widget._theExist[
+                                          "info-title"]) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InfoTheExistence(
+                                                        _theExist)));
+                                      }
+                                    });
+                                  });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  )
+
+                  //
+                  // MaterialButton(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   elevation: 0,
+                  //   color: Colors.blue[200],
+                  //   minWidth: double.maxFinite,
+                  //   height: 50,
+                  //   onPressed: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //         builder: (context) => FavScreenTwo()));
+                  //   },
+                  //   child: const Text('Favorite',
+                  //       style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontFamily: 'PoppinsMedium',
+                  //           fontSize: 16)),
+                  // ),
+                  //
+                  // SizedBox(
+                  //   height: 5,
+                  // )
+                ]),
+              ),
+            ],
+          ),
+        )
+            : null);
   }
 
-  void getTafsir(element) async{
+  void getTafsir(element) async {
     DocumentSnapshot qnVideo =
     await _firestoreInstance.collection("video").doc(element).get();
-    setState((){
+    setState(() {
       _videoList.add({
-        "info-video":qnVideo["info-video"],
+        "info-video": qnVideo["info-video"],
       });
     });
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

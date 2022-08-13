@@ -42,39 +42,58 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
+  final List _suraList = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  getSurah() async {
+    List surahid = widget._homosapiens["desc-id"];
+    surahid.forEach((element) {
+      getTafsir(element);
+    });
+  }
+
   bool isReadmore = false;
   bool _isloading = false;
 
+  @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         _isloading = false;
       });
     });
+
+    getSurah();
+    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
             title: Text(
               widget._homosapiens['info-title'],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(Duration.zero, () {
                   Navigator.pop(context);
-                });},
+                });
+              },
             ),
 
             //todo: favorite button
@@ -111,24 +130,27 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
                 onPressed: () => share(
                   context,
                 ),
               ),
             ]),
-        body: _isloading
-            ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
+        body: screenWidth < 576
+            ? _isloading
+            ?  Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
         )
             : SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._homosapiens['info-img'][0]),
+                child:
+                Image.network(widget._homosapiens['info-img'][0],),
               ),
               const SizedBox(
                 height: 5,
@@ -139,7 +161,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._homosapiens['info-title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -148,7 +170,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._homosapiens['info-sub'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
@@ -156,18 +178,24 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   const Divider(
                     color: Colors.black,
-                    height: 25,
+                    height: 10,
                     thickness: 1,
                   ),
-                  Align(
+
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Description",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._homosapiens['info-desc'][0],
@@ -178,9 +206,11 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
-                    height: 10,
+
+                  const SizedBox(
+                    height: 20,
                   ),
+
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._homosapiens['info-surah'][0],
@@ -191,41 +221,49 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                           color: Colors.black,
                         )),
                   ),
+
                   Align(
                     alignment: Alignment.center,
-                    child: Text(widget._homosapiens['info-surah_name'][0],
-                        style: TextStyle(
+                    child: Text(
+                        widget._homosapiens['info-surah_name'][0],
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           color: Colors.black,
                         )),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._homosapiens['trans-text'][0],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
+
                   Align(
                     alignment: Alignment.center,
-                    child:
-                    Text(widget._homosapiens['info-translation'][0],
+                    child: Text(
+                        widget._homosapiens['info-translation'][0],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
-                    height: 10,
+
+                  const SizedBox(
+                    height: 20,
                   ),
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._homosapiens['info-desc'][1],
@@ -236,9 +274,11 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
-                    height: 10,
+
+                  const SizedBox(
+                    height: 20,
                   ),
+
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._homosapiens['info-surah'][1],
@@ -251,19 +291,23 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text(widget._homosapiens['info-surah_name'][1],
+                    child: Text(
+                        widget._homosapiens['info-surah_name'][1],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           color: Colors.black,
                         )),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Align(
                     alignment: Alignment.center,
                     child: Text(widget._homosapiens['trans-text'][1],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           fontStyle: FontStyle.italic,
@@ -272,47 +316,69 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child:
-                    Text(widget._homosapiens['info-translation'][1],
+                    child: Text(
+                        widget._homosapiens['info-translation'][1],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsLight',
                           fontStyle: FontStyle.italic,
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(
-                    height: 10,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-desc'][2],
-                        textAlign: TextAlign.justify,
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
+                  for (int sura = 0;
+                  sura < _suraList.length;
+                  sura++) ...[
+                    for (int tafsir = 0;
+                    tafsir <
+                        _suraList[sura]["info-mini-title"].length;
+                    tafsir++) ...[
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                              "${_suraList[sura]["info-mini-title"][tafsir]}",
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                fontSize: 15.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )),
+                          //contents
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  "${_suraList[sura]["info-desc"][tafsir]}",
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'PoppinsLight',
+                                    color: Colors.black,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ]
+                  ],
+                  const SizedBox(
+                    height: 16,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget._homosapiens['info-desc'][3],
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'PoppinsRegular',
-                          color: Colors.black,
-                        )),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Row(
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          child: Text(
+                          child: const Text(
                             'Description',
                             style: TextStyle(
                               color: Colors.white,
@@ -326,7 +392,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: Text(
+                          child: const Text(
                             'Video',
                             style: TextStyle(
                               color: Colors.white,
@@ -335,7 +401,8 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                             ),
                           ),
                           onPressed: () {
-                            final homosapiens = FirebaseFirestore.instance
+                            final homosapiens = FirebaseFirestore
+                                .instance
                                 .collection('first-man-on-earth');
                             homosapiens
                                 .get()
@@ -345,7 +412,8 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
                                 final _homosapiens = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._homosapiens["info-title"]) {
+                                      widget._homosapiens[
+                                      "info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -366,6 +434,326 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
               ),
             ],
           ),
-        ));
+        )
+            :  screenWidth < 992
+            ? _isloading
+            ?  Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+            : SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child:
+                Image.network(widget._homosapiens['info-img'][0],),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._homosapiens['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._homosapiens['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
+
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Description",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._homosapiens['info-desc'][0],
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._homosapiens['info-surah'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._homosapiens['info-surah_name'][0],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._homosapiens['trans-text'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._homosapiens['info-translation'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._homosapiens['info-desc'][1],
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._homosapiens['info-surah'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._homosapiens['info-surah_name'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._homosapiens['trans-text'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._homosapiens['info-translation'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  for (int sura = 0;
+                  sura < _suraList.length;
+                  sura++) ...[
+                    for (int tafsir = 0;
+                    tafsir <
+                        _suraList[sura]["info-mini-title"].length;
+                    tafsir++) ...[
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                              "${_suraList[sura]["info-mini-title"][tafsir]}",
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                fontSize: 15.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )),
+                          //contents
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  "${_suraList[sura]["info-desc"][tafsir]}",
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'PoppinsLight',
+                                    color: Colors.black,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ]
+                  ],
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () {
+                            final homosapiens = FirebaseFirestore
+                                .instance
+                                .collection('first-man-on-earth');
+                            homosapiens
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                final _homosapiens = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      widget._homosapiens[
+                                      "info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VideoHomosapiens(
+                                                    _homosapiens)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        )
+            : null);
   }
+
+  //todo: get tafsir info & name
+  void getTafsir(element) async {
+    DocumentSnapshot qnSurah =
+    await _firestoreInstance.collection("desc").doc(element).get();
+    setState(() {
+      _suraList.add({
+        "info-desc": qnSurah["info-desc"],
+        "info-mini-title": qnSurah["info-mini-title"],
+      });
+    });
+  }
+}
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

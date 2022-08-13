@@ -35,11 +35,12 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
             content: Text('Added to Favourite!'))));
   }
 
-  void share(BuildContext context){
+  void share(BuildContext context) {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -58,9 +59,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5),(){
-      setState((){
-        _isloading=false;
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        _isloading = false;
       });
     });
 
@@ -72,26 +73,29 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.white,
             title: Text(
               widget._theExist['info-title'],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontSize: 18.0,
-                fontFamily: 'PoppinsMedium',
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pop(context);
-              });},
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context);
+                });
+              },
             ),
 
             //todo: favorite button
@@ -128,25 +132,32 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context, ),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
-        body:_isloading ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
-        ): SingleChildScrollView(
+
+        //todo:mobile
+        body: screenWidth < 576
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            ))
+            : SingleChildScrollView(
           child: Column(children: [
             Container(
-              child: Image.network(widget._theExist['info-img'][0]),
+              child: Image.network(widget._theExist['info-img'][0],),
             ),
             const SizedBox(
               height: 5,
             ),
             Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(children: <Widget>[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -168,7 +179,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   ),
                   const Divider(
                     color: Colors.black,
-                    height: 25,
+                    height: 10,
                     thickness: 1,
                   ),
                   const Align(
@@ -180,9 +191,13 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                           color: Colors.black,
                         )),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(widget._theExist['info-desc'][0],textAlign:TextAlign.justify,
+                    child: Text(widget._theExist['info-desc'][0],
+                        textAlign: TextAlign.justify,
                         style: const TextStyle(
                           fontSize: 15.0,
                           fontFamily: 'PoppinsRegular',
@@ -198,7 +213,8 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     Column(children: [
                       Align(
                         alignment: Alignment.center,
-                        child: Text(widget._theExist['info-surah'][sura],
+                        child:
+                        Text(widget._theExist['info-surah'][sura],
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18.0,
@@ -208,7 +224,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(widget._theExist['info-surah_name'][sura],textAlign:TextAlign.center,
+                        child: Text(
+                            widget._theExist['info-surah_name'][sura],
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsLight',
@@ -230,11 +248,14 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Text(widget._theExist['info-translation'][sura],
+                        child: Text(
+                            widget._theExist['info-translation']
+                            [sura],
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'PoppinsLight',
+                              fontStyle: FontStyle.italic,
                               color: Colors.black,
                             )),
                       ),
@@ -242,17 +263,20 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                         height: 20,
                       ),
                       for (int tafsir = 0;
-                      tafsir < _tafserList[sura]['tafseer-info'].length;
+                      tafsir <
+                          _tafserList[sura]['tafseer-info']
+                              .length;
                       tafsir++)
                         Card(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: Colors.grey),
+                            side: const BorderSide(color: Colors.grey),
                           ),
                           child: ExpansionTile(
                             title: Text(
                                 "${_tafserList[sura]['tafseer-name'][tafsir]}",
+                                textAlign: TextAlign.justify,
                                 style: const TextStyle(
                                   fontSize: 15.0,
                                   fontFamily: 'PoppinsMedium',
@@ -262,7 +286,8 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                             children: [
                               ListTile(
                                 title: Text(
-                                    "${_tafserList[sura]['tafseer-info'][tafsir]}",textAlign:TextAlign.justify,
+                                    "${_tafserList[sura]['tafseer-info'][tafsir]}",
+                                    textAlign: TextAlign.justify,
                                     style: const TextStyle(
                                       fontSize: 15.0,
                                       fontFamily: 'PoppinsLight',
@@ -273,6 +298,9 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                           ),
                         ),
                       const SizedBox(
+                        height: 16,
+                      ),
+                      const SizedBox(
                         height: 20,
                       ),
                     ])
@@ -281,7 +309,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          child: Text(
+                          child: const Text(
                             'Description',
                             style: TextStyle(
                               color: Colors.white,
@@ -295,7 +323,7 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: Text(
+                          child: const Text(
                             'Video',
                             style: TextStyle(
                               color: Colors.white,
@@ -305,18 +333,24 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                           ),
                           onPressed: () {
                             final before = FirebaseFirestore.instance
-                                .collection('the-existence-of-universe');
-                            before.get().then((QuerySnapshot snapshot) {
-                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                .collection(
+                                'the-existence-of-universe');
+                            before
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
                                 final _theExist = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._theExist["info-title"]) {
+                                      widget
+                                          ._theExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                VideoExistence(_theExist)));
+                                                VideoExistence(
+                                                    _theExist)));
                                   }
                                 });
                               });
@@ -329,7 +363,235 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
                   ),
                 ])),
           ]),
-        ));
+        )
+
+        //todo:tab
+            : screenWidth < 992
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),))
+            : SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              child:
+              Image.network(widget._theExist['info-img'][0],),
+            ),
+
+            const SizedBox(
+              height: 5,
+            ),
+
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._theExist['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Description",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(widget._theExist['info-desc'][0],
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  for (int sura = 0;
+                  sura < widget._theExist['info-surah'].length;
+                  sura++) ...[
+                    Column(children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child:
+                        Text(widget._theExist['info-surah'][sura],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontFamily: 'PoppinsThin',
+                              color: Colors.black,
+                            )),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                            widget._theExist['info-surah_name'][sura],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsLight',
+                              color: Colors.black,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text("Translation: ",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsLight',
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black,
+                            )),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                            widget._theExist['info-translation']
+                            [sura],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsLight',
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      for (int tafsir = 0;
+                      tafsir <
+                          _tafserList[sura]['tafseer-info']
+                              .length;
+                      tafsir++)
+                        Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(color: Colors.grey),
+                          ),
+                          child: ExpansionTile(
+                            title: Text(
+                                "${_tafserList[sura]['tafseer-name'][tafsir]}",
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsMedium',
+                                  color: Colors.black,
+                                )),
+                            //contents
+                            children: [
+                              ListTile(
+                                title: Text(
+                                    "${_tafserList[sura]['tafseer-info'][tafsir]}",
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: 'PoppinsLight',
+                                      color: Colors.black,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ])
+                  ],
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () {
+                            final before = FirebaseFirestore.instance
+                                .collection(
+                                'the-existence-of-universe');
+                            before
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                final _theExist = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      widget
+                                          ._theExist["info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VideoExistence(
+                                                    _theExist)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ])),
+          ]),
+        ): null
+    );
   }
 
   getTafserList(element) async {
@@ -347,4 +609,14 @@ class _InfoTheExistenceState extends State<InfoTheExistence> {
       });
     });
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

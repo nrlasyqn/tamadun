@@ -40,7 +40,8 @@ class _TheProphetState extends State<TheProphet> {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -62,14 +63,15 @@ class _TheProphetState extends State<TheProphet> {
       getLesson(element);
     });
   }
+
   bool _isloading = false;
 
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5),(){
-      setState((){
-        _isloading=false;
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        _isloading = false;
       });
     });
 
@@ -81,24 +83,29 @@ class _TheProphetState extends State<TheProphet> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
             title: Text(
               widget._ummah['info-title'],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(Duration.zero, () {
                   Navigator.pop(context);
-                });},
+                });
+              },
             ),
 
             //todo: favorite button
@@ -108,8 +115,7 @@ class _TheProphetState extends State<TheProphet> {
                     .collection("tamadun-users-favorites")
                     .doc(FirebaseAuth.instance.currentUser!.email)
                     .collection("favorite-items")
-                    .where("info-title",
-                    isEqualTo: widget._ummah['info-title'])
+                    .where("info-title", isEqualTo: widget._ummah['info-title'])
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
@@ -135,19 +141,26 @@ class _TheProphetState extends State<TheProphet> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context,),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
-        body:_isloading ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
-        ): SingleChildScrollView(
+        body: screenWidth < 576
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+        //mobile
+            : SingleChildScrollView(
           child: Column(children: [
             Container(
-              child: Image.network(widget._ummah['info-img'][0]),
+              child: Image.network(widget._ummah['info-img'][0],),
             ),
             const SizedBox(
               height: 5,
@@ -158,7 +171,7 @@ class _TheProphetState extends State<TheProphet> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._ummah['info-title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
@@ -168,19 +181,19 @@ class _TheProphetState extends State<TheProphet> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(widget._ummah['info-sub'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'PoppinsMedium',
                         color: Colors.black,
                       )),
                 ),
-
                 const Divider(
                   color: Colors.black,
-                  height: 25,
+                  height: 10,
                   thickness: 1,
                 ),
-                Align(
+
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text("Description",
                       style: TextStyle(
@@ -189,360 +202,66 @@ class _TheProphetState extends State<TheProphet> {
                         color: Colors.black,
                       )),
                 ),
-                //TODO:DESCRIPTION OF INFO
-                for (int desc = 0; desc < _descList.length; desc++) ...[
-                  for (int info = 0; info < _descList[desc]["info-prophet"].length; info++) ...[
 
+                const SizedBox(
+                  height: 10,
+                ),
+
+                //TODO:DESCRIPTION OF INFO
+                for (int desc = 0;
+                desc < _descList.length;
+                desc++) ...[
+                  for (int info = 0;
+                  info < _descList[desc]["info-prophet"].length;
+                  info++) ...[
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("${_descList[desc]["info-prophet"][info]}",textAlign: TextAlign.justify,
+                      child: Text(
+                          "${_descList[desc]["info-prophet"][info]}",
+                          textAlign: TextAlign.justify,
                           style: const TextStyle(
                             fontSize: 15.0,
                             fontFamily: 'PoppinsRegular',
                             color: Colors.black,
-                          )
-                      ),
+                          )),
                     ),
-
+                    const SizedBox(height: 20,),
                   ]
                 ],
+
                 const SizedBox(
-                  height: 30,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][0],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][0],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][0],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][0],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 10,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][1],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][1],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][1],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][1],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][2],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][2],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][2],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][2],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][3],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][3],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][3],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][3],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][4],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][4],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][4],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][4],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][5],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][5],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][5],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-mean'][5],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsMedium',
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      )),
-                ),
-
-                SizedBox(
-                  height: 20,
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah'][6],textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-surah-name'][6],textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._ummah['info-translation'][6],textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
                   height: 20,
                 ),
 
                 //TODO:History OF INFO
-                for (int his = 0; his < _histroyList.length; his++) ...[
-                  for (int tory = 0; tory < _histroyList[his]["history-title"].length; tory++) ...[
+                for (int his = 0;
+                his < _histroyList.length;
+                his++) ...[
+                  for (int tory = 0;
+                  tory <
+                      _histroyList[his]["history-title"].length;
+                  tory++) ...[
                     Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(color: Colors.grey),
+                        side: const BorderSide(color: Colors.grey),
                       ),
-                      child: ExpansionTile(title:Text("${_histroyList[his]["history-title"][tory]}",
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                            fontFamily: 'PoppinsMedium',
-                            color: Colors.black,
-                          )),
+                      child: ExpansionTile(
+                        title: Text(
+                            "${_histroyList[his]["history-title"][tory]}",
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsMedium',
+                              color: Colors.black,
+                            )),
                         //contents
                         children: [
                           ListTile(
-                            title: Text("${_histroyList[his]["history-lesson"][tory]}",textAlign: TextAlign.justify,
+                            title: Text(
+                                "${_histroyList[his]["history-lesson"][tory]}",
+                                textAlign: TextAlign.justify,
                                 style: const TextStyle(
                                   fontSize: 15.0,
                                   fontFamily: 'PoppinsLight',
@@ -564,30 +283,40 @@ class _TheProphetState extends State<TheProphet> {
                   children: <Widget>[
                     Expanded(
                       child: MaterialButton(
-                        child: Text('Description',style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsMedium',
-                        ),),
-                        onPressed: () {
-                        },
+                        child: const Text(
+                          'Description',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),
+                        ),
+                        onPressed: () {},
                         color: Colors.black,
                       ),
                     ),
                     Expanded(
                       child: MaterialButton(
-                        child: Text('Video',style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: 'PoppinsMedium',
-                        ),),
-                        onPressed: () async{
-                          final ummah = FirebaseFirestore.instance.collection('ummah').doc('the-prophets').collection("prophets-button");
+                        child: const Text(
+                          'Video',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),
+                        ),
+                        onPressed: () async {
+                          final ummah = FirebaseFirestore.instance
+                              .collection('ummah')
+                              .doc('the-prophets')
+                              .collection("prophets-button");
                           ummah.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
+                            snapshot.docs
+                                .forEach((DocumentSnapshot doc) {
                               final _ummah = doc;
                               setState(() {
-                                if (doc["info-title"] == widget._ummah["info-title"]) {
+                                if (doc["info-title"] ==
+                                    widget._ummah["info-title"]) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -610,7 +339,192 @@ class _TheProphetState extends State<TheProphet> {
               ]),
             )
           ]),
-        ));
+        )
+            : screenWidth < 992
+            ? SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              child: Image.network(widget._ummah['info-img'][0],),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(children: <Widget>[
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(widget._ummah['info-title'],
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'PoppinsMedium',
+                        color: Colors.black,
+                      )),
+                ),
+
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(widget._ummah['info-sub'],
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontFamily: 'PoppinsMedium',
+                        color: Colors.black,
+                      )),
+                ),
+                const Divider(
+                  color: Colors.black,
+                  height: 10,
+                  thickness: 1,
+                ),
+
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Description",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'PoppinsMedium',
+                        color: Colors.black,
+                      )),
+                ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                //TODO:DESCRIPTION OF INFO
+                for (int desc = 0;
+                desc < _descList.length;
+                desc++) ...[
+                  for (int info = 0;
+                  info < _descList[desc]["info-prophet"].length;
+                  info++) ...[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          "${_descList[desc]["info-prophet"][info]}",
+                          textAlign: TextAlign.justify,
+                          style: const TextStyle(
+                            fontSize: 15.0,
+                            fontFamily: 'PoppinsRegular',
+                            color: Colors.black,
+                          )),
+                    ),
+                    const SizedBox(height: 20,),
+                  ]
+                ],
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                //TODO:History OF INFO
+                for (int his = 0;
+                his < _histroyList.length;
+                his++) ...[
+                  for (int tory = 0;
+                  tory <
+                      _histroyList[his]["history-title"].length;
+                  tory++) ...[
+                    Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Colors.grey),
+                      ),
+                      child: ExpansionTile(
+                        title: Text(
+                            "${_histroyList[his]["history-title"][tory]}",
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsMedium',
+                              color: Colors.black,
+                            )),
+                        //contents
+                        children: [
+                          ListTile(
+                            title: Text(
+                                "${_histroyList[his]["history-lesson"][tory]}",
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ]
+                ],
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                //todo: video button
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: MaterialButton(
+                        child: const Text(
+                          'Description',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),
+                        ),
+                        onPressed: () {},
+                        color: Colors.black,
+                      ),
+                    ),
+                    Expanded(
+                      child: MaterialButton(
+                        child: const Text(
+                          'Video',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),
+                        ),
+                        onPressed: () async {
+                          final ummah = FirebaseFirestore.instance
+                              .collection('ummah')
+                              .doc('the-prophets')
+                              .collection("prophets-button");
+                          ummah.get().then((QuerySnapshot snapshot) {
+                            snapshot.docs
+                                .forEach((DocumentSnapshot doc) {
+                              final _ummah = doc;
+                              setState(() {
+                                if (doc["info-title"] ==
+                                    widget._ummah["info-title"]) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              VideoUmmah(_ummah)));
+                                }
+                              });
+                            });
+                          });
+                        },
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(
+                  height: 5,
+                ),
+              ]),
+            )
+          ]),
+        )
+            : null);
   }
 
   //todo: get tafsir info & name
@@ -620,11 +534,10 @@ class _TheProphetState extends State<TheProphet> {
     setState(() {
       _descList.add({
         "info-prophet": qnDesc["info-prophet"],
-
-
       });
     });
   }
+
   void getLesson(element) async {
     DocumentSnapshot qnhistory =
     await _firestoreInstance.collection("history").doc(element).get();
@@ -632,8 +545,17 @@ class _TheProphetState extends State<TheProphet> {
       _histroyList.add({
         "history-title": qnhistory["history-title"],
         "history-lesson": qnhistory["history-lesson"],
-
       });
     });
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

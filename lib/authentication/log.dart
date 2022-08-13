@@ -86,12 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.mail),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Enter Email Address",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black),
           ),
         ));
 
@@ -114,12 +114,12 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.vpn_key),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Enter Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black),
           ),
         ));
 
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           signIn(emailController.text, passwordController.text);
         },
-        child: Text('Log In',
+        child: const Text("Sign In",
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'PoppinsMedium',
@@ -156,16 +156,16 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: const EdgeInsets.only(left: 0.0, right: 0.0),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 30),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 70),
+                    const SizedBox(height: 70),
                     Container(
-                      child: Text(
-                        "LOG IN",
+                      child: const Text(
+                        "SIGN IN",
                         style: TextStyle(
                           fontFamily: 'PoppinsSemiBold',
                           color: Colors.black,
@@ -173,15 +173,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Text(
-                      "Please login to continue using our app",
+                    const Text(
+                      "Please sign in to continue using our app",
                       style: TextStyle(
                         fontFamily: 'PoppinsLight',
-                        fontSize: 18,
+                        fontSize: 16.5,
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Form(
@@ -190,13 +190,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           emailField,
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           passwordField,
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           loginButton,
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -220,23 +220,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
                           Row(children: <Widget>[
-                            Expanded(
+                            const Expanded(
                               child: Divider(
                                 color: Colors.black,
                                 thickness: 0.5,
                                 height: 50,
                               ),
                             ),
-                            Text(
+                            const Text(
                               "   or   ",
                               style: TextStyle(
                                 fontFamily: 'PoppinsRegular',
                                 fontSize: 15,
                               ),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: Divider(
                                 color: Colors.black,
                                 thickness: 0.5,
@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ]),
-                          SizedBox(height: 4), //space
+                          const SizedBox(height: 4), //space
                           Center(
                             child: Text(
                               "Continue with",
@@ -257,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           MaterialButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -274,13 +274,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                FaIcon(
+                                const FaIcon(
                                   FontAwesomeIcons.google,
                                   color: Colors.white,
                                   size: 18,
                                 ),
-                                SizedBox(width: 10),
-                                Text('Google',
+                                const SizedBox(width: 10),
+                                const Text('Google',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'PoppinsSemiBold',
@@ -288,7 +288,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           MaterialButton(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -328,13 +328,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                FaIcon(
+                                const FaIcon(
                                   FontAwesomeIcons.facebookF,
                                   color: Colors.white,
                                   size: 18,
                                 ),
-                                SizedBox(width: 10),
-                                Text('Facebook',
+                                const SizedBox(width: 10),
+                                const Text('Facebook',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'PoppinsSemiBold',
@@ -342,11 +342,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 18),
+                          const SizedBox(height: 18),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text("Don't have an account? ",
+                                const Text("Don't have an account? ",
                                     style: TextStyle(
                                         fontFamily: 'PoppinsExtraLight',
                                         fontSize: 15)),
@@ -356,7 +356,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                RegistrationScreen()));
+                                                const RegistrationScreen()));
                                   },
                                   child: Text(
                                     "Sign Up",
@@ -388,7 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Fluttertoast.showToast(msg: "Sign In Successful"),
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomePage())),
                 });

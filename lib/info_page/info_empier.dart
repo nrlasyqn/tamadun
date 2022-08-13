@@ -30,18 +30,18 @@ class _InfoEmpireState extends State<InfoEmpire> {
       "info-title": widget._empire["info-title"],
       "info-sub": widget._empire["info-sub"],
       "info-img": widget._empire["info-img"],
-    }).then((value) => ScaffoldMessenger.of(context)
-        .showSnackBar( const SnackBar(
-        duration: Duration(seconds: 1),
-        content: Text(
-            'Added to Favourite!'))));
+    }).then((value) => ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            duration: Duration(seconds: 1),
+            content: Text('Added to Favourite!'))));
   }
 
-  void share(BuildContext context){
+  void share(BuildContext context) {
     String message = 'Check out this useful content!';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Desription',
+    Share.share(message,
+        subject: 'Desription',
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
@@ -55,13 +55,14 @@ class _InfoEmpireState extends State<InfoEmpire> {
       getTafsir(element);
     });
   }
+
   bool _isloading = false;
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5),(){
-      setState((){
-        _isloading=false;
+    Future.delayed(Duration(seconds: 5), () {
+      setState(() {
+        _isloading = false;
       });
     });
 
@@ -72,25 +73,29 @@ class _InfoEmpireState extends State<InfoEmpire> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.white,
             title: Text(
               widget._empire['info-title'],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
-              //todo: timeline empire
               onPressed: () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(Duration.zero, () {
                   Navigator.pop(context);
-                });},
+                });
+              },
             ),
 
             //todo: favorite button
@@ -129,18 +134,24 @@ class _InfoEmpireState extends State<InfoEmpire> {
               IconButton(
                 icon: Icon(Icons.share_outlined),
                 color: Colors.black,
-                onPressed: () => share(context, ),
+                onPressed: () => share(
+                  context,
+                ),
               ),
             ]),
-        body: _isloading ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
-        ):SingleChildScrollView(
+        body: screenWidth < 576
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+            : SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._empire['info-img'][0]),
+                child: Image.network(widget._empire['info-img'][0],),
               ),
               const SizedBox(
                 height: 5,
@@ -168,41 +179,51 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   ),
                   const Divider(
                     color: Colors.black,
-                    height: 25,
+                    height: 10,
                     thickness: 1,
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Description",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
                   ),
-                  SizedBox(height: 16,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   for (int sura = 0; sura < _suraList.length; sura++) ...[
-                    for (int tafsir = 0; tafsir < _suraList[sura]["info-mini-title"].length; tafsir++) ...[
+                    for (int tafsir = 0;
+                    tafsir <
+                        _suraList[sura]["info-mini-title"].length;
+                    tafsir++) ...[
                       Align(
                         alignment: Alignment.centerLeft,
-                        child:Text("${_suraList[sura]["info-mini-title"][tafsir]}",textAlign:TextAlign.justify,
+                        child: Text(
+                            "${_suraList[sura]["info-mini-title"][tafsir]}",
+                            textAlign: TextAlign.justify,
                             style: const TextStyle(
-                              fontSize: 18.0,
-                              fontFamily: 'PoppinsRegular',
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsMedium',
                               color: Colors.black,
                             )),
                       ),
-                      SizedBox(height: 16,),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text("${_suraList[sura]["info-desc"][tafsir]}",textAlign:TextAlign.justify,
+                        child: Text(
+                            "${_suraList[sura]["info-desc"][tafsir]}",
+                            textAlign: TextAlign.justify,
                             style: const TextStyle(
                               fontSize: 15.0,
                               fontFamily: 'PoppinsLight',
                               color: Colors.black,
                             )),
                       ),
-                      SizedBox(height: 16,),
+                      SizedBox(
+                        height: 16,
+                      ),
                     ]
                   ],
 
@@ -214,35 +235,44 @@ class _InfoEmpireState extends State<InfoEmpire> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          child: Text('Description',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
-                          ),),
+                          child: Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () => null,
                           color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: Text('Video',style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
-                          ),),
+                          child: Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final empire = FirebaseFirestore.instance
                                 .collection('the-islamic-empire');
                             empire.get().then((QuerySnapshot snapshot) {
-                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
                                 final _empire = doc;
                                 setState(() {
-                                  if (doc["info-title"] == widget._empire["info-title"]) {
+                                  if (doc["info-title"] ==
+                                      widget._empire["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                InfoVideoEmpire(_empire)));
+                                                InfoVideoEmpire(
+                                                    _empire)));
                                   }
                                 });
                               });
@@ -254,34 +284,163 @@ class _InfoEmpireState extends State<InfoEmpire> {
                     ],
                   ),
 
-                  //
-                  // MaterialButton(
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //   ),
-                  //   elevation: 0,
-                  //   color: Colors.blue[200],
-                  //   minWidth: double.maxFinite,
-                  //   height: 50,
-                  //   onPressed: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //         builder: (context) => FavScreenTwo()));
-                  //   },
-                  //   child: const Text('Favorite',
-                  //       style: TextStyle(
-                  //           color: Colors.black,
-                  //           fontFamily: 'PoppinsMedium',
-                  //           fontSize: 16)),
-                  // ),
-                  //
-                  // SizedBox(
-                  //   height: 5,
-                  // )
                 ]),
               ),
             ],
           ),
-        ));
+        )
+
+            :screenWidth < 992
+            ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+            : SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: Image.network(widget._empire['info-img'][0],),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._empire['info-title'],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._empire['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Description",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  for (int sura = 0; sura < _suraList.length; sura++) ...[
+                    for (int tafsir = 0;
+                    tafsir <
+                        _suraList[sura]["info-mini-title"].length;
+                    tafsir++) ...[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            "${_suraList[sura]["info-mini-title"][tafsir]}",
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsMedium',
+                              color: Colors.black,
+                            )),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            "${_suraList[sura]["info-desc"][tafsir]}",
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              fontSize: 15.0,
+                              fontFamily: 'PoppinsLight',
+                              color: Colors.black,
+                            )),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                    ]
+                  ],
+
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          child: Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () => null,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          child: Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                          onPressed: () {
+                            final empire = FirebaseFirestore.instance
+                                .collection('the-islamic-empire');
+                            empire.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                final _empire = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      widget._empire["info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                InfoVideoEmpire(
+                                                    _empire)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                ]),
+              ),
+            ],
+          ),
+        ):null
+    );
   }
 
   //todo: get tafsir info & name
@@ -295,4 +454,14 @@ class _InfoEmpireState extends State<InfoEmpire> {
       });
     });
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

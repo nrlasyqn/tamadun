@@ -29,7 +29,7 @@ class UserModel {
       'uid': uid,
       'email': email,
       'displayName': displayName,
-      'photoURL': 'https://freesvg.org/img/abstract-user-flat-4.png',
+      'photoURL': 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png',
       'bio': 'hello there!',
       'lastSeen' : DateTime.now(),
       'role': 'standard',

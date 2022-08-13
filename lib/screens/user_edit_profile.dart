@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:ndialog/ndialog.dart';
@@ -85,19 +86,17 @@ class _EditProfileState extends State<EditProfile> {
 
   //----------Save form ---------
 //save form
-
   saveProfile() async {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate() && !isLoading) {
       setState(() {
         isLoading = true;
       });
-
       UserModel user = UserModel(
         uid: loggedInUser.uid,
-        displayName: displayName,
+        displayName: displayName ?? "Anonymous",
         //photoURL: url,
-        bio: bio,
+        bio: bio ?? 'Hello There!',
       );
 
       DatabaseServices.updateUserData(user);
@@ -109,7 +108,7 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
     isLoading = true;
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         isLoading = false;
       });
@@ -127,13 +126,18 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    // TextEditingController bioUser = TextEditingController();
+    // TextEditingController nameUser = TextEditingController();
+    // bioUser.text = "${loggedInUser.bio}";
+    // nameUser.text = "${loggedInUser.displayName}";
+    Size screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontFamily: 'MontserratBold',
+        title: const Text(
+          'Edit Profile',
+          style: const TextStyle(
+            fontFamily: "MontserratBold",
             fontSize: 24,
             color: Colors.black,
           ),
@@ -141,7 +145,7 @@ class _EditProfileState extends State<EditProfile> {
         ),
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
             Navigator.pop(context);
@@ -151,7 +155,7 @@ class _EditProfileState extends State<EditProfile> {
       body: isLoading
           ? Center(
         child: CircularProgressIndicator(
-          color: Colors.purple,
+          color: Color(hexColor('#25346a')),
         ),
       )
           : SafeArea(
@@ -170,13 +174,13 @@ class _EditProfileState extends State<EditProfile> {
                           padding: const EdgeInsets.all(8.0),
                           child: CircleAvatar(
                             radius: 85,
-                            backgroundColor: mMorePageColor,
+                            backgroundColor: Color(hexColor("BF#495885")),
                             child: CircleAvatar(
                               radius: 75,
                               backgroundImage: pickedImage == null
                                   ? NetworkImage(loggedInUser.photoURL! ==
                                   ''
-                                  ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                  ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
                                   : loggedInUser.photoURL!)
                                   : FileImage(pickedImage!)
                               as ImageProvider,
@@ -191,10 +195,10 @@ class _EditProfileState extends State<EditProfile> {
                             fillColor: Colors.white,
                             child: Icon(
                               Icons.add_a_photo,
-                              color: Colors.blueAccent,
+                              color: Color(hexColor("#495885")),
                             ),
-                            padding: EdgeInsets.all(15),
-                            shape: CircleBorder(),
+                            padding: const EdgeInsets.all(15),
+                            shape: const CircleBorder(),
                             onPressed: () {
                               showModalBottomSheet(
                                   context: context,
@@ -239,7 +243,7 @@ class _EditProfileState extends State<EditProfile> {
                 alignment: Alignment.center,
                 child: Text(
                   "${loggedInUser.displayName ?? authService.getUserdisplayname()}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'PoppinsRegular',
                     fontSize: 18,
@@ -250,153 +254,214 @@ class _EditProfileState extends State<EditProfile> {
                 alignment: Alignment.center,
                 child: Text(
                   "${loggedInUser.role ?? authService.getUserRole()}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'PoppinsItalic',
                     fontSize: 16,
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Container(
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      Container(
-                        height: 50,
-                        width: 350,
-                        decoration: BoxDecoration(
-                          color: Color(hexColor('FFF5F6F9')),
-                          border: Border.all(
-                            width: 1,
-                            color: Color(
-                              hexColor('A9A4A4'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          height: 50,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Color(hexColor('FFF5F6F9')),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(
+                                hexColor('A9A4A4'),
+                              ),
                             ),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          initialValue: displayName,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Name",
-                            contentPadding: EdgeInsets.all(13),
+                          child: TextFormField(
+                            //controller: nameUser,
+                            initialValue:"${loggedInUser.displayName ?? authService.getUserdisplayname()}",
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Name",
+                              contentPadding: EdgeInsets.all(5),
+                            ),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.left,
+                            validator: (input){
+                              if(input !.trim().length <3|| input.isEmpty || input == null){
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      duration: Duration(seconds: 5),
+                                      content: Text('Please Enter Valid Name(Min. 3 Character)!'),
+                                    ),
+                                );
+                                 //Fluttertoast.showToast(msg: 'Please Enter Valid Name!');
+                              }
+                              return null;
+                            },
+                            // validator: (input) => input!.trim().length < 3
+                            //     ? 'please enter valid name'
+                            //     : null,
+                            onSaved: (value) {
+                              displayName = value ?? "Anonymous";
+                            },
                           ),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'PoppinsRegular',
-                            fontSize: 18,
-                          ),
-                          textAlign: TextAlign.left,
-                          validator: (input) => input!.trim().length < 2
-                              ? 'please enter valid name'
-                              : null,
-                          onSaved: (value) {
-                            displayName = value;
-                          },
                         ),
                       ),
-                      SizedBox(height: 15),
-                      Container(
-                        height: 50,
-                        width: 350,
-                        decoration: BoxDecoration(
-                          color: Color(hexColor('FFF5F6F9')),
-                          border: Border.all(
-                            width: 1,
-                            color: Color(
-                              hexColor('A9A4A4'),
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          height: 50,
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Color(hexColor('FFF5F6F9')),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(
+                                hexColor('A9A4A4'),
+                              ),
                             ),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextFormField(
-                          initialValue: bio,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Bio",
-                            contentPadding: EdgeInsets.all(13),
+                          child: TextFormField(
+                            //controller: bioUser,
+                            initialValue: "${loggedInUser.bio ?? authService.getUserBio()}",
+                            decoration: const InputDecoration(
+                              // suffixIcon: IconButton(
+                              //   onPressed: saveBio(),
+                              //   icon: Icon(Icons.check_circle_outline),
+                              // ),
+                              border: InputBorder.none,
+                              hintText: "Bio",
+                              contentPadding: EdgeInsets.all(5),
+                            ),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.left,
+                            onSaved: (value) {
+                              bio = value;
+                            },
                           ),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'PoppinsRegular',
-                            fontSize: 18,
-                          ),
-                          textAlign: TextAlign.left,
-                          onSaved: (value) {
-                            bio = value;
-                          },
                         ),
                       ),
-                      SizedBox(height: 15),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                      //   child: Container(
+                      //     padding: const EdgeInsets.all(15),
+                      //     height: 50,
+                      //     width: double.maxFinite,
+                      //     decoration: BoxDecoration(
+                      //       color: Color(hexColor('FFF5F6F9')),
+                      //       border: Border.all(
+                      //         width: 1,
+                      //         color: Color(
+                      //           hexColor('A9A4A4'),
+                      //         ),
+                      //       ),
+                      //       borderRadius: BorderRadius.circular(10.0),
+                      //     ),
+                      //     child: TextFormField(
+                      //       initialValue: bio,
+                      //       decoration: const InputDecoration(
+                      //         border: InputBorder.none,
+                      //         hintText: "Bio",
+                      //         contentPadding: EdgeInsets.all(13),
+                      //       ),
+                      //       style: const TextStyle(
+                      //         color: Colors.black,
+                      //         fontFamily: 'PoppinsRegular',
+                      //         fontSize: 18,
+                      //       ),
+                      //       textAlign: TextAlign.left,
+                      //       onSaved: (value) {
+                      //         bio = value;
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
+                      const SizedBox(height: 15),
                       isLoading
                           ? CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.lightGreen),
+                            Color(hexColor('#25346a'))),
                       )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                     ],
                   ),
                 ),
               ),
 
               //button Update and password
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Column(
                 children: [
-                  Container(
-                    height: 50,
-                    width: 350,
-                    child: ElevatedButton(
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                            child:  Text('Save Profile',style: TextStyle(
-                              fontFamily: 'PoppinsRegular',
-                              fontSize: 18,
-                              color: Colors.white,))
-                        ),
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius:BorderRadius.circular(10),
-                                )
-                            )
-                        ),
-                        onPressed: saveProfile,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    child: Container(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                          child: const Text('Save Profile',style: const TextStyle(
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: 18,
+                            color: Colors.white,)),
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius:BorderRadius.circular(10),
+                                  )
+                              )
+                          ),
+                          onPressed: saveProfile,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    height: 50,
-                    width: 350,
-                    child: ElevatedButton(
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                            child:  Text('Change Password',style: TextStyle(
-                              fontFamily: 'PoppinsRegular',
-                              fontSize: 18,
-                              color: Colors.white,))
-                        ),
-                        style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(mMorePageColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius:BorderRadius.circular(10),
-                                )
-                            )
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChangePass()));
-                        }
+                  const SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    child: Container(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                          child: const Text('Change Password',style: TextStyle(
+                            fontFamily: 'PoppinsRegular',
+                            fontSize: 18,
+                            color: Colors.white,)),
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF495885)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius:BorderRadius.circular(10),
+                                  )
+                              )
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ChangePass()));
+                          }
+                      ),
                     ),
                   ),
                 ],
