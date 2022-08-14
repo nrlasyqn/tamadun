@@ -120,7 +120,7 @@ class _the_existenceClassState extends State<the_existence> {
                           ),
                         ),
                         SizedBox(
-                          height: 80.0,
+                          height: 60.0,
                         ),
                         Container(
                           width: 300,

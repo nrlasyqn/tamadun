@@ -20,10 +20,10 @@ class _universeClassState extends State<universe> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(109, 126, 168, 1.0),
+        backgroundColor: const Color.fromRGBO(109, 126, 168, 1.0),
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        title: Text(
+        title: const Text(
           'Tamadun',
           style: TextStyle(
             fontFamily: 'MontserratBold',
@@ -32,7 +32,7 @@ class _universeClassState extends State<universe> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
             Navigator.push(
@@ -62,11 +62,11 @@ class _universeClassState extends State<universe> {
                     child: Container(
                       height: size.height,
                       width: size.width,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                      decoration: const BoxDecoration(
+                          gradient: const LinearGradient(
                               colors: [
-                                Color.fromRGBO(109, 126, 168, 1.0),
-                                Color.fromRGBO(109, 126, 168, 1.0),
+                                const Color.fromRGBO(109, 126, 168, 1.0),
+                                const Color.fromRGBO(109, 126, 168, 1.0),
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomLeft)),
@@ -78,13 +78,13 @@ class _universeClassState extends State<universe> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 60,
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Container(
@@ -102,18 +102,18 @@ class _universeClassState extends State<universe> {
                           minRadius: 70,
                           maxRadius: 80,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Text(
                           "${snapshot.data!['title']}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             fontFamily: 'PoppinsSemiBold',
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 80.0,
                         ),
                         //todo:The Creation of Qalam [FREE]
@@ -125,27 +125,27 @@ class _universeClassState extends State<universe> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            FetchTimelineBefore()));
+                                            const FetchTimelineBefore()));
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: EdgeInsets.all(0.0),
+                              padding: const EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: BoxConstraints(
+                                  constraints: const BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-1']}",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16.0,
                                       fontFamily: 'PoppinsMedium',
                                       color: Colors.black,
@@ -154,7 +154,7 @@ class _universeClassState extends State<universe> {
                                 ),
                               )),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
 
@@ -186,7 +186,7 @@ class _universeClassState extends State<universe> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      FetchTimelineBefore()));
+                                                      const FetchTimelineBefore()));
                                         }
 
                                         );}
@@ -195,23 +195,23 @@ class _universeClassState extends State<universe> {
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: EdgeInsets.all(0.0),
+                              padding: const EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: BoxConstraints(
+                                  constraints: const BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-2']}",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16.0,
                                       fontFamily: 'PoppinsMedium',
                                       color: Colors.black,
@@ -220,7 +220,7 @@ class _universeClassState extends State<universe> {
                                 ),
                               )),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15.0,
                         ),
 
@@ -250,7 +250,7 @@ class _universeClassState extends State<universe> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    FetchTimelineBefore()));
+                                                    const FetchTimelineBefore()));
                                       }
                                     }
                                   });
@@ -258,23 +258,23 @@ class _universeClassState extends State<universe> {
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: EdgeInsets.all(0.0),
+                              padding: const EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: BoxConstraints(
+                                  constraints: const BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-3']}",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16.0,
                                       fontFamily: 'PoppinsMedium',
                                       color: Colors.black,
@@ -289,15 +289,15 @@ class _universeClassState extends State<universe> {
                   Container(
                     height: size.width,
                     width: size.width,
-                    margin: EdgeInsets.all(25),
+                    margin: const EdgeInsets.all(25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.all(20.0),
+                        const Padding(
+                          padding: const EdgeInsets.all(20.0),
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_back_ios,
                             size: 30,
                           ),
@@ -336,15 +336,15 @@ class _universeClassState extends State<universe> {
                   Container(
                     height: size.width,
                     width: size.width,
-                    margin: EdgeInsets.all(25),
+                    margin: const EdgeInsets.all(25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.all(20.0),
                         ),
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_forward_ios,
                             size: 30,
                           ),
@@ -392,7 +392,7 @@ class _universeClassState extends State<universe> {
                         child: Container(
                           height: size.height,
                           width: size.width,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   colors: [
                                     Color.fromRGBO(109, 126, 168, 1.0),
@@ -408,13 +408,13 @@ class _universeClassState extends State<universe> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 60,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50.0,
                       ),
                       Container(
@@ -436,18 +436,18 @@ class _universeClassState extends State<universe> {
                                 maxRadius: 120,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20.0,
                             ),
                             Text(
                               "${snapshot.data!['title']}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 25.0,
                                 fontFamily: 'PoppinsSemiBold',
                                 color: Colors.black,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 110.0,
                             ),
                             //todo:The Creation of Qalam [FREE]
@@ -459,27 +459,27 @@ class _universeClassState extends State<universe> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                FetchTimelineBefore()));
+                                                const FetchTimelineBefore()));
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: EdgeInsets.all(0.0),
+                                  padding: const EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
+                                      constraints: const BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-1']}",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -488,7 +488,7 @@ class _universeClassState extends State<universe> {
                                     ),
                                   )),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15.0,
                             ),
 
@@ -520,7 +520,7 @@ class _universeClassState extends State<universe> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FetchTimelineBefore()));
+                                                          const FetchTimelineBefore()));
                                             }
 
                                             );}
@@ -529,23 +529,23 @@ class _universeClassState extends State<universe> {
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: EdgeInsets.all(0.0),
+                                  padding: const EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
+                                      constraints: const BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-2']}",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -554,7 +554,7 @@ class _universeClassState extends State<universe> {
                                     ),
                                   )),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15.0,
                             ),
 
@@ -584,7 +584,7 @@ class _universeClassState extends State<universe> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        FetchTimelineBefore()));
+                                                        const FetchTimelineBefore()));
                                           }
                                         }
                                       });
@@ -592,23 +592,23 @@ class _universeClassState extends State<universe> {
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: EdgeInsets.all(0.0),
+                                  padding: const EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
+                                      constraints: const BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-3']}",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -623,15 +623,15 @@ class _universeClassState extends State<universe> {
                       Container(
                         height: size.width,
                         width: size.width,
-                        margin: EdgeInsets.all(25),
+                        margin: const EdgeInsets.all(25),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                            const Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
                             ),
                             IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_back_ios,
                                 size: 40,
                               ),
@@ -670,15 +670,15 @@ class _universeClassState extends State<universe> {
                       Container(
                         height: size.width,
                         width: size.width,
-                        margin: EdgeInsets.all(25),
+                        margin: const EdgeInsets.all(25),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                            const Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
                             ),
                             IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_forward_ios,
                                 size: 40,
                               ),
@@ -726,11 +726,11 @@ class _universeClassState extends State<universe> {
                             child: Container(
                               height: size.height,
                               width: size.width,
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
+                              decoration: const BoxDecoration(
+                                  gradient: const LinearGradient(
                                       colors: [
-                                        Color.fromRGBO(109, 126, 168, 1.0),
-                                        Color.fromRGBO(109, 126, 168, 1.0),
+                                        const Color.fromRGBO(109, 126, 168, 1.0),
+                                        const Color.fromRGBO(109, 126, 168, 1.0),
                                       ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomLeft)),
@@ -742,13 +742,13 @@ class _universeClassState extends State<universe> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 60,
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 50.0,
                           ),
                           Container(
@@ -770,18 +770,18 @@ class _universeClassState extends State<universe> {
                                     maxRadius: 120,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20.0,
                                 ),
                                 Text(
                                   "${snapshot.data!['title']}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 25.0,
                                     fontFamily: 'PoppinsSemiBold',
                                     color: Colors.black,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 130.0,
                                 ),
                                 //todo:The Creation of Qalam [FREE]
@@ -793,27 +793,27 @@ class _universeClassState extends State<universe> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    FetchTimelineBefore()));
+                                                    const FetchTimelineBefore()));
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(80.0),
-                                          side: BorderSide(
+                                          side: const BorderSide(
                                               color: Colors.black, width: 2)),
                                       elevation: 0.0,
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(30.0),
                                         ),
                                         child: Container(
-                                          constraints: BoxConstraints(
+                                          constraints: const BoxConstraints(
                                               maxWidth: 500.0, minHeight: 70.0),
                                           alignment: Alignment.center,
                                           child: Text(
                                             "${snapshot.data!['topic-1']}",
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20.0,
                                               fontFamily: 'PoppinsMedium',
                                               color: Colors.black,
@@ -822,7 +822,7 @@ class _universeClassState extends State<universe> {
                                         ),
                                       )),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
 
@@ -854,7 +854,7 @@ class _universeClassState extends State<universe> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              FetchTimelineBefore()));
+                                                              const FetchTimelineBefore()));
                                                 }
 
                                                 );}
@@ -863,23 +863,23 @@ class _universeClassState extends State<universe> {
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(80.0),
-                                          side: BorderSide(
+                                          side: const BorderSide(
                                               color: Colors.black, width: 2)),
                                       elevation: 0.0,
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(30.0),
                                         ),
                                         child: Container(
-                                          constraints: BoxConstraints(
+                                          constraints: const BoxConstraints(
                                               maxWidth: 500.0, minHeight: 70.0),
                                           alignment: Alignment.center,
                                           child: Text(
                                             "${snapshot.data!['topic-2']}",
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20.0,
                                               fontFamily: 'PoppinsMedium',
                                               color: Colors.black,
@@ -888,7 +888,7 @@ class _universeClassState extends State<universe> {
                                         ),
                                       )),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 15.0,
                                 ),
 
@@ -918,7 +918,7 @@ class _universeClassState extends State<universe> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            FetchTimelineBefore()));
+                                                            const FetchTimelineBefore()));
                                               }
                                             }
                                           });
@@ -926,23 +926,23 @@ class _universeClassState extends State<universe> {
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(80.0),
-                                          side: BorderSide(
+                                          side: const BorderSide(
                                               color: Colors.black, width: 2)),
                                       elevation: 0.0,
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.all(0.0),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(30.0),
                                         ),
                                         child: Container(
-                                          constraints: BoxConstraints(
+                                          constraints: const BoxConstraints(
                                               maxWidth: 500.0, minHeight: 70.0),
                                           alignment: Alignment.center,
                                           child: Text(
                                             "${snapshot.data!['topic-3']}",
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 20.0,
                                               fontFamily: 'PoppinsMedium',
                                               color: Colors.black,
@@ -957,15 +957,15 @@ class _universeClassState extends State<universe> {
                           Container(
                             height: size.width,
                             width: size.width,
-                            margin: EdgeInsets.all(25),
+                            margin: const EdgeInsets.all(25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                                const Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
                                 ),
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_back_ios,
                                     size: 40,
                                   ),
@@ -1004,15 +1004,15 @@ class _universeClassState extends State<universe> {
                           Container(
                             height: size.width,
                             width: size.width,
-                            margin: EdgeInsets.all(25),
+                            margin: const EdgeInsets.all(25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                                const Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
                                 ),
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_forward_ios,
                                     size: 40,
                                   ),

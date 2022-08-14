@@ -136,7 +136,7 @@ class _EditProfileState extends State<EditProfile> {
         centerTitle: true,
         title: const Text(
           'Edit Profile',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: "MontserratBold",
             fontSize: 24,
             color: Colors.black,
