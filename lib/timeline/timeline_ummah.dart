@@ -68,8 +68,11 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ummah()));
+              /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => ummah()));*/
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ummah()));
+              });
             },
           ),
         ),

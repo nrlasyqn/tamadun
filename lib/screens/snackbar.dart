@@ -14,14 +14,14 @@ void showFloatingFlushbar(
   Flushbar? flush;
   bool? _wasButtonClicked;
   flush = Flushbar<bool>(
-    title: "Hey", titleColor: Color(hexColor('#523819')),
-    message: message, messageColor: Color(hexColor('#523819')),
-    backgroundColor: isError! ? Color(hexColor('#fad399')): Color(hexColor('#fad399')),
+    title: "Hi User!", titleColor: Color(hexColor('#ffffff')),
+    message: message, messageColor: Color(hexColor('#ffffff')),
+    backgroundColor: isError! ? Color(hexColor('#8893bd')): Color(hexColor('#8893bd')),
     duration: Duration(seconds: 5),
     margin: EdgeInsets.all(20),
     icon: Icon(
       Icons.emoji_emotions_outlined,
-      color: Color(hexColor('#be7a0d')),
+      color: Color(hexColor('#25346b')),
     ),
     mainButton: MaterialButton(
       onPressed: () {
@@ -32,7 +32,8 @@ void showFloatingFlushbar(
       },
       child: Text(
         "Upgrade",
-        style: TextStyle(color: Color(hexColor('#523819'))),
+        style: TextStyle(color: Color(hexColor('#25346b')),
+          fontFamily: 'PoppinsMedium',),
       ),
     ),
   ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})
@@ -47,14 +48,14 @@ void showAskUserBar(
   Flushbar? flush;
   bool? _wasButtonClicked;
   flush = Flushbar<bool>(
-    title: "Want to Explore more?",
-    message: message,
-    backgroundColor: isError! ? Colors.red : Colors.deepPurple,
+    title: "Want to Explore more?", titleColor: Color(hexColor('#ffffff')),
+    message: message, messageColor: Color(hexColor('#ffffff')),
+    backgroundColor: isError! ? Color(hexColor('#8893bd')): Color(hexColor('#8893bd')),
     duration: Duration(seconds: 5),
     margin: EdgeInsets.all(20),
     icon: Icon(
       Icons.emoji_emotions_outlined,
-      color: Colors.white,
+      color: Color(hexColor('#25346b')),
     ),
     mainButton: MaterialButton(
       onPressed: () {
@@ -64,7 +65,8 @@ void showAskUserBar(
       },
       child: Text(
         "Upgrade",
-        style: TextStyle(color: Colors.yellow),
+        style: TextStyle(color: Color(hexColor('#25346b')),
+          fontFamily: 'PoppinsMedium',),
       ),
     ),
   ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})

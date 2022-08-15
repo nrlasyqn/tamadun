@@ -79,8 +79,11 @@ class _TimelineExistenceState extends State<TimelineExistence> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => the_existence()));
+            /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => the_existence()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => the_existence()));
+            });
           },
         ),
       ),

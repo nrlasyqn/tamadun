@@ -35,8 +35,11 @@ class _universeClassState extends State<universe> {
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            /*Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            });
           },
         ),
       ),
@@ -146,10 +149,10 @@ class _universeClassState extends State<universe> {
                                     "${snapshot.data!['topic-1']}",
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontFamily: 'PoppinsMedium',
-                                      color: Colors.black,
-                                    ),
+                                    fontSize: 16.0,
+                                    fontFamily: 'PoppinsMedium',
+                                    color: Colors.black,
+                                  ),
                                   ),
                                 ),
                               )),

@@ -37,8 +37,11 @@ class _empierofislamClassState extends State<empierofislam> {
           icon: Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            /*Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));*/
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            });
           },
         ),
       ),

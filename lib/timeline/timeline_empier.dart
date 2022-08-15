@@ -69,9 +69,16 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
               Icons.arrow_back,
               color: Colors.black,
             ),
+            // onPressed: () {
+            //   Navigator.of(context).push(
+            //       MaterialPageRoute(builder: (context) => empierofislam()));
+            // },
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => empierofislam()));
+              /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => empierofislam()));*/
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => empierofislam()));
+              });
             },
           ),
         ),

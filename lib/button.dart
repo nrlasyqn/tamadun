@@ -38,8 +38,11 @@ class _jState extends State<j> {
             icon: const Icon(Icons.arrow_back),
             color: Colors.white,
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ummah()));
+              /* Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ummah()));*/
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement( context, MaterialPageRoute(builder: (context) => ummah()));
+              });
             },
           ),
         ),

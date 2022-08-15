@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1076882117626:android:638a89cde5d47361448a43",
+        "mobilesdk_app_id": "1:1076882117626:android:60a0b73278de2f40448a43",
         "android_client_info": {
-          "package_name": "com.example.tamadun"
+          "package_name": "com.aqwise.tamadun"
         }
       },
       "oauth_client": [
@@ -29,6 +29,73 @@
             {
               "client_id": "1076882117626-9n9gsljum6f948uai3m4oj72hdn5ak4c.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1076882117626-ig1qv9ji58q15d79vkjl29vorb1b2p06.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tamadun"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076882117626:android:638a89cde5d47361448a43",
+        "android_client_info": {
+          "package_name": "com.example.tamadun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076882117626-3vhhae01j1dps1dsqngis9lidcfpce3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tamadun",
+            "certificate_hash": "9407359f9ef2cea73430f96ebb443e0699ff0a17"
+          }
+        },
+        {
+          "client_id": "1076882117626-6cf43sn3moibnmlr9hrabusd9r79e8sp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tamadun",
+            "certificate_hash": "5994796bf5f807d374d43742106dac46f1539a94"
+          }
+        },
+        {
+          "client_id": "1076882117626-c3lbhcdrs069co7mjp46kp63o0ogr5ci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tamadun",
+            "certificate_hash": "be59f941c9eaa00d0c2aad697f291d08407c0720"
+          }
+        },
+        {
+          "client_id": "1076882117626-9n9gsljum6f948uai3m4oj72hdn5ak4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmpHcI5hDiyMhRam31R5xPXlvoMEgnGVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076882117626-9n9gsljum6f948uai3m4oj72hdn5ak4c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1076882117626-ig1qv9ji58q15d79vkjl29vorb1b2p06.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tamadun"
+              }
             }
           ]
         }

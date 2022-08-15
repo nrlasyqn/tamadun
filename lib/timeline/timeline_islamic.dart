@@ -75,9 +75,16 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
               Icons.arrow_back,
               color: Colors.black,
             ),
+            // onPressed: () {
+            //   Navigator.of(context)
+            //       .push(MaterialPageRoute(builder: (context) => homosapiens()));
+            // },
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => homosapiens()));
+              /*Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => empierofislam()));*/
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homosapiens()));
+              });
             },
           ),
         ),

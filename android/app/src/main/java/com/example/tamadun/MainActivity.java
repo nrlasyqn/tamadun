@@ -1,4 +1,4 @@
-package com.example.tamadun;
+package com.aqwise.tamadun;
 
 import io.flutter.embedding.android.FlutterActivity;
 
