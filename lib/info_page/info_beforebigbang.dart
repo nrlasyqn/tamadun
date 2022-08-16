@@ -58,7 +58,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
   @override
   void initState() {
     _isloading = true;
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         _isloading = false;
       });
@@ -70,24 +70,31 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.white,
             title: Text(
               widget._beforeExist['info-title'],
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(Duration.zero, () {
                   Navigator.pop(context);
-                });},
+                });
+              },
             ),
 
             //todo: favorite button
@@ -124,261 +131,584 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.share_outlined),
+                icon: const Icon(Icons.share_outlined),
                 color: Colors.black,
                 onPressed: () => share(
                   context,
                 ),
               ),
             ]),
-        body: _isloading
-            ? const Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
+        body: screenWidth < 576
+            ? _isloading
+            ?  Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
         )
-            : SingleChildScrollView(
-          child: Column(children: [
-            Container(
-              child: Image.network(widget._beforeExist['info-img'][0]),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._beforeExist['info-title'],
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
+        //MOBILE
+            : Container(
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Container(
+                child:
+                Image.network(widget._beforeExist['info-img'][0],),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._beforeExist['info-sub'],
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
 
-                const Divider(
-                  color: Colors.black,
-                  height: 10,
-                  thickness: 1,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Description",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'PoppinsMedium',
-                        color: Colors.black,
-                      )),
-                ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget._beforeExist['info-desc'],
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: 'PoppinsRegular',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah'][0],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah_name'][0],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['trans-text'][0],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-translation'][0],
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Description",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-desc'],
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
+                  ),
 
-                for (int sura = 0; sura < _suraList.length; sura++) ...[
-                  for (int tafsir = 0;
-                  tafsir < _suraList[sura]["list-tafsir-name"].length;
-                  tafsir++) ...[
-                    Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(color: Colors.grey),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['info-surah'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-surah_name'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['trans-text'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-translation'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  for (int sura = 0; sura < _suraList.length; sura++) ...[
+                    for (int tafsir = 0; tafsir < _suraList[sura]["list-tafsir-name"].length; tafsir++) ...[
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                              "${_suraList[sura]["list-tafsir-name"][tafsir]}",
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                fontSize: 15.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )
+                          ),
+                          //contents
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  "${_suraList[sura]["list-tafsir-info"][tafsir]}",
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'PoppinsLight',
+                                    color: Colors.black,
+                                  )),
+                            )
+                          ],
+                        ),
                       ),
-                      child: ExpansionTile(
-                        title: Text(
-                            "${_suraList[sura]["list-tafsir-name"][tafsir]}",
-                            style: const TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: 'PoppinsRegular',
-                              color: Colors.black,
-                            )),
-                        //contents
-                        children: [
-                          ListTile(
-                            title: Text(
-                                "${_suraList[sura]["list-tafsir-info"][tafsir]}",
-                                textAlign: TextAlign.justify,
-                                style: const TextStyle(
-                                  fontSize: 15.0,
-                                  fontFamily: 'PoppinsLight',
-                                  color: Colors.black,
-                                )),
-                          )
-                        ],
-                      ),
-                    ),
-                  ]
-                ],
+                    ]
+                  ],
 
-                const SizedBox(
-                  height: 20,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah'][1],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'PoppinsThin',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-surah_name'][1],
-                      textAlign: TextAlign.center,
-                      style:const  TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['trans-text'][1],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(widget._beforeExist['info-translation'][1],
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'PoppinsLight',
-                        fontStyle: FontStyle.italic,
-                        color: Colors.black,
-                      )),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
-                //todo: video button
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: MaterialButton(
-                        onPressed: () => null,
-                        color: Colors.black,
-                        child: const Text(
-                          'Description',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['info-surah'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-surah_name'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['trans-text'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-translation'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //todo: video button
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () => null,
+                          color: Colors.black,
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: MaterialButton(
-                        onPressed: () {
-                          final before = FirebaseFirestore.instance
-                              .collection('before-the-existence');
-                          before.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              final _beforeExist = doc;
-                              setState(() {
-                                if (doc["info-title"] ==
-                                    widget._beforeExist["info-title"]) {
-                                  print(
-                                      widget._beforeExist["info-video"]);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              VideoBeforeExistence(
-                                                  _beforeExist)));
-                                }
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () {
+                            final before = FirebaseFirestore.instance
+                                .collection('before-the-existence');
+                            before
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                final _beforeExist = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      widget._beforeExist[
+                                      "info-title"]) {
+                                    print(widget
+                                        ._beforeExist["info-video"]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VideoBeforeExistence(
+                                                    _beforeExist)));
+                                  }
+                                });
                               });
                             });
-                          });
-                        },
-                        color: Colors.grey,
-                        child: const Text(
-                          'Video',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'PoppinsMedium',
+                          },
+                          color: Colors.grey,
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ]),
+                    ],
+                  ),
+                ]),
+              )
+            ]),
+          ),
+          //tablet
+        )
+        //TABLET
+            : _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
             )
-          ]),
-        ));
+        )
+            : screenWidth < 992
+            ? Container(
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Container(
+                child:
+                Image.network(widget._beforeExist['info-img'][0],),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 1,
+                  ),
+
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Description",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._beforeExist['info-desc'],
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'PoppinsRegular',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['info-surah'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-surah_name'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['trans-text'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-translation'][0],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  for (int sura = 0; sura < _suraList.length; sura++) ...[
+                    for (int tafsir = 0; tafsir < _suraList[sura]["list-tafsir-name"].length; tafsir++) ...[
+                      Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                              "${_suraList[sura]["list-tafsir-name"][tafsir]}",
+                              textAlign: TextAlign.justify,
+                              style: const TextStyle(
+                                fontSize: 15.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )
+                          ),
+                          //contents
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  "${_suraList[sura]["list-tafsir-info"][tafsir]}",
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'PoppinsLight',
+                                    color: Colors.black,
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ]
+                  ],
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['info-surah'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'PoppinsThin',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-surah_name'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(widget._beforeExist['trans-text'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        widget._beforeExist['info-translation'][1],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsLight',
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //todo: video button
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () => null,
+                          color: Colors.black,
+                          child: const Text(
+                            'Description',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          onPressed: () {
+                            final before = FirebaseFirestore.instance
+                                .collection('before-the-existence');
+                            before
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                final _beforeExist = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      widget._beforeExist[
+                                      "info-title"]) {
+                                    print(widget
+                                        ._beforeExist["info-video"]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VideoBeforeExistence(
+                                                    _beforeExist)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+              )
+            ]),
+          ),
+          //tablet
+        )
+            : null);
   }
 
   //todo: get tafsir info & name
@@ -392,4 +722,13 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
       });
     });
   }
+}
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

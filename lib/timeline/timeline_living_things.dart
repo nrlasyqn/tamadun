@@ -42,8 +42,15 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
     return qn_before.docs;
   }
 
+  bool _isloading = false;
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isloading = false;
+      });
+    });
     fetchTimelineBefore();
     // TODO: implement initState
     super.initState();
@@ -51,18 +58,24 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         backgroundColor: Colors.white,
         title: const Text(
           "Living Things Before Creation of Man",
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: "MontserratBold",
+            fontSize: 20,
+          ),
         ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back_ios_rounded,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () {
@@ -73,33 +86,41 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
             });
           },
         ),
+
       ),
-      body: ListView.builder(
+      body: _isloading
+          ? Center(
+        child: CircularProgressIndicator(
+          color: Color(hexColor('#25346a'),
+          ),
+        ),
+      )
+          : screenWidth < 576
+          ? ListView.builder(
           itemCount: _livingthings.length,
           itemBuilder: (_, index) {
             return TimelineTile(
               alignment: TimelineAlign.manual,
-              indicatorStyle: IndicatorStyle(
-                width: 13,
-              ),
-              beforeLineStyle: LineStyle(
+              indicatorStyle:
+              const IndicatorStyle(width: 13, color: Colors.black),
+              beforeLineStyle: const LineStyle(
                 thickness: 1,
                 color: Colors.black,
               ),
               lineXY: 0.2,
               endChild: Padding(
-                padding: EdgeInsets.all(45.0),
+                padding: const EdgeInsets.fromLTRB(10, 100, 10, 100),
                 child: Column(
                   children: [
                     GestureDetector(
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) =>
-                                    InfoLivingThings(_livingthings[index]))),
+                                builder: (_) => InfoLivingThings(
+                                    _livingthings[index]))),
                         child: Container(
-                          height: 200,
-                          width: 420,
+                          height: 300,
+                          width: 320,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
@@ -109,27 +130,27 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
                             ),
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          constraints: const BoxConstraints(minHeight: 120),
+                          constraints:
+                          const BoxConstraints(minHeight: 120),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Container(
                       width: 300,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.purple[200]),
+                        borderRadius: BorderRadius.circular(4),
+                        color:Color(  hexColor('#BFddbe90'),),),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                             "${_livingthings[index]["info-title"]}",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               fontFamily: 'PoppinsMedium',
                               color: Colors.black,
-                            )
-                        ),
+                            )),
                       ),
                     ),
                   ],
@@ -139,10 +160,114 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
                 child: Text(
                   "${_livingthings[index]["info-sub"]}",
                   textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: 'PoppinsLight',
+                    color: Colors.black,
+                  ),
                 ),
               ),
             );
-          }),
+          })
+      //todo: tablet
+          : _isloading
+          ? Center(
+          child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),)))
+          : screenWidth < 992
+          ? ListView.builder(
+          itemCount: _livingthings.length,
+          itemBuilder: (_, index) {
+            return TimelineTile(
+              alignment: TimelineAlign.manual,
+              indicatorStyle: const IndicatorStyle(
+                  width: 20,
+                  color: Colors.black
+              ),
+              beforeLineStyle: const LineStyle(
+                thickness: 1,
+                color: Colors.black,
+              ),
+              lineXY: 0.2,
+              endChild: Padding(
+                padding:
+                const EdgeInsets.fromLTRB(10, 200, 10, 200),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    InfoLivingThings(
+                                        _livingthings[index]))),
+                        child: Container(
+                          height: 400,
+                          width: 420,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                _livingthings[index]["info-img"]
+                                [0],
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(16),
+                          ),
+                          constraints: const BoxConstraints(
+                              minHeight: 120),
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: 401,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Color(
+                          hexColor('#BFddbe90'),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                            "${_livingthings[index]["info-title"]}",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontFamily: 'PoppinsMedium',
+                              color: Colors.black,
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              startChild: Center(
+                child: Text(
+                  "${_livingthings[index]["info-sub"]}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'PoppinsLight',
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            );
+          })
+          : null,
     );
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

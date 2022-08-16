@@ -15,6 +15,7 @@ class FetchTimelineBefore extends StatefulWidget {
 }
 
 class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
+  bool _isloading = false;
   final List _beforeExist = [];
   var _firestoreInstance = FirebaseFirestore.instance;
 
@@ -42,6 +43,12 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
 
   @override
   void initState() {
+    _isloading = true;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isloading = false;
+      });
+    });
     fetchTimelineBefore();
     // TODO: implement initState
     super.initState();
@@ -49,187 +56,469 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Before the Existence of Universe",
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: Colors.black),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: Colors.white,
+          title: const Text(
+            "Before the Existence of Universe",
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: "MontserratBold",
+              fontSize: 20,
+            ),
           ),
-          onPressed: () {
-            /*Navigator.of(context)
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              /*Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => universe()));*/
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => universe()));
-            });
-          },
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => universe()));
+              });
+            },
+          ),
         ),
-      ),
-      body: ListView.builder(
-          itemCount: _beforeExist.length,
-          itemBuilder: (_, index) {
-            return TimelineTile(
-              alignment: TimelineAlign.manual,
-              indicatorStyle: IndicatorStyle(
-                width: 13,
-              ),
-              beforeLineStyle: LineStyle(
-                thickness: 1,
-                color: Colors.black,
-              ),
-              lineXY: 0.2,
-              endChild: Padding(
-                padding: EdgeInsets.all(45.0),
-                child: Column(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          final userRole = FirebaseFirestore.instance.collection("Users");
-                          final currUser = FirebaseAuth.instance.currentUser!.email;
-                          final before = FirebaseFirestore.instance.collection('before-the-existence');
-                          userRole.get().then((QuerySnapshot snapshot) {
-                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                              //todo: Before The Creation of Universe
-                              before.get().then((QuerySnapshot snap) {
-                                snap.docs.forEach((DocumentSnapshot docs) {
-                                  setState(() {
-                                    //doc from before the existence
-                                    //data = tamadun-info
-                                    if (doc['email'] == currUser) {
-                                      //todo : Standard Role
-                                      if (doc['role'] == 'standard') {
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Qalam") {
-                                          if (docs['info-title'] == "The Creation of Qalam") {
-                                            Future.delayed(Duration.zero, () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        InfoBeforeExistence(_beforeExist[index])));
-                                          });}
-                                        }
+        body: _isloading
+            ? Center(
+          child: CircularProgressIndicator(
+            color: Color(hexColor('#25346a'),
+            ),
+          ),
+        )
 
-                                        //the creation of water
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Water") {
-                                          if (docs['info-title'] == "The Creation of Water") {
-                                            showAskUserBar(
-                                                context: context,
-                                                message:
-                                                'Upgrade to Premium Now !!',
-                                                isError: false);
+        //todo:mobileview
+            : screenWidth < 576
+            ? ListView.builder(
+            itemCount: _beforeExist.length,
+            itemBuilder: (_, index) {
+              return TimelineTile(
+                alignment: TimelineAlign.manual,
+                indicatorStyle: const IndicatorStyle(
+                    width: 13,
+                    color: Colors.black
+                ),
+                beforeLineStyle: const LineStyle(
+                  thickness: 1,
+                  color: Colors.black,
+                ),
+                lineXY: 0.2,
+                endChild: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 100, 10, 100),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                          onTap: () async {
+                            final userRole = FirebaseFirestore.instance
+                                .collection("Users");
+                            final currUser = FirebaseAuth
+                                .instance.currentUser!.email;
+                            final before = FirebaseFirestore.instance
+                                .collection('before-the-existence');
+                            userRole
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs
+                                  .forEach((DocumentSnapshot doc) {
+                                //todo: Before The Creation of Universe
+                                before.get().then((QuerySnapshot snap) {
+                                  snap.docs
+                                      .forEach((DocumentSnapshot docs) {
+                                    setState(() {
+                                      //doc from before the existence
+                                      //data = tamadun-info
+                                      if (doc['email'] == currUser) {
+                                        //todo : Standard Role
+                                        if (doc['role'] == 'standard') {
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Qalam") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Qalam") {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          InfoBeforeExistence(
+                                                              _beforeExist[
+                                                              index])));
+                                            }
+                                          }
+
+                                          //the creation of water
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Water") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Water") {
+                                              showAskUserBar(
+                                                  context: context,
+                                                  message:
+                                                  'Upgrade to Premium Now !!',
+                                                  isError: false);
+                                            }
+                                          }
+
+                                          //the creation of arash
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Arash") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Arash") {
+                                              showAskUserBar(
+                                                  context: context,
+                                                  message:
+                                                  'Upgrade to Premium Now !!',
+                                                  isError: false);
+                                            }
                                           }
                                         }
-
-                                        //the creation of arash
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Arash") {
-                                          if (docs['info-title'] == "The Creation of Arash") {
-                                            showAskUserBar(
-                                                context: context,
-                                                message:
-                                                'Upgrade to Premium Now !!',
-                                                isError: false);
+                                        //todo: Premium Role
+                                        if (doc['role'] == 'premium') {
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Qalam") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Qalam") {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          InfoBeforeExistence(
+                                                              _beforeExist[
+                                                              index])));
+                                            }
+                                          }
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Water") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Water") {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          InfoBeforeExistence(
+                                                              _beforeExist[
+                                                              index])));
+                                            }
+                                          }
+                                          if (_beforeExist[index]
+                                          ['info-title'] ==
+                                              "The Creation of Arash") {
+                                            if (docs['info-title'] ==
+                                                "The Creation of Arash") {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          InfoBeforeExistence(
+                                                              _beforeExist[
+                                                              index])));
+                                            }
                                           }
                                         }
                                       }
-                                      //todo: Premium Role
-                                      if (doc['role'] == 'premium') {
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Qalam") {
-                                          if (docs['info-title'] == "The Creation of Qalam") {
-                                            Future.delayed(Duration.zero, () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        InfoBeforeExistence(_beforeExist[index])));
-                                          });}
-                                        }
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Water") {
-                                          if (docs['info-title'] == "The Creation of Water") {
-                                            Future.delayed(Duration.zero, () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        InfoBeforeExistence(_beforeExist[index])));
-                                          });}
-                                        }
-                                        if (_beforeExist[index]['info-title'] == "The Creation of Arash") {
-                                          if (docs['info-title'] == "The Creation of Arash") {
-                                            Future.delayed(Duration.zero, () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        InfoBeforeExistence(_beforeExist[index])));
-                                          });}
-                                        }
-                                      }
-                                    }
+                                    });
                                   });
                                 });
                               });
-                            }
-                            );
-                          });
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (_) =>
-                          //             InfoBeforeExistence(_beforeExist[index])));
-                        },
-                        child: Container(
-                          height: 200,
-                          width: 420,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                _beforeExist[index]["info-img"][0],
+                            });
+                          },
+                          child: Container(
+                            height: 300,
+                            width: 320,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  _beforeExist[index]["info-img"][0],
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              fit: BoxFit.cover,
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          constraints: const BoxConstraints(minHeight: 120),
-                        )),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
+                            constraints:
+                            const BoxConstraints(minHeight: 120),
+                          )),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Container(
+                        width: 300,
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: Colors.purple[200]),
-                      child: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                            "${_beforeExist[index]["info-title"]}",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                              color: Colors.black,
-                            )
+                          color: Color(
+                            hexColor('#BFddbe90'),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                              "${_beforeExist[index]["info-title"]}",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                startChild: Center(
+                  child: Text(
+                    "${_beforeExist[index]["info-sub"]}",
+                    textAlign: TextAlign.center,
+                    style: const  TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'PoppinsLight',
+                      color: Colors.black,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              startChild: Center(
-                child: Text(
-                  "${_beforeExist[index]["info-sub"]}",
-                  textAlign: TextAlign.center,
+              );
+            })
+        //tablet
+            : _isloading
+            ? Center(
+          child: CircularProgressIndicator(
+            color: Color(hexColor('#25346a'),
+            ),
+          ),
+
+          //todo:tablet
+    ): screenWidth < 992
+            ? ListView.builder(
+            itemCount: _beforeExist.length,
+            itemBuilder: (_, index) {
+              return TimelineTile(
+                alignment: TimelineAlign.manual,
+                indicatorStyle: const IndicatorStyle(
+                    width: 20,
+                    color: Colors.black
                 ),
-              ),
-            );
-          }),
+                beforeLineStyle: const LineStyle(
+                  thickness: 1,
+                  color: Colors.black,
+                ),
+                lineXY: 0.2,
+                endChild: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 200, 10, 200),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                          onTap: () async {
+                            final userRole = FirebaseFirestore
+                                .instance
+                                .collection("Users");
+                            final currUser = FirebaseAuth
+                                .instance.currentUser!.email;
+                            final before = FirebaseFirestore
+                                .instance
+                                .collection(
+                                'before-the-existence');
+                            userRole
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach(
+                                      (DocumentSnapshot doc) {
+                                    //todo: Before The Creation of Universe
+                                    before
+                                        .get()
+                                        .then((QuerySnapshot snap) {
+                                      snap.docs.forEach(
+                                              (DocumentSnapshot docs) {
+                                            setState(() {
+                                              //doc from before the existence
+                                              //data = tamadun-info
+                                              if (doc['email'] ==
+                                                  currUser) {
+                                                //todo : Standard Role
+                                                if (doc['role'] ==
+                                                    'standard') {
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Qalam") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Qalam") {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  InfoBeforeExistence(
+                                                                      _beforeExist[index])));
+                                                    }
+                                                  }
+
+                                                  //the creation of water
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Water") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Water") {
+                                                      showAskUserBar(
+                                                          context:
+                                                          context,
+                                                          message:
+                                                          'Upgrade to Premium Now !!',
+                                                          isError:
+                                                          false);
+                                                    }
+                                                  }
+
+                                                  //the creation of arash
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Arash") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Arash") {
+                                                      showAskUserBar(
+                                                          context:
+                                                          context,
+                                                          message:
+                                                          'Upgrade to Premium Now !!',
+                                                          isError:
+                                                          false);
+                                                    }
+                                                  }
+                                                }
+                                                //todo: Premium Role
+                                                if (doc['role'] ==
+                                                    'premium') {
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Qalam") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Qalam") {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  InfoBeforeExistence(
+                                                                      _beforeExist[index])));
+                                                    }
+                                                  }
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Water") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Water") {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  InfoBeforeExistence(
+                                                                      _beforeExist[index])));
+                                                    }
+                                                  }
+                                                  if (_beforeExist[
+                                                  index][
+                                                  'info-title'] ==
+                                                      "The Creation of Arash") {
+                                                    if (docs[
+                                                    'info-title'] ==
+                                                        "The Creation of Arash") {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  InfoBeforeExistence(
+                                                                      _beforeExist[index])));
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            });
+                                          });
+                                    });
+                                  });
+                            });
+                          },
+                          child: Container(
+                            height: 400,
+                            width: 420,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  _beforeExist[index]
+                                  ["info-img"][0],
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius:
+                              BorderRadius.circular(16),
+                            ),
+                            constraints: const BoxConstraints(
+                                minHeight: 120),
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 401,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(4),
+                          color:Color(  hexColor('#BFddbe90'),),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                              "${_beforeExist[index]["info-title"]}",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontFamily: 'PoppinsMedium',
+                                color: Colors.black,
+                              )
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                startChild: Center(
+                  child: Text(
+                    "${_beforeExist[index]["info-sub"]}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'PoppinsLight',
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              );
+            })
+            : null
     );
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

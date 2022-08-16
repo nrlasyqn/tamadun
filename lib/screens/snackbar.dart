@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/screens/beforetheexistence.dart';
 
+import '../authentication/log.dart';
 import '../payment/payment.screen.dart';
 
 //snackbar -> upgrade to premium
@@ -13,14 +14,14 @@ void showFloatingFlushbar(
   Flushbar? flush;
   bool? _wasButtonClicked;
   flush = Flushbar<bool>(
-    title: "Hey",
-    message: message,
-    backgroundColor: isError! ? Colors.red : Colors.deepPurple,
+    title: "Hi User!", titleColor: Color(hexColor('#ffffff')),
+    message: message, messageColor: Color(hexColor('#ffffff')),
+    backgroundColor: isError! ? Color(hexColor('#8893bd')): Color(hexColor('#8893bd')),
     duration: Duration(seconds: 5),
     margin: EdgeInsets.all(20),
     icon: Icon(
       Icons.emoji_emotions_outlined,
-      color: Colors.white,
+      color: Color(hexColor('#25346b')),
     ),
     mainButton: MaterialButton(
       onPressed: () {
@@ -31,7 +32,8 @@ void showFloatingFlushbar(
       },
       child: Text(
         "Upgrade",
-        style: TextStyle(color: Colors.yellow),
+        style: TextStyle(color: Color(hexColor('#25346b')),
+          fontFamily: 'PoppinsMedium',),
       ),
     ),
   ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})
@@ -46,14 +48,14 @@ void showAskUserBar(
   Flushbar? flush;
   bool? _wasButtonClicked;
   flush = Flushbar<bool>(
-    title: "Want to Explore more?",
-    message: message,
-    backgroundColor: isError! ? Colors.red : Colors.deepPurple,
+    title: "Want to Explore more?", titleColor: Color(hexColor('#ffffff')),
+    message: message, messageColor: Color(hexColor('#ffffff')),
+    backgroundColor: isError! ? Color(hexColor('#8893bd')): Color(hexColor('#8893bd')),
     duration: Duration(seconds: 5),
     margin: EdgeInsets.all(20),
     icon: Icon(
       Icons.emoji_emotions_outlined,
-      color: Colors.white,
+      color: Color(hexColor('#25346b')),
     ),
     mainButton: MaterialButton(
       onPressed: () {
@@ -63,7 +65,8 @@ void showAskUserBar(
       },
       child: Text(
         "Upgrade",
-        style: TextStyle(color: Colors.yellow),
+        style: TextStyle(color: Color(hexColor('#25346b')),
+          fontFamily: 'PoppinsMedium',),
       ),
     ),
   ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})

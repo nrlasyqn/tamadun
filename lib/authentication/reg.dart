@@ -281,7 +281,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+                              children: const <Widget>[
                                 FaIcon(
                                   FontAwesomeIcons.google,
                                   color: Colors.white,
@@ -344,7 +344,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           builder: (context) => LoginScreen()));
                                 },
                                 child: Text(
-                                  "Log In",
+                                  "Sign In",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'PoppinsMedium',

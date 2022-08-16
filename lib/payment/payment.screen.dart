@@ -64,7 +64,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       showDialog(
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Buy Premium Product'),
+              title: const Text('Subscribes to Ummah Empire'),
               content: ListTile(
                   title: Text("Name: ${customer!['name']}"),
                   subtitle: Text(
@@ -235,8 +235,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
+                            Duration(seconds: 1);
                             ///todo:replace email with user email
                             await checkout(
+
                                 context,
                                 _phone.text,
                                 cardNumber,

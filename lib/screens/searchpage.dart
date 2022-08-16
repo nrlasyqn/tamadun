@@ -39,10 +39,10 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Search',
             style: TextStyle(
-              fontFamily: 'MontserratBold',
+              fontFamily: "MontserratBold",
               fontSize: 24,
               color: Colors.black,
             ),
@@ -50,7 +50,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           backgroundColor: Colors.white,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: Icon(Icons.arrow_back),
             color: Colors.black,
             onPressed: () {
               /*Navigator.push(
@@ -95,7 +95,9 @@ class _SearchPageState extends State<SearchPage> {
                       builder: (context, snapshots) {
                         return (snapshots.connectionState == ConnectionState.waiting)
                             ? Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            color: Color(hexColor('#25346a')),
+                          ),
                         )
                             : ListView.builder(
                             itemCount: snapshots.data == null ? 0 : snapshots.data!.docs.length,
@@ -2369,4 +2371,14 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ));
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

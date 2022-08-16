@@ -72,20 +72,28 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.white,
             title: Text(
               widget._empire['info-title'],
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
+                fontFamily: "MontserratBold",
+                fontSize: 20,
               ),
             ),
-            backgroundColor: Colors.white54,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.black,
               onPressed: () {
-                Navigator.pop(context);
+                Future.delayed(Duration.zero, () {
+                  Navigator.pop(context);
+                });
               },
             ),
 
@@ -128,11 +136,15 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                 onPressed: () => share(context, ),
               ),
             ]),
-        body: _isloading ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.purple,
-          ),
-        ):SingleChildScrollView(
+
+        body: screenWidth < 576 ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+            :SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -177,6 +189,9 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                         )),
                   ),
 
+                  const SizedBox(
+                    height: 10,
+                  ),
                   ///note: vid_id --> from topic collection
                   ///note: vid_coll ---> video collection db
                   for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
@@ -244,7 +259,132 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
               ),
             ],
           ),
-        ));
+        )
+
+            :screenWidth < 992 ? _isloading
+            ? Center(
+            child: CircularProgressIndicator(
+              color: Color(hexColor('#25346a'),
+              ),
+            )
+        )
+            :SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: Image.network(widget._empire['info-img'][0]),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._empire['info-title'],
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget._empire['info-sub'],
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+                  const Divider(
+                    color: Colors.black,
+                    height: 25,
+                    thickness: 1,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Video",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'PoppinsMedium',
+                          color: Colors.black,
+                        )),
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ///note: vid_id --> from topic collection
+                  ///note: vid_coll ---> video collection db
+                  for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
+                    for (int vid_coll = 0; vid_coll < _videoList[vid_id]["info-video"].length; vid_coll++)
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child:  Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 300,
+                              child: VideoPlayer(
+                                videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
+                              ),
+                            )),
+                      ),
+                  ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: MaterialButton(
+                          child: Text('Description',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () {
+                            final empire = FirebaseFirestore.instance
+                                .collection('the-islamic-empire');
+                            empire.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _empire = doc;
+                                setState(() {
+                                  if (doc["info-title"] == widget._empire["info-title"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                InfoEmpire(_empire)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Expanded(
+                        child: MaterialButton(
+                          child: Text('Video',style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontFamily: 'PoppinsMedium',
+                          ),),
+                          onPressed: () {
+                          },
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        ):null
+    );
   }
 
   //todo: get video from video collection db
@@ -257,4 +397,14 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
       });
     });
   }
+}
+
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }

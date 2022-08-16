@@ -42,13 +42,18 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: const Text(
-          "User Favorite",
-          style: TextStyle(color: Colors.black),
+          "Favorite",
+          style: TextStyle(color: Colors.black,
+            fontFamily: "MontserratBold",
+            fontSize: 24,
+          ),
+
         ),
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back_ios_rounded,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () {
@@ -63,7 +68,7 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
       body: _isloading
           ? Center(
         child: CircularProgressIndicator(
-          color: Colors.purple,
+          color: Color(hexColor('#25346a')),
         ),
       )
           : SafeArea(
@@ -297,12 +302,22 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                               backgroundImage: NetworkImage(
                                   _documentSnapshot['info-img'][0]),
                             ),
-                            title: Text(_documentSnapshot['info-title']),
+                            title: Text(_documentSnapshot['info-title'],maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontFamily: 'PoppinsMedium',
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),),
                             subtitle: Text(
                               _documentSnapshot['info-sub'],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.deepPurple),
+                                fontFamily: 'PoppinsRegular',
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
                             ),
                             trailing: IconButton(
                                 onPressed: () {
@@ -335,4 +350,13 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
       ),
     );
   }
+}
+int hexColor(String color) {
+  //adding prefix
+  String newColor = '0xff' + color;
+  //removing # sign
+  newColor = newColor.replaceAll('#', '');
+  //converting it to the integer
+  int finalColor = int.parse(newColor);
+  return finalColor;
 }
