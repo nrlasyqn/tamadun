@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:ndialog/ndialog.dart';
+import 'package:tamadun/screens/user_profile_page.dart';
 import 'package:tamadun/widget/profile_widget.dart';
 import '../auth/auth.dart';
 import '../auth/database_service.dart';
@@ -82,6 +83,7 @@ class _EditProfileState extends State<EditProfile> {
       progressDialog.dismiss();
       print(e.toString());
     }
+
   }
 
   //----------Save form ---------
@@ -89,6 +91,11 @@ class _EditProfileState extends State<EditProfile> {
   saveProfile() async {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate() && !isLoading) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text('Profile Updated!'),
+        ));
       setState(() {
         isLoading = true;
       });
@@ -100,7 +107,13 @@ class _EditProfileState extends State<EditProfile> {
       );
 
       DatabaseServices.updateUserData(user);
+
       Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Profile_view(isGmail: false,)),
+            (Route<dynamic> route) => false,
+      );
     }
   }
 
