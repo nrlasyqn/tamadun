@@ -86,7 +86,7 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             leading: IconButton(
@@ -264,6 +264,7 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                   const SizedBox(
                     height: 20,
                   ),
+
                   for (int sura = 0;
                   sura < _suraList.length;
                   sura++) ...[
@@ -298,13 +299,17 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                       ),
                     ]
                   ],
-                  const SizedBox(
-                    height: 20,
-                  ),
+
+                  // const SizedBox(
+                  //   height: 280,
+                  // ),
+
                   Row(
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
+                          onPressed: () => null,
+                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -313,20 +318,10 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
-                          onPressed: () => null,
-                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                           onPressed: () {
                             final monathestic = FirebaseFirestore
                                 .instance
@@ -353,6 +348,14 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                             });
                           },
                           color: Colors.grey,
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -520,13 +523,17 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                       ),
                     ]
                   ],
+
                   const SizedBox(
                     height: 20,
                   ),
+
                   Row(
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
+                          onPressed: () => null,
+                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -535,20 +542,10 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
-                          onPressed: () => null,
-                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                           onPressed: () {
                             final monathestic = FirebaseFirestore
                                 .instance
@@ -575,6 +572,14 @@ class _InfoMonathesticState extends State<InfoMonathestic> {
                             });
                           },
                           color: Colors.grey,
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                         ),
                       ),
                     ],

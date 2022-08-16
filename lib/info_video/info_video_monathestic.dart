@@ -82,7 +82,7 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 20,
+                fontSize: 18,
               ),
             ),
             leading: IconButton(
