@@ -49,7 +49,7 @@ class StripeService {
       Map<String, dynamic> body = {
         'amount': amount,
         // amount charged will be specified when the method is called
-        'description': 'buy premium product',
+        'description': 'buy premium ummah empire',
         'currency': currency,
         // the currency
         'payment_method_types[]': 'card',
