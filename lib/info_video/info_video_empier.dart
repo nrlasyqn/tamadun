@@ -84,7 +84,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 20,
+                fontSize: 16,
               ),
             ),
             leading: IconButton(

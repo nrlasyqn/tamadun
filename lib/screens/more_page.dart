@@ -78,7 +78,7 @@ class _MorepageState extends State<Morepage> {
     super.initState();
     _isloading = true;
     Future.delayed(
-        const Duration(seconds: 3), () {
+        const Duration(seconds: 5), () {
       setState(() {
         _isloading = false;
       });

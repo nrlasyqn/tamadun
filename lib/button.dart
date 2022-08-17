@@ -47,205 +47,205 @@ class _jState extends State<j> {
           ),
         ),
         body:
-            //todo:mobileview
-            screenWidth < 576
-                ? StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('ummah')
-                        .doc('the-prophets')
-                        .collection('prophets-button')
-                        .snapshots(),
-                    builder: (context, snapshots) {
-                      return (snapshots.connectionState ==
-                              ConnectionState.waiting)
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                color: Color(hexColor('#25346a')),
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: snapshots.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                var data = snapshots.data!.docs[index].data()
-                                    as Map<String, dynamic>;
+        //todo:mobileview
+        screenWidth < 576
+            ? StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('ummah')
+              .doc('the-prophets')
+              .collection('prophets-button')
+              .snapshots(),
+          builder: (context, snapshots) {
+            return (snapshots.connectionState ==
+                ConnectionState.waiting)
+                ? Center(
+              child: CircularProgressIndicator(
+                color: Color(hexColor('#25346a')),
+              ),
+            )
+                : ListView.builder(
+                itemCount: snapshots.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var data = snapshots.data!.docs[index].data()
+                  as Map<String, dynamic>;
 
-                                if (name.isEmpty) {
-                                  return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height/8.0,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 50.0,
-                                          right: 50.0,
-                                          top: 30.0,
-                                          bottom: 0.0),
-                                      child: RaisedButton(
-                                        elevation: 0.0,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: new BorderRadius.circular(50.0)),
-                                        padding: const EdgeInsets.only(
-                                            top: 7.0, bottom: 7.0, right: 0.0, left: 00.0),
-                                        onPressed: () async {
-                                          final before = FirebaseFirestore.instance
-                                              .collection('ummah').doc('the-prophets').collection("prophets-button");
-                                          before.get().then((QuerySnapshot snapshot) {
-                                            snapshot.docs.forEach((DocumentSnapshot doc) {
-                                              final _ummah = doc;
-                                              setState(() {
-                                                if (doc["info-title"] ==
-                                                    data["info-title"]) {
-                                                  print(doc["info-title"]);
-                                                  print(doc.id);
-                                                  print(_ummah.id);
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              TheProphet(
-                                                                  _ummah)));
-                                                }
-                                              });
-                                            });
-                                          });
-                                        },
-
-
-                                        textColor: Color(0xFF292929),
-                                        color: Color(
-                                          hexColor('c0dfea'),
-                                        ),
-
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                          child: Row(
-                                            children: [
-
-                                              Expanded(child: Row(children:[
-                                                CircleAvatar(
-                                                  backgroundImage: NetworkImage(data['info-img'][0]),
-                                                ),
-                                                SizedBox(width: 10,),
-
-                                                Text( data['info-title'],
-                                                  maxLines: 3,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.justify,
-                                                  style: const TextStyle(
-                                                    fontFamily: 'PoppinsMedium',
-                                                    fontSize: 16,),),
-                                              ]),
-                                              ),
-                                              const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return Container();
+                  if (name.isEmpty) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height/8.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 40.0,
+                            right: 40.0,
+                            top: 30.0,
+                            bottom: 0.0),
+                        child: RaisedButton(
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(50.0)),
+                          padding: const EdgeInsets.only(
+                              top: 7.0, bottom: 7.0, right: 0.0, left: 00.0),
+                          onPressed: () async {
+                            final before = FirebaseFirestore.instance
+                                .collection('ummah').doc('the-prophets').collection("prophets-button");
+                            before.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _ummah = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      data["info-title"]) {
+                                    print(doc["info-title"]);
+                                    print(doc.id);
+                                    print(_ummah.id);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TheProphet(
+                                                    _ummah)));
+                                  }
+                                });
                               });
-                    },
-                  )
-                //todo:tab
-                : screenWidth < 992
-                    ? StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('ummah')
-                            .doc('the-prophets')
-                            .collection('prophets-button')
-                            .snapshots(),
-                        builder: (context, snapshots) {
-                          return (snapshots.connectionState ==
-                                  ConnectionState.waiting)
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : ListView.builder(
-                                  itemCount: snapshots.data!.docs.length,
-                                  itemBuilder: (context, index) {
-                                    var data = snapshots.data!.docs[index]
-                                        .data() as Map<String, dynamic>;
-
-                                    if (name.isEmpty) {
-                                      return Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        height: MediaQuery.of(context).size.height/8.0,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 50.0,
-                                              right: 50.0,
-                                              top: 30.0,
-                                              bottom: 0.0),
-                                          child: RaisedButton(
-                                            elevation: 0.0,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: new BorderRadius.circular(50.0)),
-                                            padding: const EdgeInsets.only(
-                                                top: 7.0, bottom: 7.0, right: 0.0, left: 00.0),
-                                            onPressed: () async {
-                                              final before = FirebaseFirestore.instance
-                                                  .collection('ummah').doc('the-prophets').collection("prophets-button");
-                                              before.get().then((QuerySnapshot snapshot) {
-                                                snapshot.docs.forEach((DocumentSnapshot doc) {
-                                                  final _ummah = doc;
-                                                  setState(() {
-                                                    if (doc["info-title"] ==
-                                                        data["info-title"]) {
-                                                      print(doc["info-title"]);
-                                                      print(doc.id);
-                                                      print(_ummah.id);
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  TheProphet(
-                                                                      _ummah)));
-                                                    }
-                                                  });
-                                                });
-                                              });
-                                            },
+                            });
+                          },
 
 
-                                            textColor: Color(0xFF292929),
-                                            color: Color(
-                                              hexColor('c0dfea'),
-                                            ),
+                          textColor: Color(0xFF292929),
+                          color: Color(
+                            hexColor('c0dfea'),
+                          ),
 
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                              child: Row(
-                                                children: [
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            child: Row(
+                              children: [
 
-                                                  Expanded(child: Row(children:[
-                                                    CircleAvatar(
-                                                      backgroundImage: NetworkImage(data['info-img'][0]),
-                                                    ),
-                                                    SizedBox(width: 10,),
+                                Expanded(child: Row(children:[
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(data['info-img'][0]),
+                                  ),
+                                  SizedBox(width: 10,),
 
-                                                    Text( data['info-title'],
-                                                      maxLines: 3,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.justify,
-                                                      style: const TextStyle(
-                                                        fontFamily: 'PoppinsMedium',
-                                                        fontSize: 16,),),
-                                                  ]),
-                                                  ),
-                                                  const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    return Container();
-                                  });
-                        },
-                      )
-                    : null
+                                  Text( data['info-title'],
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontFamily: 'PoppinsMedium',
+                                      fontSize: 16,),),
+                                ]),
+                                ),
+                                const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return Container();
+                });
+          },
+        )
+        //todo:tab
+            : screenWidth < 992
+            ? StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('ummah')
+              .doc('the-prophets')
+              .collection('prophets-button')
+              .snapshots(),
+          builder: (context, snapshots) {
+            return (snapshots.connectionState ==
+                ConnectionState.waiting)
+                ? const Center(
+              child: CircularProgressIndicator(),
+            )
+                : ListView.builder(
+                itemCount: snapshots.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var data = snapshots.data!.docs[index]
+                      .data() as Map<String, dynamic>;
+
+                  if (name.isEmpty) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height/8.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 50.0,
+                            right: 50.0,
+                            top: 30.0,
+                            bottom: 0.0),
+                        child: RaisedButton(
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(50.0)),
+                          padding: const EdgeInsets.only(
+                              top: 7.0, bottom: 7.0, right: 0.0, left: 00.0),
+                          onPressed: () async {
+                            final before = FirebaseFirestore.instance
+                                .collection('ummah').doc('the-prophets').collection("prophets-button");
+                            before.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _ummah = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      data["info-title"]) {
+                                    print(doc["info-title"]);
+                                    print(doc.id);
+                                    print(_ummah.id);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TheProphet(
+                                                    _ummah)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+
+
+                          textColor: Color(0xFF292929),
+                          color: Color(
+                            hexColor('c0dfea'),
+                          ),
+
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            child: Row(
+                              children: [
+
+                                Expanded(child: Row(children:[
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(data['info-img'][0]),
+                                  ),
+                                  SizedBox(width: 10,),
+
+                                  Text( data['info-title'],
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontFamily: 'PoppinsMedium',
+                                      fontSize: 16,),),
+                                ]),
+                                ),
+                                const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return Container();
+                });
+          },
+        )
+            : null
     );
   }
 }
