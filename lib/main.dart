@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamadun/payment/payment.provider.dart';
 import 'package:tamadun/widget/constant.dart';
 import 'auth/landing_page.dart';
 import 'auth/user.provider.dart';
@@ -30,7 +31,9 @@ class _TamadunAppState extends State<TamadunApp> {
         ChangeNotifierProvider(create: (context) => LoginController()),
         ChangeNotifierProvider<AppUser>(
           create: (context) => AppUser(),
-        )
+        ),
+        ChangeNotifierProvider<PaymentProvider>(
+            create: (context) => PaymentProvider()),
       ],
       child: MaterialApp(
         title: 'Ummah Empire',
