@@ -1,4 +1,4 @@
-package com.aqwise.tamadun;
+package com.aqwise.ummahempire;
 
 import io.flutter.embedding.android.FlutterActivity;
 

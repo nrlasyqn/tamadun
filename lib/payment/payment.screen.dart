@@ -92,23 +92,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Navigator.pop(context);
                     } else {
                       if (paymentConfirm['status'] == 'succeeded') {
-                        updateRole();
-                        saveReceipt();
-                        // Provider.of<PaymentProvider>(context, listen: false)
-                        //     .updateData(
-                        //     paymentConfirm['charges']['data']
-                        //         .last['receipt_url'],
-                        //     paymentConfirm['status']);
-                        // Provider.of<PaymentProvider>(context, listen: false)
-                        //     .updateRole(
-                        //     paymentConfirm['charges']['data']
-                        //         .last['receipt_url'],
-                        //     id,
-                        //     custId);
-                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //     content:
-                        //     Text('Payment ${paymentConfirm['status']}')));
-                        // Navigator.pop(context);
+                        //updateRole();
+                        //saveReceipt();
+                        Provider.of<AppUser>(context, listen: false)
+                            .updateData(
+                            paymentConfirm['charges']['data']
+                                .last['receipt_url'],
+                            paymentConfirm['status']);
+                        Provider.of<AppUser>(context, listen: false)
+                            .updateRole(
+                            paymentConfirm['charges']['data']
+                                .last['receipt_url'],
+                            id,
+                            custId);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content:
+                            Text('Payment ${paymentConfirm['status']}')));
+                        Navigator.pop(context);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                              (Route<dynamic> route) => false,
+                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(paymentConfirm['status'])));
@@ -149,13 +154,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   //todo: update user role after success making payment
-  void updateRole() {
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    db
-        .collection("Users")
-        .doc(AppUser.instance.user!.uid)
-        .set({"role": "premium"}, SetOptions(merge: true));
-  }
+  // void updateRole() {
+  //   FirebaseFirestore db = FirebaseFirestore.instance;
+  //   db
+  //       .collection("Users")
+  //       .doc(AppUser.instance.user!.uid)
+  //       .set({"role": "premium"}, SetOptions(merge: true));
+  // }
 
   @override
   Widget build(BuildContext context) {

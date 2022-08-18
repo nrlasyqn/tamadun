@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../auth/user.provider.dart';
 
 class PaymentProvider extends ChangeNotifier {
   var cid;
@@ -16,7 +19,19 @@ class PaymentProvider extends ChangeNotifier {
     pid = id;
     notifyListeners();
   }
-//
+
+  // Future<void> updateRole(url, pid, cid) async {
+  //   FirebaseFirestore db = FirebaseFirestore.instance;
+  //   db.collection("Users").doc(AppUser.instance.user!.uid).set({
+  //     "role": "premium",
+  //     "receipt-url": url,
+  //     "payment-id": pid,
+  //     "cust-id": cid
+  //   }, SetOptions(merge: true));
+  //   role = 'premium';
+  //   notifyListeners();
+  // }
+///
 // void updateData(url, code) {
 //   receipt = url;
 //   status = code;
