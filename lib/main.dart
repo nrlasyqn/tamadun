@@ -33,7 +33,7 @@ class _TamadunAppState extends State<TamadunApp> {
         )
       ],
       child: MaterialApp(
-        title: 'Tamadun App',
+        title: 'Ummah Empire',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Montserrat',

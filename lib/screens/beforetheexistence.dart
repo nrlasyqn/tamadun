@@ -24,7 +24,7 @@ class _universeClassState extends State<universe> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Tamadun',
+          'Ummah Empire',
           style: TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,

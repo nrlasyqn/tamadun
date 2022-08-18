@@ -23,7 +23,7 @@ class _the_existenceClassState extends State<the_existence> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Tamadun',
+          'Ummah Empire',
           style: const TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,
