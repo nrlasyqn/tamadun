@@ -29,7 +29,8 @@ class AppUser extends ChangeNotifier {
 
   signOut() async {
     await FirebaseAuth.instance.signOut();
-    role = 'No data';
+    role = '';
+
     notifyListeners();
   }
 
@@ -139,6 +140,17 @@ class AppUser extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+  void setDefault() {
+    role = 'standard';
+    status = null;
+    receipt = null;
+    cid = null;
+    pid = null;
+    notifyListeners();
+  }
+
   Future<void> getData(
       String firstname, String lastname, String email, String url) async {
     await firestoreInstance
@@ -164,4 +176,6 @@ class AppUser extends ChangeNotifier {
     user!.updatePassword(newpass);
     notifyListeners();
   }
+
+
 }

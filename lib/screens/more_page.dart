@@ -41,11 +41,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
 import 'package:tamadun/webview.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
 import '../auth/google_auth.dart';
+import '../auth/user.provider.dart';
 import '../authentication/log.dart';
 import '../screens/aboutus.dart';
 import '../screens/home_page.dart';
@@ -343,6 +345,7 @@ class _MorepageState extends State<Morepage> {
 // the logout function
 Future<void> logout(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
+  Provider.of<AppUser>(context, listen: false).setDefault();
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) {
         return const LoginScreen();

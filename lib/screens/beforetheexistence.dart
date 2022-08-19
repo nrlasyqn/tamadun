@@ -184,15 +184,12 @@ class _universeClassState extends State<universe> {
                                       if (doc['role'] == 'premium') {
                                         print(doc['role']);
                                         print(doc['email']);
-                                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const FetchTimelineBefore()));
-                                        }
-
-                                        );}
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                const FetchTimelineBefore()));
+                                      }
                                     }});
                                 });
                               },
@@ -518,15 +515,11 @@ class _universeClassState extends State<universe> {
                                           if (doc['role'] == 'premium') {
                                             print(doc['role']);
                                             print(doc['email']);
-                                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const FetchTimelineBefore()));
-                                            }
-
-                                            );}
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    const FetchTimelineBefore()));}
                                         }});
                                     });
                                   },
@@ -852,16 +845,14 @@ class _universeClassState extends State<universe> {
                                               if (doc['role'] == 'premium') {
                                                 print(doc['role']);
                                                 print(doc['email']);
-                                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const FetchTimelineBefore()));
-                                                }
-
-                                                );}
-                                            }});
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                        const FetchTimelineBefore()));
+                                              }
+                                            }
+                                          });
                                         });
                                       },
                                       shape: RoundedRectangleBorder(
