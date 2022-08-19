@@ -210,17 +210,12 @@ class _MorepageState extends State<Morepage> {
                           text: "Log Out",
                           icon: "assets/icons/Log out.svg",
                           press: () async {
-                            final User? user =
-                            await firebaseAuth.currentUser;
-                            if (user == null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content:
-                                Text('No one has signed in.'),
-                              ));
-                              return;
-                            }
-                            logout(context);
+                            Provider.of<AppUser>(context, listen: false)
+                                .signOut(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -313,17 +308,12 @@ class _MorepageState extends State<Morepage> {
                           text: "Log Out",
                           icon: "assets/icons/Log out.svg",
                           press: () async {
-                            final User? user =
-                            await firebaseAuth.currentUser;
-                            if (user == null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content:
-                                Text('No one has signed in.'),
-                              ));
-                              return;
-                            }
-                            logout(context);
+                            Provider.of<AppUser>(context, listen: false)
+                                .signOut(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -343,14 +333,14 @@ class _MorepageState extends State<Morepage> {
 }
 
 // the logout function
-Future<void> logout(BuildContext context) async {
-  await FirebaseAuth.instance.signOut();
-  Provider.of<AppUser>(context, listen: false).setDefault();
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) {
-        return const LoginScreen();
-      }), ModalRoute.withName('/'));
-}
+// Future<void> logout(BuildContext context) async {
+//   await FirebaseAuth.instance.signOut();
+//   Provider.of<AppUser>(context, listen: false).setDefault();
+//   Navigator.of(context).pushAndRemoveUntil(
+//       MaterialPageRoute(builder: (context) {
+//         return const LoginScreen();
+//       }), ModalRoute.withName('/'));
+// }
 
 int hexColor(String color) {
   //adding prefix
