@@ -179,6 +179,10 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           color: Colors.black,
                         )),
                   ),
+                  Container(
+                    child: Image.network(
+                      widget._livingthings['info-img'][1],),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -374,6 +378,13 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
+                  ),
+                  Container(
+                    child: Image.network(
+                      widget._livingthings['info-img'][1],),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   const SizedBox(
                     height: 10,

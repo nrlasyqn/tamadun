@@ -27,7 +27,7 @@ class _jState extends State<j> {
           elevation: 0.0,
           automaticallyImplyLeading: false,
           title: const Text(
-            'Tamadun',
+            'The Prophets',
             style: TextStyle(
               fontFamily: 'MontserratBold',
               color: Colors.white,
