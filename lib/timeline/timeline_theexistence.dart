@@ -64,7 +64,7 @@ class _TimelineExistenceState extends State<TimelineExistence> {
         elevation: 1,
         backgroundColor: Colors.white,
         title: const Text(
-          "The Starting Point of Universe Creation",
+          "The Existence of Universe (Big Bang)",
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
