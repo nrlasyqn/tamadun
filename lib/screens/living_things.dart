@@ -23,7 +23,7 @@ class _living_thingsClassState extends State<living_things> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: Text(
-          'Tamadun',
+          'Ummah Empire',
           style: TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,

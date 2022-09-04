@@ -37,7 +37,7 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
   }
 
   void share(BuildContext context) {
-    String message = 'Check out this useful content!';
+    String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
@@ -178,6 +178,10 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
+                  ),
+                  Container(
+                    child: Image.network(
+                      widget._livingthings['info-img'][1],),
                   ),
                   const SizedBox(
                     height: 10,
@@ -374,6 +378,13 @@ class _InfoLivingThingsState extends State<InfoLivingThings> {
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,
                         )),
+                  ),
+                  Container(
+                    child: Image.network(
+                      widget._livingthings['info-img'][1],),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   const SizedBox(
                     height: 10,

@@ -80,14 +80,15 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                 .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<QuerySnapshot> snapshot) {
+              _isloading = true;
               if (snapshot.hasError) {
                 return const Center(
                   child: Text("Something is wrong!"),
                 );
-              } else if (snapshot.data == null) {
+              } else if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                 return const Center(
                   child: Text(
-                    "You haven’t favorited anything yet.\nBrowse to an event in the timeline and tap save icon to save something in this list.",
+                    "You haven’t favorited anything yet.\nBrowse to an event and tap heart icon to save something in this list.",
                     style: TextStyle(
                       fontFamily: 'PoppinsLight',
                       fontSize: 20,
@@ -96,6 +97,12 @@ class _FavScreenTwoState extends State<FavScreenTwo> {
                   ),
                 );
               }
+              // else if (snapshot.data == null){
+              //   _isloading = true;
+              //   return const Center(
+              //     child: Text(""),
+              //   );
+              // }
               return Material(
                 child: ListView.builder(
                     itemCount: snapshot.data == null

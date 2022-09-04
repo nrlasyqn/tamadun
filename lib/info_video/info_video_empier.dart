@@ -38,7 +38,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
   }
 
   void share(BuildContext context){
-    String message = 'Check out this useful content!';
+    String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message, subject: 'Description',
@@ -84,7 +84,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 20,
+                fontSize: 16,
               ),
             ),
             leading: IconButton(

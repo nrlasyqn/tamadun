@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">Tamadun</string>
-    <string name="facebook_app_id">3263344000613484</string>
-    <string name="fb_login_protocol_scheme">fb3263344000613484</string>
-    <string name="facebook_client_token">26db94e450eb95e256184f9469e5195f</string>
+    <string name="app_name">Ummah Empire</string>
+    <string name="facebook_app_id">588205329594646</string>
+    <string name="fb_login_protocol_scheme">fb588205329594646</string>
+    <string name="facebook_client_token">a931cc7f61bb82a4959626a298b0d637</string>
 
 
 </resources>

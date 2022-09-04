@@ -35,23 +35,44 @@ class _ChangePassState extends State<ChangePass> {
   }
 
 
+  // changePassword() async {
+  //   try{
+  //     await currentUser!.updatePassword(newPassword);
+  //     FirebaseAuth.instance.signOut();
+  //     Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //                 builder: (context) => LoginScreen())
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       backgroundColor: Colors.black,
+  //       content: Text("Your password has been changed! Login again"),
+  //     ),);
+  //   }catch(error){
+  //
+  //   }
+  // }
+
   changePassword() async {
-    try{
+    try {
       await currentUser!.updatePassword(newPassword);
       FirebaseAuth.instance.signOut();
-      Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginScreen())
+      // Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //             builder: (context) => LoginScreen())
+      // );
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.black,
+          content: Text("Your password has been changed! Login again"),
+        ),
       );
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.black,
-        content: Text("Your password has been changed! Login again"),
-      ),);
-    }catch(error){
-
-    }
+    } catch (error) {}
   }
+
   // firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user;

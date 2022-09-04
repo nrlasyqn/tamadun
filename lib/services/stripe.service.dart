@@ -18,9 +18,9 @@ class StripeService {
 
   static Future<Map<String, dynamic>> createCardPaymentMethod(
       {required String number,
-      required String expMonth,
-      required String expYear,
-      required String cvc}) async {
+        required String expMonth,
+        required String expYear,
+        required String cvc}) async {
     try {
       Map<String, String> body = {
         'type': 'card',
@@ -49,7 +49,7 @@ class StripeService {
       Map<String, dynamic> body = {
         'amount': amount,
         // amount charged will be specified when the method is called
-        'description': 'buy premium product',
+        'description': 'Buy Premium Ummah Empire',
         'currency': currency,
         // the currency
         'payment_method_types[]': 'card',
@@ -58,7 +58,7 @@ class StripeService {
       var response = await http.post(Uri.parse(paymentIntentURL), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
-          );
+      );
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
       print('Error occured : ${error.toString()}');
@@ -71,7 +71,7 @@ class StripeService {
     try {
       Map<String, dynamic> body = {
         'name':
-            name, // amount charged will be specified when the method is called
+        name, // amount charged will be specified when the method is called
         'phone': phone, // the currency
         'email': email,
         'description': description,
@@ -80,7 +80,7 @@ class StripeService {
       var response = await http.post(Uri.parse(customer), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
-          );
+      );
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
       print('Error occured : ${error.toString()}');
@@ -93,7 +93,7 @@ class StripeService {
       var response = await http.get(
           Uri.parse('$paymentIntentURL/$id'), //api url
           headers: headers //headers of the request specified in the base class
-          );
+      );
 
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
@@ -106,7 +106,7 @@ class StripeService {
     try {
       var response = await http.get(Uri.parse('$customer/$custId'), //api url
           headers: headers //headers of the request specified in the base class
-          );
+      );
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
       print('Error occured : ${error.toString()}');
@@ -122,7 +122,7 @@ class StripeService {
           Uri.parse(paymentIntentURL + '/' + paymentId + '/confirm'), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
-          );
+      );
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
       print('Error occured : ${error.toString()}');
@@ -139,7 +139,7 @@ class StripeService {
           //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
-          );
+      );
       return jsonDecode(response.body); //decode the response to json
     } catch (error) {
       print('Error occured : ${error.toString()}');

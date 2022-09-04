@@ -1,8 +1,19 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../payment/payment.provider.dart';
 
 class AppUser extends ChangeNotifier {
+
+  String? cid;
+  String? pid;
+
+  var status;
+  var receipt;
   update() {
     notifyListeners();
   }
@@ -21,10 +32,10 @@ class AppUser extends ChangeNotifier {
   static AppUser get instance => AppUser();
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  signOut() async {
+  signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    role = 'No data';
-    notifyListeners();
+    role = '';
+    Provider.of<PaymentProvider>(context, listen: false).setDefault();
   }
 
   Future<void> signIn({required String email, required String password}) async {
@@ -57,11 +68,15 @@ class AppUser extends ChangeNotifier {
     );
   }
 
-  Future<void> updateRole() async {
-    db
-        .collection("Users")
-        .doc(AppUser.instance.user!.uid)
-        .set({"role": "premium-user"}, SetOptions(merge: true));
+  Future<void> updateRole(url, pid, cid) async {
+    db.collection("Users").doc(AppUser.instance.user!.uid).set({
+      "role": "premium",
+      "receipt-url": url,
+      "payment-id": pid,
+      "cust-id": cid
+    }, SetOptions(merge: true));
+    role = 'premium';
+    notifyListeners();
   }
 
   Future<void> updateName(String name) async {
@@ -92,25 +107,52 @@ class AppUser extends ChangeNotifier {
 
   final firestoreInstance = FirebaseFirestore.instance;
 
-  Future<void> updatedata(
-      String firstname, String lastname, String email) async {
-    await firestoreInstance
-        .collection("quranIrabUsers")
-        .doc(AppUser.instance.user!.uid)
-        .set({
-      "role": 'user',
-      "first_name": firstname,
-      "last_name": lastname,
-      "email": email,
-      "profileImage": AppUser.instance.user!.photoURL ?? "",
-      "uid": AppUser.instance.user!.uid
-    }, SetOptions(merge: true)).then((value) {
-      print("Data added sucessfully");
-    });
-    var imageURL = AppUser.instance.user!.photoURL ?? "";
-    var displayName = "$firstname $lastname";
-    AppUser.instance.user!.updateDisplayName(displayName);
-    AppUser.instance.user!.updatePhotoURL(imageURL);
+  // Future<void> updatedata(
+  //     String firstname, String lastname, String email) async {
+  //   await firestoreInstance
+  //       .collection("quranIrabUsers")
+  //       .doc(AppUser.instance.user!.uid)
+  //       .set({
+  //     "role": 'user',
+  //     "first_name": firstname,
+  //     "last_name": lastname,
+  //     "email": email,
+  //     "profileImage": AppUser.instance.user!.photoURL ?? "",
+  //     "uid": AppUser.instance.user!.uid
+  //   }, SetOptions(merge: true)).then((value) {
+  //     print("Data added sucessfully");
+  //   });
+  //   var imageURL = AppUser.instance.user!.photoURL ?? "";
+  //   var displayName = "$firstname $lastname";
+  //   AppUser.instance.user!.updateDisplayName(displayName);
+  //   AppUser.instance.user!.updatePhotoURL(imageURL);
+  // }
+
+  void setCid(custId) {
+    cid = custId;
+    notifyListeners();
+  }
+
+  void setPid(id) {
+    pid = id;
+    notifyListeners();
+  }
+
+  void updateData(url, code) {
+    receipt = url;
+    status = code;
+    notifyListeners();
+  }
+
+
+
+  void setDefault() {
+    role = 'standard';
+    status = null;
+    receipt = null;
+    cid = null;
+    pid = null;
+    notifyListeners();
   }
 
   Future<void> getData(
@@ -138,4 +180,6 @@ class AppUser extends ChangeNotifier {
     user!.updatePassword(newpass);
     notifyListeners();
   }
+
+
 }

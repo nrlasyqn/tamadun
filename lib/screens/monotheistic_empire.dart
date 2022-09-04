@@ -27,7 +27,7 @@ class _monotheistic_empireClassState extends State<monotheistic_empire> {
         elevation: 0.0,
         automaticallyImplyLeading: false,
         title: Text(
-          'Tamadun',
+          'Ummah Empire',
           style: TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,

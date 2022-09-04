@@ -34,7 +34,7 @@ class _InfoHomosapiensState extends State<InfoHomosapiens> {
   }
 
   void share(BuildContext context) {
-    String message = 'Check out this useful content!';
+    String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,

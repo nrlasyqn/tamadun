@@ -35,7 +35,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
   }
 
   void share(BuildContext context) {
-    String message = 'Check out this useful content!';
+    String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
@@ -364,8 +364,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          onPressed: () => null,
-                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -374,13 +372,24 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
+                          onPressed: () => null,
+                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final before = FirebaseFirestore.instance
-                                .collection('before-the-existence');
+                                .collection(
+                                'before-the-existence');
                             before
                                 .get()
                                 .then((QuerySnapshot snapshot) {
@@ -389,10 +398,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                                 final _beforeExist = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._beforeExist[
-                                      "info-title"]) {
-                                    print(widget
-                                        ._beforeExist["info-video"]);
+                                      widget
+                                          ._beforeExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -405,14 +412,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                             });
                           },
                           color: Colors.grey,
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                         ),
                       ),
                     ],
@@ -649,8 +648,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          onPressed: () => null,
-                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -659,13 +656,24 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
+                          onPressed: () => null,
+                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final before = FirebaseFirestore.instance
-                                .collection('before-the-existence');
+                                .collection(
+                                'before-the-existence');
                             before
                                 .get()
                                 .then((QuerySnapshot snapshot) {
@@ -674,10 +682,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                                 final _beforeExist = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._beforeExist[
-                                      "info-title"]) {
-                                    print(widget
-                                        ._beforeExist["info-video"]);
+                                      widget
+                                          ._beforeExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -690,14 +696,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                             });
                           },
                           color: Colors.grey,
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                         ),
                       ),
                     ],
