@@ -367,8 +367,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          onPressed: () => null,
-                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -377,10 +375,20 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
+                          onPressed: () => null,
+                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final before = FirebaseFirestore.instance
                                 .collection(
@@ -407,14 +415,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                             });
                           },
                           color: Colors.grey,
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                         ),
                       ),
                     ],
@@ -654,8 +654,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          onPressed: () => null,
-                          color: Colors.black,
                           child: const Text(
                             'Description',
                             style: TextStyle(
@@ -664,10 +662,20 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                               fontFamily: 'PoppinsMedium',
                             ),
                           ),
+                          onPressed: () => null,
+                          color: Colors.black,
                         ),
                       ),
                       Expanded(
                         child: MaterialButton(
+                          child: const Text(
+                            'Video',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'PoppinsMedium',
+                            ),
+                          ),
                           onPressed: () {
                             final before = FirebaseFirestore.instance
                                 .collection(
@@ -694,14 +702,6 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                             });
                           },
                           color: Colors.grey,
-                          child: const Text(
-                            'Video',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: 'PoppinsMedium',
-                            ),
-                          ),
                         ),
                       ),
                     ],

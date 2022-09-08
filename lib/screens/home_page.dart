@@ -1,12 +1,14 @@
+import 'package:flutter/cupertino.dart';
 
 import 'package:tamadun/screens/favpage.dart';
 import 'package:tamadun/screens/searchpage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tamadun/screens/favpage.dart';
+import 'package:tamadun/screens/searchpage.dart';
 
-import 'more_page.dart';
 import 'mainpage.dart';
+import 'more_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -17,8 +19,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController _pageController = PageController();
-  List <Widget> _screen =[
-    MainPage(),SearchPage(),FavScreenTwo(), Morepage(isGmail: false,),
+  List<Widget> _screen = [
+    MainPage(),
+    SearchPage(),
+    FavScreenTwo(),
+    Morepage(
+      isGmail: false,
+    ),
   ];
   int _selectedIndex = 0;
   void _onPageChanged(int index) {

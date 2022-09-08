@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:tamadun/auth/user.provider.dart';
 import 'package:tamadun/screens/home_page.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -39,6 +40,7 @@ class AuthFacebook {
             userDisplayName = user.displayName;
             userPicture = user.photoURL;
             userEmail = user.email;
+            userRole = await getRole();
             await updateTask(user);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -63,7 +65,7 @@ class AuthFacebook {
         'displayName': user.displayName,
         'lastSeen': DateTime.now(),
         'bio': "hello there!",
-        'role': "standard",
+        'role': userRole,
       },
     );
   }
@@ -94,5 +96,17 @@ class AuthFacebook {
     } else {
       return 'Your email is verified';
     }
+  }
+
+  Future<String> getRole() async {
+    var role = '';
+    final docRef =
+        _firestore.collection("Users").doc(AppUser.instance.user!.uid);
+    await docRef.get().then(
+      (value) {
+        role = value['role'];
+      },
+    );
+    return role;
   }
 }
