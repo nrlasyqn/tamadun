@@ -22,7 +22,7 @@ class _VideoPageState extends State<VideoPage> {
     super.initState();
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
-      aspectRatio: widget.videoPlayerController.value.aspectRatio,
+      aspectRatio: 16 / 9,
       looping: widget.loop,
       autoInitialize: true,
     );
