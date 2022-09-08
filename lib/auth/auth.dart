@@ -7,7 +7,14 @@ class UserModel {
   String? lastSeen;
   String? role;
 
-  UserModel({this.uid, this.email, this.displayName, this.photoURL, this.bio, this.lastSeen, this.role});
+  UserModel(
+      {this.uid,
+      this.email,
+      this.displayName,
+      this.photoURL,
+      this.bio,
+      this.lastSeen,
+      this.role});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
@@ -19,7 +26,6 @@ class UserModel {
       bio: map['bio'],
       lastSeen: map[DateTime.now()],
       role: map['role'],
-
     );
   }
 
@@ -29,10 +35,11 @@ class UserModel {
       'uid': uid,
       'email': email,
       'displayName': displayName,
-      'photoURL': 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png',
+      'photoURL':
+          'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png',
       'bio': 'hello there!',
-      'lastSeen' : DateTime.now(),
-      'role': 'standard',
+      'lastSeen': DateTime.now(),
+      'role': role,
     };
   }
 }

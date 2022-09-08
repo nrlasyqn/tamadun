@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tamadun/auth/user.provider.dart';
 import 'package:tamadun/screens/home_page.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -39,7 +40,6 @@ class AuthService {
         userDisplayName = user.displayName;
         userPicture = user.photoURL;
         userEmail = user.email;
-
         updateTask(user).then((value) => Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage())));
       }
@@ -67,7 +67,7 @@ class AuthService {
         'displayName': user.displayName,
         'lastSeen': DateTime.now(),
         'bio': "hello there!",
-        'role': "standard",
+        'role': await getRole(),
       },
     );
   }
@@ -98,5 +98,17 @@ class AuthService {
     } else {
       return 'Your email is verified';
     }
+  }
+
+  Future<String> getRole() async {
+    var role = '';
+    final docRef =
+        _firestore.collection("Users").doc(AppUser.instance.user!.uid);
+    await docRef.get().then(
+      (value) {
+        role = value['role'];
+      },
+    );
+    return role;
   }
 }
