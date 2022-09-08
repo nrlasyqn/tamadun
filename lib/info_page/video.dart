@@ -1,6 +1,6 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
 
 class VideoPage extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
@@ -16,7 +16,6 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late ChewieController _chewieController;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -24,14 +23,14 @@ class _VideoPageState extends State<VideoPage> {
     _chewieController = ChewieController(
       videoPlayerController: widget.videoPlayerController,
       looping: widget.loop,
-      aspectRatio: 16 / 9,
+      aspectRatio: 17 / 13,
       autoInitialize: true,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Chewie(controller: _chewieController );
+    return Chewie(controller: _chewieController);
   }
 
   @override
