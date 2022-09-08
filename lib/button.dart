@@ -26,8 +26,9 @@ class _jState extends State<j> {
           backgroundColor: const Color.fromRGBO(150,202,220, 1.0),
           elevation: 0.0,
           automaticallyImplyLeading: false,
+          centerTitle: false,
           title: const Text(
-            'Tamadun',
+            'The Prophets',
             style: TextStyle(
               fontFamily: 'MontserratBold',
               color: Colors.white,
@@ -75,11 +76,11 @@ class _jState extends State<j> {
                       height: MediaQuery.of(context).size.height/8.0,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 40.0,
-                            right: 40.0,
+                            left: 35.0,
+                            right: 35.0,
                             top: 30.0,
                             bottom: 0.0),
-                        child: RaisedButton(
+                        child: MaterialButton(
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(50.0)),
@@ -147,8 +148,9 @@ class _jState extends State<j> {
                 });
           },
         )
+
         //todo:tab
-            : screenWidth < 992
+            : screenWidth < 2800
             ? StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('ummah')
@@ -173,11 +175,114 @@ class _jState extends State<j> {
                       height: MediaQuery.of(context).size.height/8.0,
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 50.0,
-                            right: 50.0,
+                            left: 150.0,
+                            right: 150.0,
                             top: 30.0,
                             bottom: 0.0),
-                        child: RaisedButton(
+                        child: MaterialButton(
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(50.0)),
+                          padding: const EdgeInsets.only(
+                              top: 7.0, bottom: 7.0, right: 10.0, left: 10.0),
+                          onPressed: () async {
+                            final before = FirebaseFirestore.instance
+                                .collection('ummah').doc('the-prophets').collection("prophets-button");
+                            before.get().then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                final _ummah = doc;
+                                setState(() {
+                                  if (doc["info-title"] ==
+                                      data["info-title"]) {
+                                    print(doc["info-title"]);
+                                    print(doc.id);
+                                    print(_ummah.id);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TheProphet(
+                                                    _ummah)));
+                                  }
+                                });
+                              });
+                            });
+                          },
+
+
+                          textColor: Color(0xFF292929),
+                          color: Color(
+                            hexColor('c0dfea'),
+                          ),
+
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                            child: Row(
+                              children: [
+
+                                Expanded(child: Row(children:[
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(data['info-img'][0]),
+                                    radius: 40,
+                                  ),
+
+                                  SizedBox(width: 20,),
+
+                                  Text( data['info-title'],
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontFamily: 'PoppinsMedium',
+                                      fontSize: 18,),),
+                                ]),
+                                ),
+                                const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return Container();
+                });
+          },
+        )
+
+        //todo:ipod
+        : screenWidth < 350
+            ? StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('ummah')
+              .doc('the-prophets')
+              .collection('prophets-button')
+              .snapshots(),
+          builder: (context, snapshots) {
+            return (snapshots.connectionState ==
+                ConnectionState.waiting)
+                ? Center(
+              child: CircularProgressIndicator(
+                color: Color(hexColor('#25346a')),
+              ),
+            )
+                : ListView.builder(
+                itemCount: snapshots.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var data = snapshots.data!.docs[index].data()
+                  as Map<String, dynamic>;
+
+                  if (name.isEmpty) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height/8.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 35.0,
+                            right: 35.0,
+                            top: 30.0,
+                            bottom: 0.0),
+                        child: MaterialButton(
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(50.0)),

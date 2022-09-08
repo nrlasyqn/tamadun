@@ -54,6 +54,7 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: Colors.white,
+          centerTitle: false,
           title: const Text(
             "The Islamic Empire",
             maxLines: 3,
@@ -63,6 +64,7 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
               fontFamily: "MontserratBold",
               fontSize: 20,
             ),
+            textAlign: TextAlign.left,
           ),
           leading: IconButton(
             icon: const Icon(
@@ -173,7 +175,7 @@ class _TimelineEmpireState extends State<TimelineEmpire> {
                 hexColor('#25346a'),
               ),
             ))
-            : screenWidth < 992
+            : screenWidth < 2800
             ? ListView.builder(
             itemCount: _empire.length,
             itemBuilder: (_, index) {

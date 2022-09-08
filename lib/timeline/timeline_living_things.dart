@@ -63,6 +63,7 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
+        centerTitle: false,
         title: const Text(
           "Living Things Before Creation of Man",
           maxLines: 3,
@@ -72,6 +73,7 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
             fontFamily: "MontserratBold",
             fontSize: 20,
           ),
+          textAlign: TextAlign.left,
         ),
         leading: IconButton(
           icon: const Icon(
@@ -174,7 +176,7 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
           ? Center(
           child: CircularProgressIndicator(
               color: Color(hexColor('#25346a'),)))
-          : screenWidth < 992
+          : screenWidth < 2800
           ? ListView.builder(
           itemCount: _livingthings.length,
           itemBuilder: (_, index) {
@@ -202,8 +204,8 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
                                     InfoLivingThings(
                                         _livingthings[index]))),
                         child: Container(
-                          height: 400,
-                          width: 420,
+                          height: 500,
+                          width: 520,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
@@ -222,7 +224,7 @@ class _TimelineLivingThingsState extends State<TimelineLivingThings> {
                       height: 10,
                     ),
                     Container(
-                      width: 401,
+                      width:500,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         color: Color(

@@ -41,11 +41,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:tamadun/auth/facebook_auth.dart';
 import 'package:tamadun/webview.dart';
 import 'package:tamadun/widget/profilemenu_more.dart';
 import '../auth/auth.dart';
 import '../auth/google_auth.dart';
+import '../auth/user.provider.dart';
 import '../authentication/log.dart';
 import '../screens/aboutus.dart';
 import '../screens/home_page.dart';
@@ -69,7 +71,7 @@ class _MorepageState extends State<Morepage> {
   AuthFacebook authFacebook = AuthFacebook();
 
   String? ImageUrl;
-  XFile? xfile;
+
   late File file;
   File? pickedImage;
   bool _isloading = false;
@@ -144,13 +146,10 @@ class _MorepageState extends State<Morepage> {
                           child: CircleAvatar(
                             radius: 75,
                             backgroundImage: pickedImage == null
-                                ? NetworkImage(loggedInUser
-                                ?.photoURL! ==
-                                ''
-                                ? 'https://freesvg.org/img/abstract-user-flat-4.png'
+                                ? NetworkImage(loggedInUser?.photoURL! == ''
+                                ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
                                 : loggedInUser!.photoURL!)
-                                : FileImage(pickedImage!)
-                            as ImageProvider,
+                                : FileImage(pickedImage!) as ImageProvider,
                           ),
                         ),
                       ),
@@ -208,17 +207,12 @@ class _MorepageState extends State<Morepage> {
                           text: "Log Out",
                           icon: "assets/icons/Log out.svg",
                           press: () async {
-                            final User? user =
-                            await firebaseAuth.currentUser;
-                            if (user == null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content:
-                                Text('No one has signed in.'),
-                              ));
-                              return;
-                            }
-                            logout(context);
+                            Provider.of<AppUser>(context, listen: false)
+                                .signOut(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -311,17 +305,12 @@ class _MorepageState extends State<Morepage> {
                           text: "Log Out",
                           icon: "assets/icons/Log out.svg",
                           press: () async {
-                            final User? user =
-                            await firebaseAuth.currentUser;
-                            if (user == null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content:
-                                Text('No one has signed in.'),
-                              ));
-                              return;
-                            }
-                            logout(context);
+                            Provider.of<AppUser>(context, listen: false)
+                                .signOut(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
                             // Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -341,13 +330,14 @@ class _MorepageState extends State<Morepage> {
 }
 
 // the logout function
-Future<void> logout(BuildContext context) async {
-  await FirebaseAuth.instance.signOut();
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) {
-        return const LoginScreen();
-      }), ModalRoute.withName('/'));
-}
+// Future<void> logout(BuildContext context) async {
+//   await FirebaseAuth.instance.signOut();
+//   Provider.of<AppUser>(context, listen: false).setDefault();
+//   Navigator.of(context).pushAndRemoveUntil(
+//       MaterialPageRoute(builder: (context) {
+//         return const LoginScreen();
+//       }), ModalRoute.withName('/'));
+// }
 
 int hexColor(String color) {
   //adding prefix

@@ -54,6 +54,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: Colors.white,
+          centerTitle: false,
           title: const Text(
             "The Ummah",
             style: TextStyle(
@@ -61,6 +62,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
               fontFamily: "MontserratBold",
               fontSize: 20,
             ),
+            textAlign: TextAlign.left,
           ),
           leading: IconButton(
             icon: const Icon(
@@ -167,7 +169,7 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
                 hexColor('#25346a'),
               ),
             ))
-            : screenWidth < 992
+            : screenWidth < 2800
             ? ListView.builder(
             itemCount: _ummah.length,
             itemBuilder: (_, index) {
@@ -192,8 +194,8 @@ class _TimelineUmmahState extends State<TimelineUmmah> {
                                 MaterialPageRoute(
                                     builder: (_) => j())),
                             child: Container(
-                              height: 400,
-                              width: 420,
+                              height: 500,
+                              width: 520,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(

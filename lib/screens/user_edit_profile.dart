@@ -32,6 +32,7 @@ class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
 
   File? pickedImage;
+  final picture = ImagePicker();
 
   bool isLoading = false;
 
@@ -42,49 +43,75 @@ class _EditProfileState extends State<EditProfile> {
 
   //images
 
-  void getFromGallery() async {
-    XFile? pic = await ImagePicker().pickImage(source: ImageSource.gallery);
-    pickedImage = File(pic!.path);
-    updateImage();
-  }
+  Future getFromGallery() async{
+    final pic = await picture.getImage(source: ImageSource.gallery);
 
-  void getFromCamera() async {
-    XFile? pic = await ImagePicker().pickImage(source: ImageSource.camera);
-    pickedImage = File(pic!.path);
-    updateImage();
-  }
+    setState((){
+      if(pic != null){
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 1),
+              content: Text('Image Updated!'),
+            ));
+        pickedImage = File(pic.path);
+      }
+      else {
+        print('No Image Selected');
+      }
+    });
 
-  void updateImage() async {
-    ProgressDialog progressDialog = ProgressDialog(
-      context,
-      title: const Text('Uploading...'),
-      message: const Text('Please Wait!'),
-    );
-    progressDialog.show();
-    try {
-      String filename = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference storageRef =
-      FirebaseStorage.instance.ref().child('profileImage').child(filename);
-      UploadTask uploadTask = storageRef.putFile(File(pickedImage!.path));
-      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-      await taskSnapshot.ref.getDownloadURL().then((url) async {
-        photoImageURL = url;
-      });
-      progressDialog.dismiss();
-      await FirebaseFirestore.instance
-          .collection("Users")
-          .doc(user!.uid)
-          .update({
-        'photoURL': photoImageURL,
-      });
+    String filename = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference storageRef =
+    FirebaseStorage.instance.ref().child('profileImage').child(filename);
+    UploadTask uploadTask = storageRef.putFile(File(pickedImage!.path));
+    TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+    await taskSnapshot.ref.getDownloadURL().then((url) async {
+      photoImageURL = url;
+    });
 
-      progressDialog.dismiss();
-    } catch (e) {
-      progressDialog.dismiss();
-      print(e.toString());
-    }
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .update({
+      'photoURL': photoImageURL,
+    });
 
   }
+
+  Future getFromCamera() async{
+    final pic = await picture.getImage(source: ImageSource.camera);
+    setState((){
+      if(pic != null){
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 1),
+              content: Text('Image Updated!'),
+            ));
+        pickedImage = File(pic.path);
+      }
+      else {
+        print('No Image Selected');
+      }
+    });
+
+    String filename = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference storageRef =
+    FirebaseStorage.instance.ref().child('profileImage').child(filename);
+    UploadTask uploadTask = storageRef.putFile(File(pickedImage!.path));
+    TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+    await taskSnapshot.ref.getDownloadURL().then((url) async {
+      photoImageURL = url;
+    });
+
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .update({
+      'photoURL': photoImageURL,
+    });
+
+  }
+
 
   //----------Save form ---------
 //save form
@@ -178,25 +205,22 @@ class _EditProfileState extends State<EditProfile> {
               // background image and bottom contents
               Center(
                 child: Column(
-                  /*crossAxisAlignment: CrossAxisAlignment.start,*/
+
                   children: [
                     Stack(
                       alignment: Alignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            radius: 85,
+                          child:CircleAvatar(
+                            radius:85,
                             backgroundColor: Color(hexColor("BF#495885")),
                             child: CircleAvatar(
                               radius: 75,
-                              backgroundImage: pickedImage == null
-                                  ? NetworkImage(loggedInUser.photoURL! ==
-                                  ''
+                              backgroundImage: pickedImage == null ? NetworkImage(loggedInUser.photoURL! == ''
                                   ? 'https://www.seekpng.com/png/full/41-410093_circled-user-icon-user-profile-icon-png.png'
                                   : loggedInUser.photoURL!)
-                                  : FileImage(pickedImage!)
-                              as ImageProvider,
+                                  : FileImage(pickedImage!) as ImageProvider,
                             ),
                           ),
                         ),
@@ -228,6 +252,7 @@ class _EditProfileState extends State<EditProfile> {
                                               const Text('Gallery'),
                                               onTap: () {
                                                 getFromGallery();
+                                                Navigator.of(context).pop();
                                               },
                                             ),
                                             ListTile(
@@ -236,6 +261,7 @@ class _EditProfileState extends State<EditProfile> {
                                               title: const Text('Camera'),
                                               onTap: () {
                                                 getFromCamera();
+                                                Navigator.of(context).pop();
                                               },
                                             ),
                                           ]),
@@ -322,9 +348,7 @@ class _EditProfileState extends State<EditProfile> {
                               }
                               return null;
                             },
-                            // validator: (input) => input!.trim().length < 3
-                            //     ? 'please enter valid name'
-                            //     : null,
+
                             onSaved: (value) {
                               displayName = value ?? "Anonymous";
                             },
@@ -372,41 +396,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                      //   child: Container(
-                      //     padding: const EdgeInsets.all(15),
-                      //     height: 50,
-                      //     width: double.maxFinite,
-                      //     decoration: BoxDecoration(
-                      //       color: Color(hexColor('FFF5F6F9')),
-                      //       border: Border.all(
-                      //         width: 1,
-                      //         color: Color(
-                      //           hexColor('A9A4A4'),
-                      //         ),
-                      //       ),
-                      //       borderRadius: BorderRadius.circular(10.0),
-                      //     ),
-                      //     child: TextFormField(
-                      //       initialValue: bio,
-                      //       decoration: const InputDecoration(
-                      //         border: InputBorder.none,
-                      //         hintText: "Bio",
-                      //         contentPadding: EdgeInsets.all(13),
-                      //       ),
-                      //       style: const TextStyle(
-                      //         color: Colors.black,
-                      //         fontFamily: 'PoppinsRegular',
-                      //         fontSize: 18,
-                      //       ),
-                      //       textAlign: TextAlign.left,
-                      //       onSaved: (value) {
-                      //         bio = value;
-                      //       },
-                      //     ),
-                      //   ),
-                      // ),
+
                       const SizedBox(height: 15),
                       isLoading
                           ? CircularProgressIndicator(

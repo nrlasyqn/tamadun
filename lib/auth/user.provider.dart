@@ -1,6 +1,11 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../payment/payment.provider.dart';
 
 class AppUser extends ChangeNotifier {
 
@@ -27,10 +32,10 @@ class AppUser extends ChangeNotifier {
   static AppUser get instance => AppUser();
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  signOut() async {
+  signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    role = 'No data';
-    notifyListeners();
+    role = '';
+    Provider.of<PaymentProvider>(context, listen: false).setDefault();
   }
 
   Future<void> signIn({required String email, required String password}) async {
@@ -139,6 +144,17 @@ class AppUser extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+  void setDefault() {
+    role = 'standard';
+    status = null;
+    receipt = null;
+    cid = null;
+    pid = null;
+    notifyListeners();
+  }
+
   Future<void> getData(
       String firstname, String lastname, String email, String url) async {
     await firestoreInstance
@@ -164,4 +180,6 @@ class AppUser extends ChangeNotifier {
     user!.updatePassword(newpass);
     notifyListeners();
   }
+
+
 }

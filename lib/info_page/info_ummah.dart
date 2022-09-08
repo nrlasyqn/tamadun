@@ -37,12 +37,14 @@ class _TheProphetState extends State<TheProphet> {
   }
 
   void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
-        subject: 'Desription',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      subject: 'Description',
+      sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+    //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   //todo: get surah id from before-creation @ before-exist db
@@ -340,11 +342,14 @@ class _TheProphetState extends State<TheProphet> {
             )
           ]),
         )
-            : screenWidth < 992
+            : screenWidth < 2800
             ? SingleChildScrollView(
           child: Column(children: [
             Container(
-              child: Image.network(widget._ummah['info-img'][0],),
+              child: Image.network(widget._ummah['info-img'][0],
+                width: 700,
+                fit:BoxFit.contain,
+              ),
             ),
             const SizedBox(
               height: 5,
@@ -461,7 +466,6 @@ class _TheProphetState extends State<TheProphet> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 //todo: video button
                 Row(
                   children: <Widget>[

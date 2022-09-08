@@ -34,7 +34,7 @@ class _Profile_viewState extends State<Profile_view> {
   AuthFacebook authFacebook = AuthFacebook();
 
   String? ImageUrl;
-  XFile? xfile;
+
   late File file;
   File? pickedImage;
   bool _isloading = false;
@@ -453,6 +453,8 @@ class _Profile_viewState extends State<Profile_view> {
           ),
         ),
       ),
+
+
     );
   }
 }

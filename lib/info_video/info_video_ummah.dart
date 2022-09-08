@@ -38,12 +38,14 @@ class _VideoUmmahState extends State<VideoUmmah> {
   }
 
   void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
-        subject: 'Description',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      subject: 'Description',
+      sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+    //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   getSurah() async {
@@ -216,6 +218,9 @@ class _VideoUmmahState extends State<VideoUmmah> {
                           )),
                     ),
                 ],
+                const SizedBox(
+                  height: 30,
+                ),
 
                 Row(
                   children: <Widget>[
@@ -275,7 +280,7 @@ class _VideoUmmahState extends State<VideoUmmah> {
           ]),
         )
 
-            :screenWidth < 992 ? _isloading
+            :screenWidth < 2800 ? _isloading
             ?  Center(
             child: CircularProgressIndicator(
               color: Color(hexColor('#25346a'),
@@ -285,7 +290,10 @@ class _VideoUmmahState extends State<VideoUmmah> {
             : SingleChildScrollView(
           child: Column(children: [
             Container(
-              child: Image.network(widget._ummah['info-img'][0]),
+              child: Image.network(widget._ummah['info-img'][0],
+                width: 700,
+                fit:BoxFit.contain,
+              ),
             ),
             const SizedBox(
               height: 5,
@@ -314,11 +322,20 @@ class _VideoUmmahState extends State<VideoUmmah> {
                       )),
                 ),
 
+                const SizedBox(
+                  height: 20,
+                ),
+
                 const Divider(
                   color: Colors.black,
                   height: 25,
                   thickness: 1,
                 ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
 
                 //todo: insert video here
                 const Align(
@@ -332,7 +349,7 @@ class _VideoUmmahState extends State<VideoUmmah> {
                 ),
 
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
 
 
@@ -347,7 +364,8 @@ class _VideoUmmahState extends State<VideoUmmah> {
                       child: Align(
                           alignment: Alignment.centerLeft,
                           child: Container(
-                            height: 300,
+                            height: 500,
+                            width: 800,
                             child: VideoPlayer(
                               videoData:
                               ("${_videoList[vid_id]["info-video"][vid_coll]}"),
@@ -356,6 +374,9 @@ class _VideoUmmahState extends State<VideoUmmah> {
                     ),
                 ],
 
+                const SizedBox(
+                  height: 30,
+                ),
 
                 Row(
                   children: <Widget>[

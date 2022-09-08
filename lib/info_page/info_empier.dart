@@ -37,12 +37,14 @@ class _InfoEmpireState extends State<InfoEmpire> {
   }
 
   void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
-        subject: 'Desription',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      subject: 'Description',
+      sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+    //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   //todo: get surah id from before-creation @ before-exist db
@@ -85,7 +87,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 16,
+                fontSize: 17,
               ),
             ),
             leading: IconButton(
@@ -290,7 +292,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
           ),
         )
 
-            :screenWidth < 992
+            :screenWidth < 2800
             ? _isloading
             ? Center(
             child: CircularProgressIndicator(
@@ -302,7 +304,10 @@ class _InfoEmpireState extends State<InfoEmpire> {
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._empire['info-img'][0],),
+                child: Image.network(widget._empire['info-img'][0],
+                  width: 700,
+                  fit:BoxFit.contain,
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -322,7 +327,7 @@ class _InfoEmpireState extends State<InfoEmpire> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(widget._empire['info-sub'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
                           fontFamily: 'PoppinsMedium',
                           color: Colors.black,

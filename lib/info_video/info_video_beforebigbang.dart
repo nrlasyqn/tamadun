@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../info_page/info_beforebigbang.dart';
 
 class VideoBeforeExistence extends StatefulWidget {
@@ -37,12 +36,14 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
   }
 
   void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
-        subject: 'Description',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+      subject: 'Description',
+      sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+    //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   //todo: get video id from db
@@ -214,9 +215,11 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                             )),
                       ),
                   ],
+
                   const SizedBox(
-                    height: 10,
+                    height: 50,
                   ),
+
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -282,11 +285,14 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
               ),
             )
         )
-            : screenWidth < 992 ? SingleChildScrollView(
+            : screenWidth < 2800 ? SingleChildScrollView(
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._beforeExist['info-img'][0]),
+                child: Image.network(widget._beforeExist['info-img'][0],
+                  width: 700,
+                  fit:BoxFit.contain,
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -313,10 +319,18 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                         )),
                   ),
 
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                   const Divider(
                     color: Colors.black,
                     height: 25,
                     thickness: 1,
+                  ),
+
+                  const SizedBox(
+                    height: 20,
                   ),
 
                   const Align(
@@ -329,9 +343,11 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                         )),
                   ),
 
+
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
+
                   ///note: vid_id --> from topic collection
                   ///note: vid_coll ---> video collection db
                   for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
@@ -341,7 +357,8 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              height: 300,
+                              height: 500,
+                              width: 800,
                               child: VideoPlayer(
                                 videoData:
                                 ("${_videoList[vid_id]["info-video"][vid_coll]}"),
@@ -351,7 +368,7 @@ class _VideoBeforeExistenceState extends State<VideoBeforeExistence> {
                   ],
 
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
 
                   Row(

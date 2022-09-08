@@ -59,6 +59,7 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: Colors.white,
+          centerTitle: false,
           title: const Text(
             "The Monotheistic Empire",
             maxLines: 3,
@@ -68,6 +69,7 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
               fontFamily: "MontserratBold",
               fontSize: 20,
             ),
+            textAlign: TextAlign.left,
           ),
           leading: IconButton(
             icon: const Icon(
@@ -167,7 +169,7 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
               );
             })
         //tablet
-            : screenWidth < 992
+            : screenWidth < 2800
             ? ListView.builder(
             itemCount: _monathestic.length,
             itemBuilder: (_, index) {
@@ -194,8 +196,8 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
                                   builder: (_) => InfoMonathestic(
                                       _monathestic[index]))),
                           child: Container(
-                            height: 400,
-                            width: 420,
+                            height: 500,
+                            width: 520,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -214,7 +216,7 @@ class _TimelineMonathesticState extends State<TimelineMonathestic> {
                         height: 10,
                       ),
                       Container(
-                        width: 400,
+                        width: 500,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: Color(

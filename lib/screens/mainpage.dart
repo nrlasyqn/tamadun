@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tamadun/screens/monotheistic_empire.dart';
@@ -582,7 +583,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -601,7 +602,7 @@ class _MainPageState extends State<MainPage> {
                                             //AssetImage(
                                             //  'images/beforeuniverse.jpeg'),
                                             NetworkImage("${snapshot.data!['image'][0]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -611,13 +612,13 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][0]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           Text("${snapshot.data!['secTitle'][0]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -634,7 +635,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -678,7 +679,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][1]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -688,7 +689,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][1]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           Text(
@@ -696,7 +697,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['secTitle'][1]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -712,7 +713,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -756,7 +757,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][2]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -766,7 +767,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][2]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           Text(
@@ -774,7 +775,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['secTitle'][2]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -790,7 +791,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -834,7 +835,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][3]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -844,7 +845,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][3]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -860,7 +861,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -904,7 +905,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][4]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -914,7 +915,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][4]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -930,7 +931,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -974,7 +975,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][5]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -984,7 +985,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][5]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -1000,7 +1001,7 @@ class _MainPageState extends State<MainPage> {
                                   child: Material(
                                     color: Colors.black54,
                                     elevation: 8,
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(27),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: InkWell(
                                       splashColor: Colors.white,
@@ -1044,7 +1045,7 @@ class _MainPageState extends State<MainPage> {
                                         children: [
                                           Ink.image(
                                             image: NetworkImage("${snapshot.data!['image'][6]}"),
-                                            height: 200,
+                                            height: 230,
                                             width: double.maxFinite,
                                             fit: BoxFit.cover,
                                           ),
@@ -1054,7 +1055,7 @@ class _MainPageState extends State<MainPage> {
                                               "${snapshot.data!['title'][6]}",
                                               style: const TextStyle(
                                                 fontFamily: 'PoppinsSemiBold',
-                                                fontSize: 16,
+                                                fontSize: 20,
                                                 color: Colors.white,
                                               )),
                                           const SizedBox(height: 10),
@@ -1066,8 +1067,514 @@ class _MainPageState extends State<MainPage> {
                             const SizedBox(
                               height: 20,
                             ),
-                          ])):null
-              )
+                          ]))
+
+
+
+                  //todo:ipad view
+                      :SingleChildScrollView(
+                      child: screenWidth < 2800
+                          ? Container(
+
+                          child: Column(
+
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        universe()));
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image:
+                                                //AssetImage(
+                                                //  'images/beforeuniverse.jpeg'),
+                                                NetworkImage("${snapshot.data!['image'][0]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                //'Before The Creation of Universe',
+                                                  "${snapshot.data!['title'][0]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              Text("${snapshot.data!['secTitle'][0]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                the_existence()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               the_existence()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][1]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                // '       The Starting Point of\nUniverse Creation (Big Bang)',
+                                                  "${snapshot.data!['title'][1]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              Text(
+                                                // '       The Starting Point of\nUniverse Creation (Big Bang)',
+                                                  "${snapshot.data!['secTitle'][1]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                living_things()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               living_things()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][2]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                //'Living Things Before Creation of Man',
+                                                  "${snapshot.data!['title'][2]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              Text(
+                                                //'Living Things Before Creation of Man',
+                                                  "${snapshot.data!['secTitle'][2]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                homosapiens()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               homosapiens()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][3]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                //'The First Man on Earth',
+                                                  "${snapshot.data!['title'][3]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ummah()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               ummah()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][4]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                //'The Islamic Empier',
+                                                  "${snapshot.data!['title'][4]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                monotheistic_empire()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               monotheistic_empire()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][5]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                //'The Islamic Empier',
+                                                  "${snapshot.data!['title'][5]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
+                                      child: Material(
+                                        color: Colors.black54,
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(30),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: InkWell(
+                                          splashColor: Colors.white,
+                                          onTap: () {
+                                            final userRole = FirebaseFirestore.instance.collection("Users");
+                                            userRole.get().then((QuerySnapshot snapshot) {
+                                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                                final currUser = FirebaseAuth.instance.currentUser!.email;
+                                                if (doc['email'] == currUser) {
+                                                  if (doc['role'] == 'standard') {
+                                                    // print(doc['role']);
+                                                    // print(doc['email']);
+                                                    showFloatingFlushbar(
+                                                        context: context,
+                                                        message:
+                                                        'Upgrade to Premium Now!!',
+                                                        isError: false);
+                                                  }
+                                                  if (doc['role'] == 'premium') {
+                                                    print(doc['role']);
+                                                    print(doc['email']);
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                empierofislam()));
+                                                  }
+                                                }
+                                              });
+                                            });
+                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               empierofislam()));
+                                          // },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Ink.image(
+                                                image: NetworkImage("${snapshot.data!['image'][6]}"),
+                                                height: 280,
+                                                width: double.maxFinite,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                //'The Islamic Empier',
+                                                  "${snapshot.data!['title'][6]}",
+                                                  style: const TextStyle(
+                                                    fontFamily: 'PoppinsSemiBold',
+                                                    fontSize: 23,
+                                                    color: Colors.white,
+                                                  )),
+                                              const SizedBox(height: 12),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ])):null
+                  ))
           ) :Container();
 
         },

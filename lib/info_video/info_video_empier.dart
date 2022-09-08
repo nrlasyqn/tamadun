@@ -84,7 +84,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
               style: const TextStyle(
                 color: Colors.black,
                 fontFamily: "MontserratBold",
-                fontSize: 16,
+                fontSize: 20,
               ),
             ),
             leading: IconButton(
@@ -261,7 +261,7 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
           ),
         )
 
-            :screenWidth < 992 ? _isloading
+            :screenWidth < 2800 ? _isloading
             ? Center(
             child: CircularProgressIndicator(
               color: Color(hexColor('#25346a'),
@@ -272,7 +272,10 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._empire['info-img'][0]),
+                child: Image.network(widget._empire['info-img'][0],
+                  width: 700,
+                  fit:BoxFit.contain,
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -298,10 +301,18 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                           color: Colors.black,
                         )),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                   const Divider(
                     color: Colors.black,
                     height: 25,
                     thickness: 1,
+                  ),
+
+                  const SizedBox(
+                    height: 20,
                   ),
                   const Align(
                     alignment: Alignment.centerLeft,
@@ -314,8 +325,9 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                   ),
 
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
+
                   ///note: vid_id --> from topic collection
                   ///note: vid_coll ---> video collection db
                   for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
@@ -325,16 +337,19 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                         child:  Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              height: 300,
+                              height: 500,
+                              width: 800,
                               child: VideoPlayer(
                                 videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
                               ),
                             )),
                       ),
                   ],
+
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
+
                   Row(
                     children: <Widget>[
                       Expanded(

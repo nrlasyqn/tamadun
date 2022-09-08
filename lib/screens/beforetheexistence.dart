@@ -22,9 +22,11 @@ class _universeClassState extends State<universe> {
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(109, 126, 168, 1.0),
         elevation: 0.0,
+        centerTitle: false,
         automaticallyImplyLeading: false,
         title: const Text(
           'Ummah Empire',
+          textAlign: TextAlign.left,
           style: TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,
@@ -65,11 +67,11 @@ class _universeClassState extends State<universe> {
                     child: Container(
                       height: size.height,
                       width: size.width,
-                      decoration: const BoxDecoration(
-                          gradient: const LinearGradient(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
                               colors: [
-                                const Color.fromRGBO(109, 126, 168, 1.0),
-                                const Color.fromRGBO(109, 126, 168, 1.0),
+                                Color.fromRGBO(109, 126, 168, 1.0),
+                                Color.fromRGBO(109, 126, 168, 1.0),
                               ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomLeft)),
@@ -81,13 +83,13 @@ class _universeClassState extends State<universe> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           height: 60,
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 50.0,
                   ),
                   Container(
@@ -105,19 +107,19 @@ class _universeClassState extends State<universe> {
                           minRadius: 70,
                           maxRadius: 80,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20.0,
                         ),
                         Text(
                           "${snapshot.data!['title']}",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18.0,
                             fontFamily: 'PoppinsSemiBold',
                             color: Colors.black,
                           ),
                         ),
-                        const SizedBox(
-                          height: 80.0,
+                        SizedBox(
+                          height: 100.0,
                         ),
                         //todo:The Creation of Qalam [FREE]
                         Container(
@@ -128,36 +130,36 @@ class _universeClassState extends State<universe> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const FetchTimelineBefore()));
+                                            FetchTimelineBefore()));
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: const BorderSide(
+                                  side: BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: const EdgeInsets.all(0.0),
+                              padding: EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: const BoxConstraints(
+                                  constraints: BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-1']}",
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontFamily: 'PoppinsMedium',
-                                    color: Colors.black,
-                                  ),
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontFamily: 'PoppinsMedium',
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               )),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 15.0,
                         ),
 
@@ -184,37 +186,34 @@ class _universeClassState extends State<universe> {
                                       if (doc['role'] == 'premium') {
                                         print(doc['role']);
                                         print(doc['email']);
-                                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const FetchTimelineBefore()));
-                                        }
-
-                                        );}
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                const FetchTimelineBefore()));
+                                      }
                                     }});
                                 });
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: const BorderSide(
+                                  side: BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: const EdgeInsets.all(0.0),
+                              padding: EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: const BoxConstraints(
+                                  constraints: BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-2']}",
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16.0,
                                       fontFamily: 'PoppinsMedium',
                                       color: Colors.black,
@@ -223,7 +222,7 @@ class _universeClassState extends State<universe> {
                                 ),
                               )),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 15.0,
                         ),
 
@@ -253,7 +252,7 @@ class _universeClassState extends State<universe> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const FetchTimelineBefore()));
+                                                    FetchTimelineBefore()));
                                       }
                                     }
                                   });
@@ -261,23 +260,23 @@ class _universeClassState extends State<universe> {
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80.0),
-                                  side: const BorderSide(
+                                  side: BorderSide(
                                       color: Colors.black, width: 2)),
                               elevation: 0.0,
-                              padding: const EdgeInsets.all(0.0),
+                              padding: EdgeInsets.all(0.0),
                               child: Ink(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 child: Container(
-                                  constraints: const BoxConstraints(
+                                  constraints: BoxConstraints(
                                       maxWidth: 300.0, minHeight: 50.0),
                                   alignment: Alignment.center,
                                   child: Text(
                                     "${snapshot.data!['topic-3']}",
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16.0,
                                       fontFamily: 'PoppinsMedium',
                                       color: Colors.black,
@@ -292,15 +291,15 @@ class _universeClassState extends State<universe> {
                   Container(
                     height: size.width,
                     width: size.width,
-                    margin: const EdgeInsets.all(25),
+                    margin: EdgeInsets.all(25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: const EdgeInsets.all(20.0),
+                        Padding(
+                          padding: EdgeInsets.all(20.0),
                         ),
                         IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_back_ios,
                             size: 30,
                           ),
@@ -339,15 +338,15 @@ class _universeClassState extends State<universe> {
                   Container(
                     height: size.width,
                     width: size.width,
-                    margin: const EdgeInsets.all(25),
+                    margin: EdgeInsets.all(25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.all(20.0),
                         ),
                         IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_forward_ios,
                             size: 30,
                           ),
@@ -387,7 +386,7 @@ class _universeClassState extends State<universe> {
               )
 //todo:tablet android view
                   :SingleChildScrollView(
-                  child: screenWidth < 1200
+                  child: screenWidth < 992
                       ?Stack(
                     children: [
                       ClipPath(
@@ -395,7 +394,7 @@ class _universeClassState extends State<universe> {
                         child: Container(
                           height: size.height,
                           width: size.width,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               gradient: LinearGradient(
                                   colors: [
                                     Color.fromRGBO(109, 126, 168, 1.0),
@@ -411,13 +410,13 @@ class _universeClassState extends State<universe> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               height: 60,
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 50.0,
                       ),
                       Container(
@@ -439,19 +438,19 @@ class _universeClassState extends State<universe> {
                                 maxRadius: 120,
                               ),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 20.0,
                             ),
                             Text(
                               "${snapshot.data!['title']}",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 25.0,
                                 fontFamily: 'PoppinsSemiBold',
                                 color: Colors.black,
                               ),
                             ),
-                            const SizedBox(
-                              height: 110.0,
+                            SizedBox(
+                              height: 170.0,
                             ),
                             //todo:The Creation of Qalam [FREE]
                             Container(
@@ -462,27 +461,27 @@ class _universeClassState extends State<universe> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const FetchTimelineBefore()));
+                                                FetchTimelineBefore()));
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: const BorderSide(
+                                      side: BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: const EdgeInsets.all(0.0),
+                                  padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: const BoxConstraints(
+                                      constraints: BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-1']}",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -491,7 +490,7 @@ class _universeClassState extends State<universe> {
                                     ),
                                   )),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 15.0,
                             ),
 
@@ -518,37 +517,34 @@ class _universeClassState extends State<universe> {
                                           if (doc['role'] == 'premium') {
                                             print(doc['role']);
                                             print(doc['email']);
-                                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const FetchTimelineBefore()));
-                                            }
-
-                                            );}
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    const FetchTimelineBefore()));
+                                          }
                                         }});
                                     });
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: const BorderSide(
+                                      side: BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: const EdgeInsets.all(0.0),
+                                  padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: const BoxConstraints(
+                                      constraints: BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-2']}",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -557,7 +553,7 @@ class _universeClassState extends State<universe> {
                                     ),
                                   )),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 15.0,
                             ),
 
@@ -587,7 +583,7 @@ class _universeClassState extends State<universe> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const FetchTimelineBefore()));
+                                                        FetchTimelineBefore()));
                                           }
                                         }
                                       });
@@ -595,23 +591,23 @@ class _universeClassState extends State<universe> {
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(80.0),
-                                      side: const BorderSide(
+                                      side: BorderSide(
                                           color: Colors.black, width: 2)),
                                   elevation: 0.0,
-                                  padding: const EdgeInsets.all(0.0),
+                                  padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: const BoxConstraints(
+                                      constraints: BoxConstraints(
                                           maxWidth: 500.0, minHeight: 70.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "${snapshot.data!['topic-3']}",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 20.0,
                                           fontFamily: 'PoppinsMedium',
                                           color: Colors.black,
@@ -626,15 +622,15 @@ class _universeClassState extends State<universe> {
                       Container(
                         height: size.width,
                         width: size.width,
-                        margin: const EdgeInsets.all(25),
+                        margin: EdgeInsets.all(25),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
                             ),
                             IconButton(
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.arrow_back_ios,
                                 size: 40,
                               ),
@@ -673,15 +669,15 @@ class _universeClassState extends State<universe> {
                       Container(
                         height: size.width,
                         width: size.width,
-                        margin: const EdgeInsets.all(25),
+                        margin: EdgeInsets.all(25),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
                             ),
                             IconButton(
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.arrow_forward_ios,
                                 size: 40,
                               ),
@@ -725,15 +721,15 @@ class _universeClassState extends State<universe> {
                           ?Stack(
                         children: [
                           ClipPath(
-                            clipper: DrawCliptablet(),
+                            clipper: DrawClipipad(),
                             child: Container(
                               height: size.height,
                               width: size.width,
-                              decoration: const BoxDecoration(
-                                  gradient: const LinearGradient(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
                                       colors: [
-                                        const Color.fromRGBO(109, 126, 168, 1.0),
-                                        const Color.fromRGBO(109, 126, 168, 1.0),
+                                        Color.fromRGBO(109, 126, 168, 1.0),
+                                        Color.fromRGBO(109, 126, 168, 1.0),
                                       ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomLeft)),
@@ -745,13 +741,13 @@ class _universeClassState extends State<universe> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   height: 60,
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 50.0,
                           ),
                           Container(
@@ -765,59 +761,59 @@ class _universeClassState extends State<universe> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(top:35.0),
+                                  padding: const EdgeInsets.only(top:60.0),
                                   child: CircleAvatar(
                                     backgroundImage:
                                     NetworkImage("${snapshot.data!['image']}"),
                                     minRadius: 70,
-                                    maxRadius: 120,
+                                    maxRadius: 150,
                                   ),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 20.0,
                                 ),
                                 Text(
                                   "${snapshot.data!['title']}",
-                                  style: const TextStyle(
-                                    fontSize: 25.0,
+                                  style: TextStyle(
+                                    fontSize: 28.0,
                                     fontFamily: 'PoppinsSemiBold',
                                     color: Colors.black,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 130.0,
+                                SizedBox(
+                                  height: 220.0,
                                 ),
                                 //todo:The Creation of Qalam [FREE]
                                 Container(
-                                  width: 400,
+                                  width: 500,
                                   child: MaterialButton(
                                       onPressed: () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const FetchTimelineBefore()));
+                                                    FetchTimelineBefore()));
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(80.0),
-                                          side: const BorderSide(
+                                          side: BorderSide(
                                               color: Colors.black, width: 2)),
                                       elevation: 0.0,
-                                      padding: const EdgeInsets.all(0.0),
+                                      padding: EdgeInsets.all(0.0),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(30.0),
                                         ),
                                         child: Container(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 500.0, minHeight: 70.0),
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
                                           alignment: Alignment.center,
                                           child: Text(
                                             "${snapshot.data!['topic-1']}",
                                             textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 20.0,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
                                               fontFamily: 'PoppinsMedium',
                                               color: Colors.black,
                                             ),
@@ -825,79 +821,14 @@ class _universeClassState extends State<universe> {
                                         ),
                                       )),
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 15.0,
                                 ),
 
 
                                 Container(
-                                  width: 400,
+                                  width: 500,
                                   //todo: payment gateway [/]
-                                  child: MaterialButton(
-                                      onPressed: () {
-                                        final userRole = FirebaseFirestore.instance.collection("Users");
-                                        userRole.get().then((QuerySnapshot snapshot) {
-                                          snapshot.docs.forEach((DocumentSnapshot doc) {
-                                            final currUser = FirebaseAuth.instance.currentUser!.email;
-                                            if (doc['email'] == currUser) {
-                                              if (doc['role'] == 'standard') {
-                                                print(doc['role']);
-                                                print(doc['email']);
-                                                showFloatingFlushbar(
-                                                    context: context,
-                                                    message:
-                                                    'Upgrade to Premium Now !!',
-                                                    isError: false);
-                                              }
-                                              if (doc['role'] == 'premium') {
-                                                print(doc['role']);
-                                                print(doc['email']);
-                                                WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const FetchTimelineBefore()));
-                                                }
-
-                                                );}
-                                            }});
-                                        });
-                                      },
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(80.0),
-                                          side: const BorderSide(
-                                              color: Colors.black, width: 2)),
-                                      elevation: 0.0,
-                                      padding: const EdgeInsets.all(0.0),
-                                      child: Ink(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(30.0),
-                                        ),
-                                        child: Container(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 500.0, minHeight: 70.0),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "${snapshot.data!['topic-2']}",
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 20.0,
-                                              fontFamily: 'PoppinsMedium',
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: 15.0,
-                                ),
-
-                                //todo: The Creation of Arash [NOT FREE]
-                                Container(
-                                  width: 400,
                                   child: MaterialButton(
                                       onPressed: () {
                                         final userRole = FirebaseFirestore.instance.collection("Users");
@@ -921,7 +852,69 @@ class _universeClassState extends State<universe> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const FetchTimelineBefore()));
+                                                        const FetchTimelineBefore()));
+                                              }
+                                            }});
+                                        });
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(80.0),
+                                          side: BorderSide(
+                                              color: Colors.black, width: 2)),
+                                      elevation: 0.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(30.0),
+                                        ),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${snapshot.data!['topic-2']}",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
+                                              fontFamily: 'PoppinsMedium',
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+
+                                //todo: The Creation of Arash [NOT FREE]
+                                Container(
+                                  width: 500,
+                                  child: MaterialButton(
+                                      onPressed: () {
+                                        final userRole = FirebaseFirestore.instance.collection("Users");
+                                        userRole.get().then((QuerySnapshot snapshot) {
+                                          snapshot.docs.forEach((DocumentSnapshot doc) {
+                                            final currUser = FirebaseAuth.instance.currentUser!.email;
+                                            if (doc['email'] == currUser) {
+                                              if (doc['role'] == 'standard') {
+                                                print(doc['role']);
+                                                print(doc['email']);
+                                                showFloatingFlushbar(
+                                                    context: context,
+                                                    message:
+                                                    'Upgrade to Premium Now !!',
+                                                    isError: false);
+                                              }
+                                              if (doc['role'] == 'premium') {
+                                                print(doc['role']);
+                                                print(doc['email']);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            FetchTimelineBefore()));
                                               }
                                             }
                                           });
@@ -929,24 +922,24 @@ class _universeClassState extends State<universe> {
                                       },
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(80.0),
-                                          side: const BorderSide(
+                                          side: BorderSide(
                                               color: Colors.black, width: 2)),
                                       elevation: 0.0,
-                                      padding: const EdgeInsets.all(0.0),
+                                      padding: EdgeInsets.all(0.0),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(30.0),
                                         ),
                                         child: Container(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 500.0, minHeight: 70.0),
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
                                           alignment: Alignment.center,
                                           child: Text(
                                             "${snapshot.data!['topic-3']}",
                                             textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 20.0,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
                                               fontFamily: 'PoppinsMedium',
                                               color: Colors.black,
                                             ),
@@ -960,15 +953,15 @@ class _universeClassState extends State<universe> {
                           Container(
                             height: size.width,
                             width: size.width,
-                            margin: const EdgeInsets.all(25),
+                            margin: EdgeInsets.all(25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 70, 20, 70),
                                 ),
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.arrow_back_ios,
                                     size: 40,
                                   ),
@@ -1007,15 +1000,15 @@ class _universeClassState extends State<universe> {
                           Container(
                             height: size.width,
                             width: size.width,
-                            margin: const EdgeInsets.all(25),
+                            margin: EdgeInsets.all(25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                const Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 70, 20, 70),
                                 ),
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.arrow_forward_ios,
                                     size: 40,
                                   ),
@@ -1068,7 +1061,7 @@ class DrawClip extends CustomClipper<Path> {
     // TODO: implement getClip
     Path path = Path();
     path.addOval(
-        Rect.fromCircle(center: Offset(size.width * 0.5, -90), radius: 360));
+        Rect.fromCircle(center: Offset(size.width * 0.5, -80), radius: 370));
     return path;
   }
 
@@ -1084,7 +1077,23 @@ class DrawCliptablet extends CustomClipper<Path> {
     // TODO: implement getClip
     Path path = Path();
     path.addOval(
-        Rect.fromCircle(center: Offset(size.width * 0.5, -100), radius: 520));
+        Rect.fromCircle(center: Offset(size.width * 0.5, -190), radius: 670));
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return true;
+  }
+}
+class DrawClipipad extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    // TODO: implement getClip
+    Path path = Path();
+    path.addOval(
+        Rect.fromCircle(center: Offset(size.width * 0.5, -280), radius: 870));
     return path;
   }
 

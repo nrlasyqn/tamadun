@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:tamadun/payment/payment.provider.dart';
 import 'package:tamadun/payment/receipt.screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../auth/user.provider.dart';
 import '../screens/home_page.dart';
@@ -92,8 +93,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Navigator.pop(context);
                     } else {
                       if (paymentConfirm['status'] == 'succeeded') {
-                        //updateRole();
-                        //saveReceipt();
+                        //todo: update db
                         Provider.of<AppUser>(context, listen: false)
                             .updateData(
                             paymentConfirm['charges']['data']
@@ -105,15 +105,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 .last['receipt_url'],
                             id,
                             custId);
+
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content:
-                            Text('Payment ${paymentConfirm['status']}')));
+                          content: Text('Payment ${paymentConfirm['status']}'),));
+
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => ReceiptScreen(paymentConfirm['charges']['data'].last['receipt_url'])),
                               (Route<dynamic> route) => false,
                         );
+
+                        // Navigator.pushAndRemoveUntil(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => HomePage()),
+                        //       (Route<dynamic> route) => false,
+                        // );
+
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(paymentConfirm['status'])));

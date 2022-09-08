@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import '../info_video/info_video_beforebigbang.dart';
+import 'package:rect_getter/rect_getter.dart';
 
 class InfoBeforeExistence extends StatefulWidget {
   final _beforeExist;
@@ -35,13 +36,15 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
   }
 
   void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
     Share.share(message,
-        subject: 'Desription',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-  }
+        subject: 'Description',
+        sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+        //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+     }
 
   //todo: get surah id from before-creation @ before-exist db
   final List _suraList = [];
@@ -135,8 +138,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                 color: Colors.black,
                 onPressed: () => share(
                   context,
-                ),
               ),
+              )
             ]),
         body: screenWidth < 576
             ? _isloading
@@ -380,7 +383,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                         child: MaterialButton(
                           onPressed: () {
                             final before = FirebaseFirestore.instance
-                                .collection('before-the-existence');
+                                .collection(
+                                'before-the-existence');
                             before
                                 .get()
                                 .then((QuerySnapshot snapshot) {
@@ -389,10 +393,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                                 final _beforeExist = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._beforeExist[
-                                      "info-title"]) {
-                                    print(widget
-                                        ._beforeExist["info-video"]);
+                                      widget
+                                          ._beforeExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -423,6 +425,7 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
           ),
           //tablet
         )
+
         //TABLET
             : _isloading
             ? Center(
@@ -431,14 +434,16 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
               ),
             )
         )
-            : screenWidth < 992
+            : screenWidth < 2800
             ? Container(
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(children: [
               Container(
-                child:
-                Image.network(widget._beforeExist['info-img'][0],),
+                child: Image.network(widget._beforeExist['info-img'][0],
+                  width: 700,
+                  fit:BoxFit.contain,
+                ),
               ),
               const SizedBox(
                 height: 5,
@@ -665,7 +670,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                         child: MaterialButton(
                           onPressed: () {
                             final before = FirebaseFirestore.instance
-                                .collection('before-the-existence');
+                                .collection(
+                                'before-the-existence');
                             before
                                 .get()
                                 .then((QuerySnapshot snapshot) {
@@ -674,10 +680,8 @@ class _InfoBeforeExistenceState extends State<InfoBeforeExistence> {
                                 final _beforeExist = doc;
                                 setState(() {
                                   if (doc["info-title"] ==
-                                      widget._beforeExist[
-                                      "info-title"]) {
-                                    print(widget
-                                        ._beforeExist["info-video"]);
+                                      widget
+                                          ._beforeExist["info-title"]) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

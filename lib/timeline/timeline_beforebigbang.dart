@@ -62,6 +62,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: Colors.white,
+          centerTitle: false,
           title: const Text(
             "Before the Existence of Universe",
             maxLines: 3,
@@ -71,18 +72,17 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
               fontFamily: "MontserratBold",
               fontSize: 20,
             ),
+            textAlign: TextAlign.left,
           ),
           leading: IconButton(
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_rounded,
               color: Colors.black,
+              size: 20,
             ),
             onPressed: () {
-              /*Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => universe()));*/
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => universe()));
-              });
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => universe()));
             },
           ),
         ),
@@ -111,7 +111,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                 ),
                 lineXY: 0.2,
                 endChild: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 100, 10, 100),
+                  padding: const EdgeInsets.fromLTRB(10, 300, 10, 300),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -234,7 +234,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                           },
                           child: Container(
                             height: 300,
-                            width: 320,
+                            width: 420,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -251,7 +251,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                         height: 4,
                       ),
                       Container(
-                        width: 300,
+                        width: 500,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: Color(
@@ -295,7 +295,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
           ),
 
           //todo:tablet
-    ): screenWidth < 992
+        ): screenWidth < 2800
             ? ListView.builder(
             itemCount: _beforeExist.length,
             itemBuilder: (_, index) {
@@ -311,7 +311,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                 ),
                 lineXY: 0.2,
                 endChild: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 200, 10, 200),
+                  padding: EdgeInsets.fromLTRB(10, 400, 10, 400),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -453,8 +453,8 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                             });
                           },
                           child: Container(
-                            height: 400,
-                            width: 420,
+                            height: 500,
+                            width: 520,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -473,7 +473,7 @@ class _FetchTimelineBeforeState extends State<FetchTimelineBefore> {
                         height: 10,
                       ),
                       Container(
-                        width: 401,
+                        width: 500,
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(4),

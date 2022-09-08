@@ -60,6 +60,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
         appBar: AppBar(
           elevation: 1,
           backgroundColor: Colors.white,
+          centerTitle: false,
           title: const Text(
             "The First Man on Earth",
             maxLines: 3,
@@ -69,6 +70,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
               fontFamily: "MontserratBold",
               fontSize: 20,
             ),
+            textAlign: TextAlign.left,
           ),
           leading: IconButton(
             icon: const Icon(
@@ -185,7 +187,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
             })
 
         //tablet
-            : screenWidth < 992
+            : screenWidth < 2800
             ? ListView.builder(
             itemCount: _homosapiens.length,
             itemBuilder: (_, index) {
@@ -212,8 +214,8 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
                                   builder: (_) => InfoHomosapiens(
                                       _homosapiens[index]))),
                           child: Container(
-                            height: 400,
-                            width: 420,
+                            height: 500,
+                            width: 520,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -232,7 +234,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
                         height: 10,
                       ),
                       Container(
-                        width: 401,
+                        width: 500,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             color: Color(

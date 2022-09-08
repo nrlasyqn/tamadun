@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tamadun/timeline/timeline_islamic.dart';
@@ -21,9 +20,11 @@ class _homosapiensClassState extends State<homosapiens> {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(207, 191, 148, 1.0),
         elevation: 0.0,
+        centerTitle: false,
         automaticallyImplyLeading: false,
         title: Text(
           'Ummah Empire',
+          textAlign: TextAlign.left,
           style: TextStyle(
             fontFamily: 'MontserratBold',
             color: Colors.white,
@@ -115,7 +116,7 @@ class _homosapiensClassState extends State<homosapiens> {
                           ),
                         ),
                         SizedBox(
-                          height: 80.0,
+                          height: 100.0,
                         ),
                         Container(
                           width: 300,
@@ -293,8 +294,10 @@ class _homosapiensClassState extends State<homosapiens> {
                   ),
                 ],
               )
+
+              //todo: tablet view
                   : SingleChildScrollView(
-                  child: screenWidth < 1200
+                  child: screenWidth < 992
                       ? Stack(
                     children: [
                       ClipPath(
@@ -362,7 +365,7 @@ class _homosapiensClassState extends State<homosapiens> {
                               ),
                             ),
                             SizedBox(
-                              height: 110.0,
+                              height: 170.0,
                             ),
                             Container(
                               width: 400,
@@ -566,9 +569,282 @@ class _homosapiensClassState extends State<homosapiens> {
                         ),
                       ),
                     ],
-                  ) : null
-                // "${snapshot.data!['title']}",
-              )): Container();
+                  )
+
+                  //todo: ipad view
+                      : SingleChildScrollView(
+                      child: screenWidth < 2800
+                          ? Stack(
+                        children: [
+                          ClipPath(
+                            clipper: DrawClipipad(),
+                            child: Container(
+                              height: size.height,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromRGBO(
+                                            207, 191, 148, 1.0),
+                                        Color.fromRGBO(
+                                            207, 191, 148, 1.0),
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomLeft)),
+                            ),
+                          ),
+                          Container(
+                            height: size.width,
+                            width: size.width,
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 60,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50.0,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 100.0,
+                          ),
+                          Center(
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(top:50.0),
+                                  child: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        "${snapshot.data!['image']}"),
+                                    minRadius: 70,
+                                    maxRadius: 150,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text(
+                                  "${snapshot.data!['title']}",
+                                  style: TextStyle(
+                                    fontSize: 28.0,
+                                    fontFamily: 'PoppinsSemiBold',
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 220.0,
+                                ),
+                                Container(
+                                  width: 500,
+                                  child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TimelineHomosapiens()));
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              80.0),
+                                          side: BorderSide(
+                                              color: Colors.black,
+                                              width: 2)),
+                                      elevation: 0.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              30.0),
+                                        ),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${snapshot.data!['topic-1']}",
+                                            textAlign:
+                                            TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
+                                              fontFamily:
+                                              'PoppinsMedium',
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                                Container(
+                                  width: 500,
+                                  child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TimelineHomosapiens()));
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              80.0),
+                                          side: BorderSide(
+                                              color: Colors.black,
+                                              width: 2)),
+                                      elevation: 0.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              30.0),
+                                        ),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${snapshot.data!['topic-2']}",
+                                            textAlign:
+                                            TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
+                                              fontFamily:
+                                              'PoppinsMedium',
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                                Container(
+                                  width: 500,
+                                  child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TimelineHomosapiens()));
+                                      },
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              80.0),
+                                          side: BorderSide(
+                                              color: Colors.black,
+                                              width: 2)),
+                                      elevation: 0.0,
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              30.0),
+                                        ),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 600.0, minHeight: 90.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "${snapshot.data!['topic-3']}",
+                                            textAlign:
+                                            TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 23.0,
+                                              fontFamily:
+                                              'PoppinsMedium',
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: size.width,
+                            width: size.width,
+                            margin: EdgeInsets.all(25),
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 70, 20, 70),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_back_ios,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                living_things()));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: size.width,
+                            width: size.width,
+                            margin: EdgeInsets.all(25),
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 70, 20, 70),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 40,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ummah()));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ) : null
+                    // "${snapshot.data!['title']}",
+                  ))): Container();
         },
       ),
     );
@@ -581,7 +857,7 @@ class DrawClip extends CustomClipper<Path> {
     // TODO: implement getClip
     Path path = Path();
     path.addOval(
-        Rect.fromCircle(center: Offset(size.width * 0.5, -90), radius: 360));
+        Rect.fromCircle(center: Offset(size.width * 0.5, -80), radius: 370));
     return path;
   }
 
@@ -597,7 +873,23 @@ class DrawCliptablet extends CustomClipper<Path> {
     // TODO: implement getClip
     Path path = Path();
     path.addOval(
-        Rect.fromCircle(center: Offset(size.width * 0.5, -100), radius: 520));
+        Rect.fromCircle(center: Offset(size.width * 0.5, -190), radius: 670));
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return true;
+  }
+}
+class DrawClipipad extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    // TODO: implement getClip
+    Path path = Path();
+    path.addOval(
+        Rect.fromCircle(center: Offset(size.width * 0.5, -280), radius: 870));
     return path;
   }
 

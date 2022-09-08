@@ -14,89 +14,132 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: screenWidth < 576
-      ? Column(children: <Widget>[
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/splashscreen3.gif"),
-            )),
-            child: Column(
-              children: <Widget>[
-                // Container(
-                //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
-                //   //todo: insert text
-                //   child: const Text(
-                //     'Tamadun.',
-                //     style: TextStyle(
-                //       fontSize: 64,
-                //       color: Colors.white,
-                //       fontFamily: 'MontserratExtraBold',
-                //     ),
-                //   ),
-                // ),
-                // const Text(
-                //   "lingua revolution & human civilization",
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     color: Colors.white,
-                //     fontFamily: 'PoppinsMedium',
-                //   ),
-                // ),
-                Expanded(
-                  child: Bottom(),
-                )
-              ],
+
+        body: screenWidth < 576
+            ? Column(children: <Widget>[
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/splashscreen3.gif"),
+                  )),
+              child: Column(
+                children: <Widget>[
+                  // Container(
+                  //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
+                  //   //todo: insert text
+                  //   child: const Text(
+                  //     'Tamadun.',
+                  //     style: TextStyle(
+                  //       fontSize: 64,
+                  //       color: Colors.white,
+                  //       fontFamily: 'MontserratExtraBold',
+                  //     ),
+                  //   ),
+                  // ),
+                  // const Text(
+                  //   "lingua revolution & human civilization",
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //     color: Colors.white,
+                  //     fontFamily: 'PoppinsMedium',
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: Bottom(),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ])
-      //todo: tab
-          : screenWidth < 992
-      ? Column(children: <Widget>[
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/splashscreen3.gif"),
-                )),
-            child: Column(
-              children: <Widget>[
-                // Container(
-                //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
-                //   //todo: insert text
-                //   child: const Text(
-                //     'Tamadun.',
-                //     style: TextStyle(
-                //       fontSize: 64,
-                //       color: Colors.white,
-                //       fontFamily: 'MontserratExtraBold',
-                //     ),
-                //   ),
-                // ),
-                // const Text(
-                //   "lingua revolution & human civilization",
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     color: Colors.white,
-                //     fontFamily: 'PoppinsMedium',
-                //   ),
-                // ),
-                Expanded(
-                  child: BottomTab(),
-                )
-              ],
+        ])
+        //todo: tab
+            : screenWidth < 992
+            ? Column(children: <Widget>[
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                   // image: AssetImage("assets/splashscreen3.gif"),
+                    image: AssetImage("assets/splashscreenipad3.gif"),
+                  )),
+              child: Column(
+                children: <Widget>[
+                  // Container(
+                  //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
+                  //   //todo: insert text
+                  //   child: const Text(
+                  //     'Tamadun.',
+                  //     style: TextStyle(
+                  //       fontSize: 64,
+                  //       color: Colors.white,
+                  //       fontFamily: 'MontserratExtraBold',
+                  //     ),
+                  //   ),
+                  // ),
+                  // const Text(
+                  //   "lingua revolution & human civilization",
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //     color: Colors.white,
+                  //     fontFamily: 'PoppinsMedium',
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: BottomTab(),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ])
-          : null
+        ])
+        //todo: ipad
+            : screenWidth < 2800
+            ? Column(children: <Widget>[
+          Expanded(
+            child: Container(
+
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/splashscreenipad.gif"),
+                  )),
+              child: Column(
+                children: <Widget>[
+                  // Container(
+                  //   padding: const EdgeInsets.fromLTRB(0, 50.0, 30, 0),
+                  //   //todo: insert text
+                  //   child: const Text(
+                  //     'Tamadun.',
+                  //     style: TextStyle(
+                  //       fontSize: 64,
+                  //       color: Colors.white,
+                  //       fontFamily: 'MontserratExtraBold',
+                  //     ),
+                  //   ),
+                  // ),
+                  // const Text(
+                  //   "lingua revolution & human civilization",
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //     color: Colors.white,
+                  //     fontFamily: 'PoppinsMedium',
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: BottomTab(),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ])
+            : null
     );
   }
 }
@@ -135,7 +178,7 @@ class BottomTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomRight,
+        alignment: Alignment.bottomRight,
         child: MaterialButton(
           height: 60.0,
           minWidth: 160.0,

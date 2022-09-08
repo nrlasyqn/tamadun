@@ -63,8 +63,9 @@ class _TimelineExistenceState extends State<TimelineExistence> {
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
+        centerTitle: false,
         title: const Text(
-          "The Starting Point of Universe Creation",
+          "The Existence of Universe (Big Bang) ",
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -72,6 +73,7 @@ class _TimelineExistenceState extends State<TimelineExistence> {
             fontFamily: "MontserratBold",
             fontSize: 20,
           ),
+          textAlign: TextAlign.left,
         ),
         leading: IconButton(
           icon: const Icon(
@@ -179,7 +181,7 @@ class _TimelineExistenceState extends State<TimelineExistence> {
               hexColor('#25346a'),
             ),
           ))
-          : screenWidth < 992
+          : screenWidth < 2800
           ? ListView.builder(
           itemCount: _theExist.length,
           itemBuilder: (_, index) {
@@ -205,8 +207,8 @@ class _TimelineExistenceState extends State<TimelineExistence> {
                                       InfoTheExistence(
                                           _theExist[index]))),
                           child: Container(
-                            height: 400,
-                            width: 420,
+                            height: 500,
+                            width: 520,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -225,7 +227,7 @@ class _TimelineExistenceState extends State<TimelineExistence> {
                         height: 10,
                       ),
                       Container(
-                        width: 401,
+                        width: 500,
                         decoration: BoxDecoration(
                           borderRadius:
                           BorderRadius.circular(4),

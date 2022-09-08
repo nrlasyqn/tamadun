@@ -37,12 +37,15 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
             'Added to Favourite!'))));
   }
 
-  void share(BuildContext context){
+  void share(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     String message = 'Check out this useful content! https://play.google.com/store/apps/details?id=com.aqwise.ummahempire';
     RenderBox? box = context.findRenderObject() as RenderBox;
 
-    Share.share(message, subject: 'Description',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+    Share.share(message,
+      subject: 'Description',
+      sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height /2 ),);
+    //sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 
   //todo: get video id from db
@@ -206,7 +209,7 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                       ),
                   ],
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
                   Row(
                     children: <Widget>[
@@ -257,7 +260,7 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
             ],
           ),
         )
-            : screenWidth < 992 ?
+            : screenWidth < 2800 ?
         _isloading ? Center(
             child: CircularProgressIndicator(
               color: Color(hexColor('#25346a'),
@@ -267,7 +270,10 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
           child: Column(
             children: [
               Container(
-                child: Image.network(widget._monathestic['info-img'][0]),
+                child: Image.network(widget._monathestic['info-img'][0],
+                  width: 700,
+                  fit:BoxFit.contain,
+                ),
               ),
 
               const SizedBox(
@@ -297,11 +303,20 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                         )),
                   ),
 
+                  const SizedBox(
+                    height: 20,
+                  ),
+
                   const Divider(
                     color: Colors.black,
                     height: 25,
                     thickness: 1,
                   ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
 
                   const Align(
                     alignment: Alignment.centerLeft,
@@ -314,8 +329,9 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                   ),
 
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
+
                   ///note: vid_id --> from topic collection
                   ///note: vid_coll ---> video collection db
                   for (int vid_id = 0; vid_id < _videoList.length; vid_id++) ...[
@@ -325,16 +341,19 @@ class _VideoMonathesticState extends State<VideoMonathestic> {
                         child:  Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              height: 300,
+                              height: 500,
+                              width: 800,
                               child: VideoPlayer(
                                 videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
                               ),
                             )),
                       ),
                   ],
+
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
+
 
                   Row(
                     children: <Widget>[
