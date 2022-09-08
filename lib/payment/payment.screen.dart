@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Card;
@@ -9,12 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:tamadun/payment/payment.provider.dart';
 import 'package:tamadun/payment/receipt.screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../auth/user.provider.dart';
 import '../screens/home_page.dart';
 import '../services/stripe.service.dart';
-
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
@@ -60,7 +57,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       var paymentMethodID = paymentMethod['id'];
       var id = Provider.of<PaymentProvider>(context, listen: false).pid;
       if (Provider.of<PaymentProvider>(context, listen: false).pid == null) {
-        paymentIntent = await StripeService.createPaymentIntent('5000', 'MYR');
+        paymentIntent = await StripeService.createPaymentIntent('10000', 'MYR');
 
         setState(() {});
         id = paymentIntent!['id'];
@@ -78,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               content: ListTile(
                   title: Text('Name : ' + customer!['name']),
                   subtitle: Text(
-                      'Amount : RM ${paymentIntent!['amount'].toString().substring(0, 2)}')),
+                      'Amount : RM ${paymentIntent!['amount'].toString().substring(0, 3)}')),
               actions: [
                 ElevatedButton(
                   onPressed: () async {
@@ -94,26 +91,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     } else {
                       if (paymentConfirm['status'] == 'succeeded') {
                         //todo: update db
-                        Provider.of<AppUser>(context, listen: false)
-                            .updateData(
+                        Provider.of<AppUser>(context, listen: false).updateData(
                             paymentConfirm['charges']['data']
                                 .last['receipt_url'],
                             paymentConfirm['status']);
-                        Provider.of<AppUser>(context, listen: false)
-                            .updateRole(
+                        Provider.of<AppUser>(context, listen: false).updateRole(
                             paymentConfirm['charges']['data']
                                 .last['receipt_url'],
                             id,
                             custId);
 
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Payment ${paymentConfirm['status']}'),));
+                          content: Text('Payment ${paymentConfirm['status']}'),
+                        ));
 
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => ReceiptScreen(paymentConfirm['charges']['data'].last['receipt_url'])),
-                              (Route<dynamic> route) => false,
+                          MaterialPageRoute(
+                              builder: (context) => ReceiptScreen(
+                                  paymentConfirm['charges']['data']
+                                      .last['receipt_url'])),
+                          (Route<dynamic> route) => false,
                         );
 
                         // Navigator.pushAndRemoveUntil(
@@ -146,19 +145,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
-  Future saveReceipt() async{
+  Future saveReceipt() async {
     var id = Provider.of<PaymentProvider>(context, listen: false).pid;
     var receipt = Provider.of<PaymentProvider>(context, listen: false).receipt;
     FirebaseFirestore db = FirebaseFirestore.instance;
-    db
-        .collection("Users")
-        .doc(AppUser.instance.user!.uid)
-        .set({
+    db.collection("Users").doc(AppUser.instance.user!.uid).set({
       "receipt-url": receipt,
-      "payment-id" : id,
-      "payment-date" :DateTime.now(),
-    },
-        SetOptions(merge: true));
+      "payment-id": id,
+      "payment-date": DateTime.now(),
+    }, SetOptions(merge: true));
   }
 
   //todo: update user role after success making payment
@@ -175,20 +170,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Payment Page",
+        title: const Text(
+          "Payment Page",
           style: TextStyle(
             fontFamily: "MontserratBold",
             color: Colors.black,
-          ),),
+          ),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
           onPressed: () {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
             });
           },
-
         ),
       ),
       resizeToAvoidBottomInset: true,
@@ -199,160 +196,160 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           child: app.receipt == null
               ? Column(
-            children: [
-              CreditCardWidget(
-                cardNumber: cardNumber,
-                expiryDate: expiryDate,
-                cardHolderName: cardHolderName,
-                cvvCode: cvvCode,
-                showBackView: isCvvFocused,
-                obscureCardNumber: true,
-                obscureCardCvv: true,
-                onCreditCardWidgetChange: (creditCardBrand) {},
-              ),
-              Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CreditCardForm(
-                          cardNumber: cardNumber,
-                          expiryDate: expiryDate,
-                          cardHolderName: cardHolderName,
-                          cvvCode: cvvCode,
-                          onCreditCardModelChange: onCreditCardModelChange,
-                          themeColor: Theme.of(context).primaryColor,
-                          formKey: formKey,
-                          cardNumberDecoration: const InputDecoration(
+                  children: [
+                    CreditCardWidget(
+                      cardNumber: cardNumber,
+                      expiryDate: expiryDate,
+                      cardHolderName: cardHolderName,
+                      cvvCode: cvvCode,
+                      showBackView: isCvvFocused,
+                      obscureCardNumber: true,
+                      obscureCardCvv: true,
+                      onCreditCardWidgetChange: (creditCardBrand) {},
+                    ),
+                    Expanded(
+                        child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          CreditCardForm(
+                            cardNumber: cardNumber,
+                            expiryDate: expiryDate,
+                            cardHolderName: cardHolderName,
+                            cvvCode: cvvCode,
+                            onCreditCardModelChange: onCreditCardModelChange,
+                            themeColor: Theme.of(context).primaryColor,
+                            formKey: formKey,
+                            cardNumberDecoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: Text('Number'),
+                                hintText: 'xxxx xxxx xxxx xxxx'),
+                            expiryDateDecoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: Text('Expired Date'),
+                                hintText: 'xx/xx'),
+                            cvvCodeDecoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                label: Text('CVV'),
+                                hintText: 'xxx'),
+                            cardHolderDecoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              label: Text('Number'),
-                              hintText: 'xxxx xxxx xxxx xxxx'),
-                          expiryDateDecoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Expired Date'),
-                              hintText: 'xx/xx'),
-                          cvvCodeDecoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('CVV'),
-                              hintText: 'xxx'),
-                          cardHolderDecoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            label: Text('Card Holder'),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              label: Text('Phone Number'),
-                              border: OutlineInputBorder(),
+                              label: Text('Card Holder'),
                             ),
-                            validator: (e) {
-                              if (e!.isEmpty) {
-                                return 'Phone number cannot be null';
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                label: Text('Phone Number'),
+                                border: OutlineInputBorder(),
+                              ),
+                              validator: (e) {
+                                if (e!.isEmpty) {
+                                  return 'Phone number cannot be null';
+                                }
+                              },
+                              controller: _phone,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: false),
+                            ),
+                          ),
+                          //EMAIL
+                          // Padding(
+                          //   padding: const EdgeInsets.all(16.0),
+                          //   child: TextFormField(
+                          //     decoration: const InputDecoration(
+                          //       label: Text('Email'),
+                          //       border: OutlineInputBorder(),
+                          //     ),
+                          //     validator: (e) {
+                          //       if (e!.isEmpty) {
+                          //         return 'Email cannot be null';
+                          //       }
+                          //     },
+                          //     controller: _email,
+                          //     keyboardType:
+                          //     const TextInputType.numberWithOptions(
+                          //         decimal: false),
+                          //   ),
+                          // ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                primary: const Color(0xff1b447b)),
+                            child: Container(
+                              margin: const EdgeInsets.all(8.0),
+                              child: const Text(
+                                'validate',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'halter',
+                                  fontSize: 14,
+                                  package: 'flutter_credit_card',
+                                ),
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                ///todo:replace email with user email
+                                await checkout(
+                                    context,
+                                    _phone.text,
+                                    cardNumber,
+                                    expiryDate,
+                                    cardHolderName,
+                                    cvvCode,
+                                    _email.text);
+                                print('valid');
+                              } else {
+                                print('inValid');
                               }
                             },
-                            controller: _phone,
-                            keyboardType:
-                            const TextInputType.numberWithOptions(
-                                decimal: false),
-                          ),
-                        ),
-                        //EMAIL
-                        // Padding(
-                        //   padding: const EdgeInsets.all(16.0),
-                        //   child: TextFormField(
-                        //     decoration: const InputDecoration(
-                        //       label: Text('Email'),
-                        //       border: OutlineInputBorder(),
-                        //     ),
-                        //     validator: (e) {
-                        //       if (e!.isEmpty) {
-                        //         return 'Email cannot be null';
-                        //       }
-                        //     },
-                        //     controller: _email,
-                        //     keyboardType:
-                        //     const TextInputType.numberWithOptions(
-                        //         decimal: false),
-                        //   ),
-                        // ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              primary: const Color(0xff1b447b)),
-                          child: Container(
-                            margin: const EdgeInsets.all(8.0),
-                            child: const Text(
-                              'validate',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'halter',
-                                fontSize: 14,
-                                package: 'flutter_credit_card',
-                              ),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              ///todo:replace email with user email
-                              await checkout(
-                                  context,
-                                  _phone.text,
-                                  cardNumber,
-                                  expiryDate,
-                                  cardHolderName,
-                                  cvvCode,
-                                  _email.text);
-                              print('valid');
-                            } else {
-                              print('inValid');
-                            }
-                          },
-                        )
-                      ],
-                    ),
-                  )),
-            ],
-          )
+                          )
+                        ],
+                      ),
+                    )),
+                  ],
+                )
               : Column(
-            children: [
-              Flexible(
-                child: ListView(
                   children: [
-                    ListTile(
-                        title: const Text('Payment ID'),
-                        subtitle: Text(app.pid)),
-                    ListTile(
-                        title: const Text('Payment Status'),
-                        subtitle: Text(app.status!)),
-                    ListTile(
-                        title: const Text('Payment Amount'),
-                        subtitle: Text(app.price)),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.orange),
-                          onPressed: () async {
-                            if (!kIsWeb) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ReceiptScreen(app.receipt!)));
-                            } else {
-                              launchUrl(Uri.parse(app.receipt!));
-                            }
-                          },
-                          child: const Text('Get Receipt')),
+                    Flexible(
+                      child: ListView(
+                        children: [
+                          ListTile(
+                              title: const Text('Payment ID'),
+                              subtitle: Text(app.pid)),
+                          ListTile(
+                              title: const Text('Payment Status'),
+                              subtitle: Text(app.status!)),
+                          ListTile(
+                              title: const Text('Payment Amount'),
+                              subtitle: Text(app.price)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.orange),
+                                onPressed: () async {
+                                  if (!kIsWeb) {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReceiptScreen(app.receipt!)));
+                                  } else {
+                                    launchUrl(Uri.parse(app.receipt!));
+                                  }
+                                },
+                                child: const Text('Get Receipt')),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
         );
       }),
     );
