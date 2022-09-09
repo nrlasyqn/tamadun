@@ -73,6 +73,7 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   rect_getter:
   cupertino_icons: ^1.0.5
+  auto_size_text:
 
 dev_dependencies:
   flutter_test:
