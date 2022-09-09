@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamadun/screens/empierofislam.dart';
 import 'package:tamadun/screens/homosapiens.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+
 import '../info_page/info_islamic.dart';
 
 class TimelineHomosapiens extends StatefulWidget {
@@ -19,7 +19,7 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
 
   timelineHomosapiens() async {
     QuerySnapshot qn_homosapiens =
-    await _firestoreInstance.collection("first-man-on-earth").get();
+        await _firestoreInstance.collection("first-man-on-earth").get();
     setState(() {
       for (int i = 0; i < qn_homosapiens.docs.length; i++) {
         _homosapiens.add({
@@ -85,7 +85,8 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
               /*Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => empierofislam()));*/
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homosapiens()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => homosapiens()));
               });
             },
           ),
@@ -94,181 +95,186 @@ class _TimelineHomosapiensState extends State<TimelineHomosapiens> {
         //mobile
         body: _isloading
             ? Center(
-          child: CircularProgressIndicator(
-            color: Color(hexColor('#25346a'),
-            ),
-          ),
-        )
+                child: CircularProgressIndicator(
+                  color: Color(
+                    hexColor('#25346a'),
+                  ),
+                ),
+              )
 
-        //tablet
+            //tablet
             : _isloading
-            ? Center(
-            child: CircularProgressIndicator(
-              color: Color(hexColor('#25346a'),
-              ),
-            )
-        ):
-        screenWidth < 576
-            ? ListView.builder(
-            itemCount: _homosapiens.length,
-            itemBuilder: (_, index) {
-              return TimelineTile(
-                alignment: TimelineAlign.manual,
-                indicatorStyle: const IndicatorStyle(
-                    width: 13, color: Colors.black),
-                beforeLineStyle: const LineStyle(
-                  thickness: 1,
-                  color: Colors.black,
-                ),
-                lineXY: 0.2,
-                endChild: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 100, 10, 100),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => InfoHomosapiens(
-                                      _homosapiens[index]))),
-                          child: Container(
-                            height: 300,
-                            width: 420,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  _homosapiens[index]["info-img"][0],
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            constraints:
-                            const BoxConstraints(minHeight: 120),
-                          )),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Container(
-                        width: 500,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Color(
-                            hexColor('#BFddbe90'),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                              "${_homosapiens[index]["info-title"]}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'PoppinsMedium',
-                                color: Colors.black,
-                              )),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                startChild: Center(
-                  child: Text(
-                    "${_homosapiens[index]["info-sub"]}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'PoppinsLight',
-                      color: Colors.black,
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: Color(
+                      hexColor('#25346a'),
                     ),
-                  ),
-                ),
-              );
-            })
+                  ))
+                : screenWidth < 576
+                    ? ListView.builder(
+                        itemCount: _homosapiens.length,
+                        itemBuilder: (_, index) {
+                          return TimelineTile(
+                            alignment: TimelineAlign.manual,
+                            indicatorStyle: const IndicatorStyle(
+                                width: 13, color: Colors.black),
+                            beforeLineStyle: const LineStyle(
+                              thickness: 1,
+                              color: Colors.black,
+                            ),
+                            lineXY: 0.2,
+                            endChild: Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(10, 100, 10, 100),
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => InfoHomosapiens(
+                                                  _homosapiens[index]))),
+                                      child: Container(
+                                        height: 300,
+                                        width: 420,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              _homosapiens[index]["info-img"]
+                                                  [0],
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                        ),
+                                        constraints: const BoxConstraints(
+                                            minHeight: 120),
+                                      )),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Container(
+                                    width: 500,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Color(
+                                        hexColor('#BFddbe90'),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                          "${_homosapiens[index]["info-title"]}",
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontSize: 14.0,
+                                            fontFamily: 'PoppinsMedium',
+                                            color: Colors.black,
+                                          )),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            startChild: Center(
+                              child: Text(
+                                "${_homosapiens[index]["info-sub"]}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 14.0,
+                                  fontFamily: 'PoppinsLight',
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        })
 
-        //tablet
-            : screenWidth < 2800
-            ? ListView.builder(
-            itemCount: _homosapiens.length,
-            itemBuilder: (_, index) {
-              return TimelineTile(
-                alignment: TimelineAlign.manual,
-                indicatorStyle: const IndicatorStyle(
-                    width: 20,
-                    color: Colors.black
-                ),
-                beforeLineStyle: const LineStyle(
-                  thickness: 1,
-                  color: Colors.black,
-                ),
-                lineXY: 0.2,
-                endChild: Padding(
-                  padding:
-                  const EdgeInsets.fromLTRB(10, 200, 10, 200),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => InfoHomosapiens(
-                                      _homosapiens[index]))),
-                          child: Container(
-                            height: 500,
-                            width: 520,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  _homosapiens[index]["info-img"]
-                                  [0],
+                    //tablet
+                    : screenWidth < 2800
+                        ? ListView.builder(
+                            itemCount: _homosapiens.length,
+                            itemBuilder: (_, index) {
+                              return TimelineTile(
+                                alignment: TimelineAlign.manual,
+                                indicatorStyle: const IndicatorStyle(
+                                    width: 20, color: Colors.black),
+                                beforeLineStyle: const LineStyle(
+                                  thickness: 1,
+                                  color: Colors.black,
                                 ),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius:
-                              BorderRadius.circular(16),
-                            ),
-                            constraints: const BoxConstraints(
-                                minHeight: 120),
-                          )),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: 500,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Color(
-                              hexColor('#BFddbe90'),
-                            )),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                              "${_homosapiens[index]["info-title"]}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontFamily: 'PoppinsMedium',
-                                color: Colors.black,
-                              )),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                startChild: Center(
-                  child: Text(
-                    "${_homosapiens[index]["info-sub"]}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'PoppinsLight',
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              );
-            })
-            : null);
+                                lineXY: 0.2,
+                                endChild: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      10, 200, 10, 200),
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      InfoHomosapiens(
+                                                          _homosapiens[
+                                                              index]))),
+                                          child: Container(
+                                            height: 500,
+                                            width: 520,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  _homosapiens[index]
+                                                      ["info-img"][0],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            constraints: const BoxConstraints(
+                                                minHeight: 120),
+                                          )),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        width: 500,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: Color(
+                                              hexColor('#BFddbe90'),
+                                            )),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Text(
+                                              "${_homosapiens[index]["info-title"]}",
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 18.0,
+                                                fontFamily: 'PoppinsMedium',
+                                                color: Colors.black,
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                startChild: Center(
+                                  child: Text(
+                                    "${_homosapiens[index]["info-sub"]}",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontFamily: 'PoppinsLight',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            })
+                        : null);
   }
 }
 

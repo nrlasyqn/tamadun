@@ -200,8 +200,8 @@ class _InfoVideoEmpireState extends State<InfoVideoEmpire> {
                         padding: EdgeInsets.all(5),
                         child:  Align(
                             alignment: Alignment.centerLeft,
-                            child: Container(
-                              height: 300,
+                            child: AspectRatio(
+                              aspectRatio: 16 / 9,
                               child: VideoPlayer(
                                 videoData: ("${_videoList[vid_id]["info-video"][vid_coll]}"),
                               ),
